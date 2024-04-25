@@ -1,0 +1,3 @@
+prototype(Litespeed.Presentation:Atom.Clippath.Component) < prototype(Neos.Fusion:Component) {
+    @if.hasClipPath = false
+}

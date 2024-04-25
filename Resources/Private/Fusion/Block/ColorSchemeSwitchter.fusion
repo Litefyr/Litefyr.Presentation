@@ -1,0 +1,46 @@
+prototype(Litespeed.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        left = ${PropTypes.boolean}
+        bottom = ${PropTypes.boolean}
+    }
+
+    icons = Neos.Fusion:DataStructure {
+        light = '<svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M280 24V0H232V24 88v24h48V88 24zm157 84.9l17-17L420 58l-17 17-45.3 45.3-17 17 33.9 33.9 17-17L437 108.9zM108.9 75L92 58 58 92l17 17 45.3 45.3 17 17 33.9-33.9-17-17L108.9 75zM24 232H0v48H24 88h24V232H88 24zm400 0H400v48h24 64 24V232H488 424zM154.2 391.8l17-17-33.9-33.9-17 17L75 403.1 58 420 92 454l17-17 45.3-45.3zm237.6-33.9l-17-17-33.9 33.9 17 17L403.1 437l17 17L454 420l-17-17-45.3-45.3zM280 424V400H232v24 64 24h48V488 424zm-24-56a112 112 0 1 0 0-224 112 112 0 1 0 0 224z"></path></svg>'
+        dark = '<svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M287.6 41.2c-82.8 21.2-144 96.5-144 186c0 106 85.8 192 191.5 192c16.8 0 33.1-2.2 48.6-6.2c-40.6 41.4-97.2 67-159.8 67C100.3 480 0 379.7 0 256S100.3 32 224 32c22.1 0 43.5 3.2 63.6 9.2z"></path></svg>'
+        system = '<svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M576 0H0V416H240l-10.7 32H160 128v64h32H416h32V448H416 346.7L336 416H576V0zM512 64V352H64V64H512z"></path></svg>'
+    }
+
+    bottom = false
+    text = Neos.Fusion:Map {
+        items = ${['light', 'dark', 'system']}
+        keyRenderer = ${item}
+        itemRenderer = ${Translation.translate('colorSchemeSwitchter.' + item, null, [], 'Main', 'Litespeed.Presentation')}
+    }
+    @private.buttonContent = afx`
+        <Neos.Fusion:Augmenter class="hidden light:block" content={props.icons.light} />
+        <Neos.Fusion:Augmenter class="hidden dark:block" content={props.icons.dark} />
+    `
+
+    renderer = afx`
+        <Litespeed.Presentation:Block.Popover
+            attributes.x-data={AlpineJS.object({theme: AlpineJS.expression("localStorage.theme||'system'"), open: false, text: props.text})}
+            attributes.class={[props.left && !props.bottom && "order-first", props.class]}
+            buttonAttributes."x-on:set-mode.window"="theme=$event.detail"
+            buttonAttributes.x-tooltip
+            buttonAttributes.:aria-label="text[theme]"
+            buttonAttributes.class={[props.bottom ? "-ml-2 lg:-ml-4 min-w-9 min-h-9 max-w-9 max-h-9 hover:ring-4" : "min-w-12 min-h-12 max-w-12 max-h-12 hover:ring-8", "rounded-full transform transition-all ring-0 !ring-opacity-30 duration-200 ring-text focus:outline-none focus:ring-4 focus-visible:!ring-opacity-100"]}
+            buttonContent={private.buttonContent}
+            bottom={props.bottom}
+        >
+            <Neos.Fusion:Loop items={['light', 'dark', 'system']}>
+                <Litespeed.Presentation:Block.Popover.ListItem
+                    closePopoverOnClick={true}
+                    attributes.x-on:click={AlpineJS.function("setMode", item)}
+                    attributes.:class={"theme=='" + item + "'&&'font-bold'"}
+                    content={props.icons[item] + props.text[item]}
+                />
+            </Neos.Fusion:Loop>
+        </Litespeed.Presentation:Block.Popover>
+    `
+}

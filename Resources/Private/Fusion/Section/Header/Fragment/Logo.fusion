@@ -1,0 +1,7 @@
+prototype(Litespeed.Presentation:Section.Header.Fragment.Logo) < prototype(Litespeed.Presentation:Atom.Logo) {
+    positionRight = false
+    marginTop = 16
+    marginBottom = 16
+
+    additionalLinkClass = ${[this.positionRight ? 'order-last' : null, '*:mt-[--logo-mt] *:mb-[--logo-mb] max-w-[--header-w-logo]']}
+}

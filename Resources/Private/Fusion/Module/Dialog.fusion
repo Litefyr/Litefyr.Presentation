@@ -1,0 +1,56 @@
+prototype(Litespeed.Presentation:Module.Dialog) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        content = ${PropTypes.string}
+        teleport = ${PropTypes.string}
+    }
+
+    @if.hasContent = ${this.content}
+
+    teleport = 'body'
+    attributes = Neos.Fusion:DataStructure
+    fileLoader = Neos.Fusion:DataStructure
+
+    renderer = afx`
+        <Carbon.Eel:Tag
+            tagName={props.teleport ? 'template' : null}
+            attributes.x-teleport={props.teleport}
+        >
+            <!-- Modal -->
+            <div
+                x-dialog
+                x-model="open"
+                style="display:none"
+                class="fixed inset-0 overflow-y-auto z-[500]"
+                {...props.fileLoader}
+                {...props.attributes}
+            >
+                <!-- Overlay -->
+                <div x-dialog:overlay "x-transition.opacity" class="fixed inset-0 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/75"></div>
+                <!-- Panel -->
+                <div class="relative min-h-screen flex items-center justify-center p-4">
+                    <div
+                        x-dialog:panel
+                        x-transition
+                        class="relative bg-theme-back text-theme-front w-full shadow-xl sm:max-w-xl overflow-y-auto max-h-full p-4 rounded-box"
+                    >
+                        {props.content}
+                        <!-- Close Button -->
+                        <button
+                            x-on:click="$dialog.close()"
+                            type="button"
+                            class="absolute top-0 right-0 z-10 bg-transparent flex items-center justify-center p-2 opacity-60 transition-opacity hocus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent"
+                            aria-label={Translation.translate('close', null, [], null, 'Litespeed.Presentation')}
+                            x-tooltip
+                        >
+                            <Litespeed.Theme:Component.Icon
+                                styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.close')}
+                                attributes.class="size-6"
+                            />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </Carbon.Eel:Tag>
+    `
+}

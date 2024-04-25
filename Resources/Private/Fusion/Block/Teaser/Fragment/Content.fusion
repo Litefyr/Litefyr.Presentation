@@ -1,0 +1,44 @@
+prototype(Litespeed.Presentation:Block.Teaser.Fragment.Content) < prototype(Neos.Fusion:Component) {
+
+    badgeClass = 'py-0.5 px-2.5 rounded-full bg-theme-accent text-bg-contrast border-theme-accent border'
+    textLineClamp = 6
+    renderer = afx`
+        <Litespeed.Presentation:Block.StackedImages
+            items={props.images}
+            clas="absolute -mt-6 -translate-y-1/2 right-4 @5xl:mt-6 @5xl:-mb-3 @5xl:relative @5xl:right-auto @5xl:order-last @5xl:translate-y-0"
+        />
+        <div class="flex-1" style={'--line-clamp:' + props.textLineClamp}>
+            <p @if={Carbon.Array.check(props.badges)} class="text-xs font-bold flex flex-wrap gap-y-1.5 gap-x-1 mt-1">
+                <Neos.Fusion:Loop items={props.badges}>
+                    <a
+                        @if={item.href}
+                        href={item.href}
+                        class={[props.badgeClass, "relative z-10 transition hocus:text-theme-accent hocus:bg-text-contrast"]}
+                    >
+                        {item.label}
+                    </a>
+                    <span @if={!item.href} class={props.badgeClass}>
+                        {item.label}
+                    </span>
+                    {' '}
+                </Neos.Fusion:Loop>
+            </p>
+            <p @if={props.label} class="text-xs font-bold text-theme-accent">
+                {props.label}
+            </p>
+            <a
+                @if={props.headline || props.text}
+                href={props.href}
+                class={["block", props.label && "mt-2", props.headline ? "-teaser-headline text-xl font-bold" : "text-base line-clamp-[--line-clamp]"]}
+            >
+                <span class="absolute inset-0 pointer-events-auto"></span>
+                {props.headline || props.text}
+            </a>
+            <p @if={props.headline && props.text} class="mt-3 text-base opacity-80 line-clamp-[--line-clamp]">
+                {props.text}
+            </p>
+        </div>
+        <Litespeed.Presentation:Atom.DateAndTime date={props.date} time={props.time} class="mt-6" />
+        {props.bottomContent}
+    `
+}

@@ -1,0 +1,9 @@
+@layer components {
+  .grid-layered {
+    grid-template: "content" 1fr / 1fr;
+
+    & > * {
+      grid-area: content;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+Jonnitto:
+  OutdatedBrowser:
+    disableForCrawler: false
+  PrettyEmbed:
+    includeAlpineJsCheck: false

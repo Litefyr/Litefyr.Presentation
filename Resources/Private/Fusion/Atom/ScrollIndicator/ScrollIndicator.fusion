@@ -1,0 +1,63 @@
+prototype(Litespeed.Presentation:Atom.ScrollIndicator) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        styleAndIcon = ${PropTypes.string}
+        hideAfter = ${PropTypes.integer}
+        scrollAmount = ${PropTypes.integer}
+        bottom = ${PropTypes.integer}
+        size = ${PropTypes.integer}
+        content = ${PropTypes.string}
+        id = ${PropTypes.string}
+        label = ${PropTypes.string}
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
+        background = ${PropTypes.boolean}
+    }
+
+    background = true
+    label = ${Translation.translate('scrollDown', null, [], 'Main', 'Litespeed.Presentation')}
+    enabled = true
+
+    @private {
+        styleAndIcon = ${props.styleAndIcon || 'sharp-solid:chevron-down'}
+        bottom = ${props.bottom || 5}
+        hideAfter = ${props.hideAfter || 20}
+        scrollAmount = ${props.scrollAmount || 80}
+        size = ${props.size || 24}
+        isDefaultTheme = ${!props.theme || props.theme == 'default' ? true : false}
+        itemClass = Neos.Fusion:DataStructure {
+            animation = 'animate-bounce'
+            background = ${props.background && 'rounded-scroller bg-opacity-80'}
+            backgroundColor = ${private.isDefaultTheme ? 'text-theme-back bg-theme-front' : 'text-theme-front bg-theme-back'}
+            backgroundColor.@if.set = ${props.background}
+            textColor = ${private.isDefaultTheme ? 'text-theme-front' : 'text-theme-back'}
+            textColor.@if.set = ${!props.background}
+        }
+    }
+
+    @if.isEnabled = ${this.enabled}
+
+    renderer = afx`
+        <div
+            x-data
+            x-cloak
+            class="fixed z-50 left-1/2 -translate-x-1/2 flex justify-center pointer-events-none"
+            style={"bottom:" + private.bottom + "vh;--size:" + private.size + "px;"}
+            "x-tooltip.offset.20.fixed.id.scroll-indicator"
+            data-tooltip={props.label}
+        >
+            <button
+                x-scrollindicator={AlpineJS.object({scroll:Math.max(props.hideAfter + 10, private.scrollAmount) / 100, hide: private.hideAfter / 100})}
+                aria-label={props.label}
+                class.base="drop-shadow text-theme-back hover:scale-110 focus:scale-110 transition pointer-events-auto svg:size-[--size]"
+                class.background={props.background ? 'svg:p-2' : null}
+                type="button"
+                data-theme={props.theme}
+            >
+                <Neos.Fusion:Augmenter class={Tailwind.merge(private.itemClass)}>
+                    <Litespeed.Theme:Component.Icon @if={!props.content} styleAndIcon={private.styleAndIcon} />
+                    {props.content}
+                </Neos.Fusion:Augmenter>
+            </button>
+            <Litespeed.Presentation:Atom.Tooltip id="scroll-indicator" fixed={true} />
+        </div>
+    `
+}

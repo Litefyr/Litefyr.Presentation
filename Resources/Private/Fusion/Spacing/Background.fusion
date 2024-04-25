@@ -1,0 +1,63 @@
+prototype(Litespeed.Presentation:Background) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'nested', 'footer', 'header', ''])}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}
+        tailwind = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}
+        tagName = ${PropTypes.string}
+        main = ${PropTypes.boolean}
+        minor = ${PropTypes.boolean}
+        minor2 = ${PropTypes.boolean}
+        gray  = ${PropTypes.boolean}
+        nested = ${PropTypes.boolean}
+        padding = ${PropTypes.boolean}
+        waveSpacing = ${PropTypes.boolean}
+        augmenter  = ${PropTypes.boolean}
+        firstHeaderCollapse  = ${PropTypes.boolean}
+    }
+
+    theme = ${this.main ? 'main' : this.minor ? 'minor' : this.minor2 ? 'minor2' : this.gray ? 'gray' : this.nested ? 'nested' : null}
+
+    tagName = 'div'
+    content = ${value}
+
+    @private {
+        theme = ${Array.indexOf(['main', 'minor', 'minor2', 'gray', 'default', 'nested', 'footer', 'header'], props.theme) != -1 ? props.theme : null}
+        attributes = afx`
+            <Neos.Fusion:DataStructure
+                @ignoreProperties={['tagName', 'theme', 'main', 'minor', 'minor2', 'gray', 'nested', 'augmenter', 'content', 'waveSpacing', 'padding', 'tailwind', 'firstHeaderCollapse']}
+                data-theme={private.theme}
+                {...props}
+                class={Carbon.String.classNames(
+                    private.theme ? '-background bg-theme-back text-theme-front' : null,
+                    props.padding ? '-padding' : null,
+                    props.waveSpacing ? '-wave-spacing' : null,
+                    props.class,
+                    Carbon.Tailwind.merge(props.firstHeaderCollapse ? 'first:!header-collapse-12' : null, props.tailwind)
+                )}
+            />
+        `
+    }
+
+    renderer = Neos.Fusion:Case {
+        isAugmenter {
+            condition = ${props.augmenter && props.tagName}
+            renderer = Neos.Fusion:Augmenter {
+                @apply.attributes = ${private.attributes}
+                fallbackTagName = ${props.tagName}
+                content = ${props.content}
+            }
+        }
+        hasTagName {
+            condition = ${props.tagName}
+            renderer = Neos.Fusion:Tag {
+                tagName = ${props.tagName}
+                attributes = ${private.attributes}
+                content = ${props.content}
+            }
+        }
+        justTheContent {
+            condition = true
+            renderer = ${props.content}
+        }
+    }
+}

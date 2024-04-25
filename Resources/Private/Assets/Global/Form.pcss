@@ -1,0 +1,59 @@
+@layer base {
+  label {
+    @apply block select-none;
+  }
+
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  input:where(:not([type])),
+  textarea,
+  select,
+  .form-element {
+    @apply w-full appearance-none rounded-input border px-3 py-2 text-base leading-normal transition bg-theme-back/10 border-text text-theme-front color-scheme placeholder:text-theme-front/60 focus:outline-none focus:border-theme-accent;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -moz-appearance: textfield;
+  }
+
+  select:not([multiple]) {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+
+  .dark {
+    & select:not([multiple]) {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23eee' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    }
+  }
+
+  input[type="file"]::file-selector-button {
+    @apply mr-2 inline-flex cursor-pointer items-center justify-center rounded-button border-0 px-4 py-2 text-center text-base font-normal no-underline transition bg-theme-back text-theme-front disabled:cursor-not-allowed disabled:opacity-50 hocus:bg-lightness-offset-10;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    @apply cursor-pointer accent-theme-accent color-scheme;
+  }
+}

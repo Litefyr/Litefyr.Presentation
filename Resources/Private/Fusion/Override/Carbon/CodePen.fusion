@@ -1,0 +1,34 @@
+prototype(Carbon.CodePen:PreviewFrame) {
+    htmlTag.attributes {
+        class.@process {
+            colorScheme = ${Array.push(value, q(site).property('themeColorScheme') == 'dark' ? 'dark' : 'light')}
+            clipPath = ${Array.push(value, q(site).property('themeClipPathEnabled') ? 'has-wave' : 'is-flat')}
+        }
+    }
+    head {
+        stylesheets.theme = afx`
+            <meta name="color-scheme" content={q(site).property('themeColorScheme') || 'light'} />
+            <style>{q(site).property('themeCSS')}</style>
+            <Carbon.IncludeAssets:Collection
+                assetPackage="Litespeed.Presentation"
+                collection={["Main.css", "Inline.js[inline]", "Main.js[defer]"]}
+            />
+        `
+    }
+    body {
+        content >
+        content = Neos.Fusion:Component {
+            class = '-collection -collection--main neos-contentcollection'
+            custom = null
+            renderer = afx`
+                <main @if={!props.custom} id="carbon-codepen-preview" class={props.class}></main>
+                {props.custom}
+                <Litespeed.Presentation:Block.ColorSchemeSwitchter
+                    @if={q(site).property('themeColorScheme') == 'light dark'}
+                    class="fixed bottom-4 right-4 z-50"
+                />
+                <Litespeed.Presentation:Atom.Tooltip />
+            `
+        }
+    }
+}

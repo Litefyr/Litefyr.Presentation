@@ -1,0 +1,121 @@
+prototype(Litespeed.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        hr = ${PropTypes.boolean}
+        inBackend = ${PropTypes.boolean}
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
+    }
+    height = null
+    hr = true
+    inBackend = false
+    useResponsiveScale = false
+    scale = 0
+
+    @if.isVisual = ${this.height || this.hr || this.theme}
+
+    @private {
+        scale = Neos.Fusion:Match {
+            @subject = ${String.toString(props.scale || 0)}
+            @default = 'md'
+            -4 = '3xs'
+            -3 = '2xs'
+            -2 = 'xs'
+            -1 = 'sm'
+            1 = 'lg'
+            2 = 'xl'
+            3 = '2xl'
+            4 = '3xl'
+        }
+        height = ${props.height == 'px' ? 'px' : String.toFloat(props.height)}
+        ribbonText = Neos.Fusion:Case {
+            responsiveScale {
+                condition = ${props.useResponsiveScale}
+                renderer = ${Translation.translate('spacing.' + private.scale , private.scale, [], 'Spacing', 'Litespeed.Presentation')}
+            }
+            height {
+                condition = true
+                renderer = ${Translation.translate('spacingWithPixel', '{0} pixel spacing', [(private.height == 'px' ? 1 : private.height * 4)], 'Main', 'Litespeed.Presentation')}
+            }
+        }
+        heightClass = Neos.Fusion:Case {
+            responsiveScale {
+                condition = ${props.useResponsiveScale}
+                // h-fl-3xs h-fl-2xs h-fl-xs h-fl-sm h-fl-md h-fl-lg h-fl-xl h-fl-2xl h-fl-3xl
+                renderer = ${'h-fl-' + private.scale}
+            }
+            height {
+                condition = true
+                renderer = ${String.indexOf(private.style, '--spacing-md:') == -1 ? 'h-[--spacing] transition-[height]' : 'h-[--spacing] md:h-[--spacing-md] transition-[height]'}
+            }
+        }
+        marginClass = Neos.Fusion:Case {
+            responsiveScale {
+                condition = ${props.useResponsiveScale}
+                // my-fl-3xs my-fl-2xs my-fl-xs my-fl-sm my-fl-md my-fl-lg my-fl-xl my-fl-2xl my-fl-3xl
+                renderer = ${'my-fl-' + private.scale}
+            }
+            height {
+                condition = true
+                renderer = ${String.indexOf(private.style, '--spacing-md:') == -1 ? 'my-[--spacing] transition-[margin]' : 'my-[--spacing] md:my-[--spacing-md] transition-[margin]'}
+            }
+        }
+
+        style = Neos.Fusion:Case {
+            isZero {
+                condition = ${!private.height}
+                renderer = '--spacing:0'
+            }
+            isPx {
+                condition = ${private.height == 'px'}
+                renderer = '--spacing:1px'
+            }
+            below20 {
+                condition = ${private.height < 20}
+                renderer = ${'--spacing:' + (private.height / 4) + 'rem'}
+            }
+            responsive {
+                condition = true
+                renderer = Neos.Fusion:Value {
+                    md = ${private.height / 4}
+                    default = ${Math.max(this.md / 2, 4)}
+                    value = ${'--spacing:' + this.default + 'rem;--spacing-md:' + this.md + 'rem'}
+                }
+            }
+        }
+    }
+
+    renderer = afx`
+        <!-- Colored spacer -->
+        <Neos.Fusion:Fragment @if={props.theme && !props.hr}>
+            <Litespeed.Presentation:Atom.Clippath.Top theme={props.theme} />
+            <Neos.Fusion:Fragment @if={props.inBackend}>
+                <div data-theme={props.theme} style={props.useResponsiveScale ? null : private.style} class={Tailwind.merge("border-0 bg-theme-back", private.heightClass, props.class)}>
+                    <Litespeed.Presentation:Atom.BackendRibbon content={private.ribbonText} />
+                </div>
+            </Neos.Fusion:Fragment>
+            <hr
+                @if={!props.inBackend}
+                data-theme={props.theme}
+                style={props.useResponsiveScale ? null : private.style}
+                class={Tailwind.merge("border-0 bg-theme-back", private.heightClass, props.class)}
+            />
+            <Litespeed.Presentation:Atom.Clippath.Bottom theme={props.theme} />
+        </Neos.Fusion:Fragment>
+
+        <!-- HR Element -->
+        <Litespeed.Presentation:Spacing width={props.hrWidth} @if={props.hr} augmenter>
+            <Litespeed.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText}  />
+            <hr data-theme={props.theme || null} style={props.useResponsiveScale ? null : private.style} class={Tailwind.merge("theme-hr", private.marginClass, props.class)} />
+        </Litespeed.Presentation:Spacing>
+
+        <!-- Empty spacer -->
+        <div
+            @if={!props.theme && !props.hr}
+            class={Tailwind.merge(private.heightClass, props.class)}
+            style={props.useResponsiveScale ? null : private.style}
+            aria-hidden="true"
+        >
+            <Litespeed.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText} />
+        </div>
+    `
+}

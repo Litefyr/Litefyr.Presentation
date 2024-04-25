@@ -1,0 +1,25 @@
+prototype(Litespeed.Presentation:Atom.Headline) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        content = ${PropTypes.string}
+        isFirstElement = ${PropTypes.boolean}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    @styleguide.props.content = Sitegeist.ChitChat:Line {
+        length = 20
+    }
+
+    isFirstElement = false
+
+    tagName = ${this.isFirstElement ? 'h1' : 'h2'}
+    inBackend = false
+    enableTypewriter = true
+
+    @if.hasHeadline = ${this.content}
+
+    renderer = Neos.Fusion:Tag {
+        tagName = ${props.tagName}
+        attributes.class = ${['-links', Tailwind.merge(props.class)]}
+        content = ${Theme.typewriter(props.content, !props.inBackend && props.enableTypewriter, 'text-theme-accent')}
+    }
+}

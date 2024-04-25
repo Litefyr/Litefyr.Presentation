@@ -1,0 +1,49 @@
+prototype(Litespeed.Presentation:Block.SingleInputForm) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        label = ${PropTypes.string.isRequired}
+        submitLabel = ${PropTypes.string.isRequired}
+        placeholder = ${PropTypes.string}
+    }
+
+    class = 'mt-4 max-w-sm'
+
+    form = Neos.Fusion:DataStructure {
+        x-data = true
+        class = null
+    }
+    input = Neos.Fusion:DataStructure {
+        type = 'text'
+        class = null
+    }
+    submit = Neos.Fusion:DataStructure {
+        class = null
+    }
+
+    renderer = afx`
+        <div class={Tailwind.merge("@container w-full", props.class)}>
+            <form
+                {...props.form}
+                class={Tailwind.merge("flex flex-col @xs:flex-row justify-center focus-within:bg-theme-back rounded-input border-2 border-current overflow-clip", props.form.class)}
+                x-id="['input']"
+            >
+                <label :for="$id('input')" class="sr-only">{props.label}</label>
+                <input
+                    {...props.input}
+                    :id="$id('input')"
+                    required
+                    class={Tailwind.merge("border-0 text-center @xs:text-left", props.input.class)}
+                    placeholder={props.placeholder || props.label}
+                />
+                <div class="bg-current min-h-px @xs:w-px"></div>
+                <Litespeed.Presentation:Atom.Button
+                    content={props.submitLabel}
+                    type="submit"
+                    ghost
+                    {...props.submit}
+                    class={Tailwind.merge("shadow-none rounded-none @xs:flex-shrink-0", props.submit.class)}
+                />
+            </form>
+        </div>
+    `
+}

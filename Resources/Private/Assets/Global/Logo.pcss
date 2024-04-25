@@ -1,0 +1,16 @@
+.-logo--height {
+  max-height: var(--logo-size);
+}
+
+.-logo--content {
+  --logo-size: var(--logo-size-content, 600px);
+
+  max-width: var(--logo-size);
+  width: calc(100vw - var(--content-padding-left) - var(--content-padding-right));
+  margin-inline: auto;
+
+  & img {
+    max-width: none;
+    width: 100%;
+  }
+}

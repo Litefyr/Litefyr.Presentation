@@ -1,0 +1,57 @@
+prototype(Litespeed.Presentation:Block.HeadlineAndLead) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        headline = ${PropTypes.string}
+        label = ${PropTypes.string}
+        lead = ${PropTypes.string}
+        isFirstElement = ${PropTypes.boolean}
+        needHeadline = ${PropTypes.boolean}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    @styleguide {
+        props {
+            headline = Sitegeist.ChitChat:Line {
+                length = 30
+            }
+            lead = Sitegeist.ChitChat:Line {
+                length = 50
+            }
+            label = Sitegeist.ChitChat:Line {
+                length = 10
+            }
+        }
+    }
+
+    isFirstElement = true
+    needHeadline = true
+    inBackend = false
+    textCenter = true
+    leadClass = ${[this.textCenter ? 'mx-auto' : null, '-links max-w-content mt-5 text-fl-base opacity-70 text-balance']}
+    width = 'default'
+
+    @private.wrapperTagName = ${this.isFirstElement ? 'header' : 'div'}
+
+    @if.hasHeadline = ${this.needHeadline ? this.headline : (this.headline || this.lead)}
+
+    renderer = afx`
+        <Litespeed.Presentation:Spacing
+            waveSpacing
+            padding
+            width={props.width}
+            tagName={private.wrapperTagName}
+            class={Tailwind.merge('flex flex-col', props.textCenter && 'text-center', props.class)}
+        >
+            <Litespeed.Presentation:Atom.Headline
+                isFirstElement={props.isFirstElement}
+                inBackend={props.inBackend}
+                class="text-fl-3xl"
+                content={props.headline}
+            />
+            <Litespeed.Presentation:Atom.Label class="order-first" label={props.label} />
+            <p @if={props.lead} class={props.leadClass}>
+                {Theme.typewriter(props.lead, !props.inBackend, 'text-theme-accent')}
+            </p>
+
+        </Litespeed.Presentation:Spacing>
+    `
+}

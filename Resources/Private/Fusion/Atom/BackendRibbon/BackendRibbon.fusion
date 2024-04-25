@@ -1,0 +1,23 @@
+prototype(Litespeed.Presentation:Atom.BackendRibbon) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        contsnt = ${PropTypes.string}
+    }
+
+    @if.hasContent = ${this.content}
+
+    renderer = afx`
+        <span
+            style="transform: translate(-18px, calc(-100% - 1px))"
+            class="ribbon absolute z-50 transition opacity-0 pointer-events-none drop-shadow-lg text-xs flex"
+        >
+            <span
+                class="absolute w-0 h-0 left-0 border-transparent border-r-current brightness-50 border-[6px] bottom-0 -z-10 translate-y-1/2 border-l-0"
+                aria-hidden="true"
+            ></span>
+            <span class="pl-6 pr-2 py-0.5 bg-current block">
+                <span class="text-white">{props.content}</span>
+            </span>
+            <span class="block border-solid border-r-transparent border-[0.8em] border-y-current border-l-0" aria-hidden="true"></span>
+        </span>
+    `
+}

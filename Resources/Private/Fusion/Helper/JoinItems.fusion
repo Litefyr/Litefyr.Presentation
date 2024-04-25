@@ -1,0 +1,23 @@
+prototype(Litespeed.Presentation:Helper.JoinItems) < prototype(Neos.Fusion:Component) {
+    items = ${null}
+    glue = '<br/>'
+    tagName = 'span'
+    class = ${null}
+
+    items.@process.filter = ${Type.isArray(value) ? Array.filter(value, item => !!item) : []}
+    @if.hasItems = ${!Array.isEmpty(this.items)}
+
+    renderer = afx`
+        <Carbon.Eel:Tag @if.set={props.tagName != 'table'} tagName={props.tagName} attributes.class={props.class}>
+            <Neos.Fusion:Loop items={props.items} @glue={props.glue} itemRenderer={item} />
+        </Carbon.Eel:Tag>
+        <table @if.set={props.tagName == 'table'} class={props.class}>
+            <Neos.Fusion:Loop items={props.items}>
+                <tr>
+                    <th class='text-left pr-4'>{itemKey}</th>
+                    <td>{item}</td>
+                </tr>
+            </Neos.Fusion:Loop>
+        </table>
+    `
+}

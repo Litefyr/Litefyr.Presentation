@@ -1,0 +1,28 @@
+prototype(Litespeed.Presentation:Section.Header.Fixture.MenuItem) < prototype(Neos.Fusion:Component) {
+    label = null
+    subItems = 0
+    subsubItems = 0
+    href = ${'#' + Carbon.String.urlize(this.label)}
+
+    renderer = Neos.Fusion:DataStructure {
+        label = ${props.label}
+        href = ${props.href}
+        subItems = Neos.Fusion:Map {
+            @if.set = ${props.subItems}
+            items = ${Array.slice(['Lorem ipsum dolor sit amet', 'consetetur sadipscing', 'sed diam nonumy', 'labore et dolore magna', ' diam voluptua', 'accusam et justo'], 0, props.subItems)}
+            itemRenderer = Neos.Fusion:DataStructure {
+                href = ${props.href + '/' + Carbon.String.urlize(item)}
+                label = ${item}
+                subItems = Neos.Fusion:Map {
+                    @if.set = ${props.subsubItems}
+                    itemName = 'sub'
+                    items = ${Array.slice(['Lorem ipsum dolor sit amet', 'consetetur sadipscing', 'sed diam nonumy', 'labore et dolore magna', ' diam voluptua', 'accusam et justo'], 0, props.subsubItems)}
+                    itemRenderer = Neos.Fusion:DataStructure {
+                        href = ${props.href + '/' + Carbon.String.urlize(item) + '/' + Carbon.String.urlize(sub)}
+                        label = ${sub}
+                    }
+                }
+            }
+        }
+    }
+}

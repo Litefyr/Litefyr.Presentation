@@ -1,0 +1,152 @@
+prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        headline = ${PropTypes.string}
+        text = ${PropTypes.string}
+        moreHref = ${PropTypes.string}
+        moreText = ${PropTypes.string}
+        inBackend = ${PropTypes.boolean}
+        jsonPath = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        content = ${PropTypes.string}
+        label = ${PropTypes.string}
+        gap = PropTypes:DataStructure {
+            image = ${PropTypes.string}
+            plain = ${PropTypes.string}
+        }
+        topTheme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
+        bottomTheme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
+        breakout = ${PropTypes.oneOf(['wide', 'full', ''])}
+        limit = ${PropTypes.integer}
+        showImages = ${PropTypes.boolean}
+    }
+    @styleguide {
+        props {
+            headline = Sitegeist.ChitChat:Line
+            text = Sitegeist.ChitChat:Line
+            moreHref = '#'
+            jsonPath = ''
+            content = Sitegeist.Monocle:Preview.Prototypes {
+                items = 'Litespeed.Presentation:Block.Teaser,Litespeed.Presentation:Block.Teaser,Litespeed.Presentation:Block.Teaser'
+            }
+        }
+    }
+
+    jsonPath = null
+    jsonPath.@process.convertToArray = ${Carbon.Array.check(value) ? Array.join(value,'||') : value}
+    moreHref = null
+    moreText = 'Mehr Beiträge'
+    topTheme = 'default'
+    bottomTheme = 'main'
+    count = ''
+    limit = 0
+    contentMargin = true
+    featured = false
+    showImages = true
+    inBackend = false
+
+    textWrapperClass = 'text-center -links flex flex-col h2:text-fl-xl h2:text-theme-front'
+    textParagraphClass = 'mx-auto mt-3 max-w-3xl text-fl-sm text-theme-front sm:mt-4 text-lightness-offset-30 dark:-text-lightness-offset-20'
+    noImageWrapperClass = 'py-24 print:hidden'
+
+    gap = Neos.Fusion:DataStructure {
+        image = '1rem'
+        plain = '1rem'
+    }
+
+    @private {
+        xData = ${props.jsonPath ? AlpineJS.function('fetch', props.jsonPath, props.inBackend, props.limit) :  null}
+        moreText = ${String.replace(props.moreText, '{0}', props.count)}
+        style = ${'--content-padding:1rem;--teaser-gap:' + ((props.showImages ? props.gap.image : props.gap.plain) || '1rem')}
+        breakout = ${props.breakout == 'full' ? 'full' : 'wide'}
+    }
+
+    renderer = afx`
+        <Litespeed.Presentation:Atom.Clippath.Top @if={props.bottomTheme && !props.showImages} theme={props.bottomTheme} />
+        <Litespeed.Presentation:Background
+            @if={!props.showImages}
+            theme={props.bottomTheme}
+            x-data={private.xData}
+            tailwind={props.noImageWrapperClass}
+            style={private.style}
+            tagName="section"
+        >
+            <Litespeed.Presentation:Spacing width={private.breakout} padding>
+                <div class={props.textWrapperClass} @if={props.headline || props.text || props.label}>
+                    <h2 @if={props.headline}>
+                        {Theme.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
+                    </h2>
+                    <Litespeed.Presentation:Atom.Label class="order-first" label={props.label} />
+                    <p @if={props.text} class={props.textParagraphClass}>
+                        {Theme.typewriter(props.text, !props.inBackend, 'text-theme-accent')}
+                    </p>
+                </div>
+                <div
+                    x-ref={props.jsonPath ? "target" : null}
+                    x-show={props.jsonPath ? "!noMarkup" : null}
+                    class="mt-12 -mx-[--teaser-gap] flex flex-col gap-y-8 [&_.-teaser]:mx-[--teaser-gap] md:flex-wrap md:justify-center md:flex-row md:*:basis-1/2 md:only:*:!basis-full lg:exactly-4:*:basis-1/2 lg:*:basis-1/3"
+                >
+                    {props.content}
+                </div>
+                <div @if={props.moreHref} class="text-center mt-8">
+                    <a href={props.moreHref} class="hocus:underline text-theme-front">{private.moreText}</a>
+                </div>
+            </Litespeed.Presentation:Spacing>
+        </Litespeed.Presentation:Background>
+        <Litespeed.Presentation:Atom.Clippath.Bottom @if={props.bottomTheme && !props.showImages} theme={props.bottomTheme} />
+
+        <Litespeed.Presentation:Background
+            @if={props.showImages}
+            theme={props.bottomTheme}
+            x-data={private.xData}
+            tailwind={["print:hidden", props.contentMargin ? "!mt-content-gap" : null, props.bottomTheme ? "relative pb-20 bg-theme-back clippath:!bg-transparent clippath-on-top" : "pt-12 sm:pt-16"]}
+            style={private.style}
+            tagName="section"
+        >
+            <div
+                @if={props.bottomTheme}
+                data-theme={props.topTheme || null}
+                class="absolute top-0 left-0 right-0 pointer-events-none h-1/3 sm:h-2/3 bg-theme-back"
+                aria-hidden="true"
+            >
+            </div>
+            <Litespeed.Presentation:Spacing
+                padding
+                width={private.breakout}
+                tailwind={props.bottomTheme ? "relative z-10" : null}
+                data-theme={props.topTheme || null}
+            >
+                <div class={props.textWrapperClass} @if={props.headline || props.text || props.label}>
+                    <h2
+                        @if={props.headline}
+                        class="text-fl-xl text-theme-front"
+                    >
+                        {Theme.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
+                    </h2>
+                    <Litespeed.Presentation:Atom.Label class="order-first" label={props.label} />
+                    <p @if={props.text} class={props.textParagraphClass}>
+                        {Theme.typewriter(props.text, !props.inBackend, 'text-theme-front text-lightness-offset-0')}
+                    </p>
+                </div>
+                <!-- Content START -->
+                <template @if={props.inBackend && props.jsonPath} x-if="noMarkup">
+                    <Carbon.Notification:Tag content={Translation.translate('noPagesWithImagesFound', null, [], 'Main', 'Litespeed.Presentation')} />
+                </template>
+                <div
+                    x-ref={props.jsonPath ? "target" : null}
+                    x-show={props.jsonPath ? "!noMarkup" : null}
+                    class={[props.featured ? "md:first:at-least-3:*:!basis-full lg:first:*:basis-1/2 *:nth lg:second:*:basis-1/2 lg:third:*:basis-1/2" : "lg:exactly-4:*:basis-1/2", "mt-12 -mx-[--teaser-gap] flex flex-col gap-y-8 [&_.-teaser]:mx-4 md:flex-wrap md:justify-center md:flex-row md:*:basis-1/2 lg:*:basis-1/3 md:only:*:!basis-full"]}
+                >
+                    {props.content}
+                </div>
+                <div @if={props.moreHref} class="text-center mt-8" data-theme={props.bottomTheme || null}>
+                    <a href={props.moreHref} class="hocus:underline text-theme-front">{private.moreText}</a>
+                </div>
+                <!-- Content END -->
+            </Litespeed.Presentation:Spacing>
+            <Litespeed.Presentation:Atom.Clippath.Group
+                @if={props.bottomTheme}
+                height="h-40"
+                wrapClass="absolute left-0 right-0 bottom-0 z-0"
+            />
+        </Litespeed.Presentation:Background>
+    `
+}

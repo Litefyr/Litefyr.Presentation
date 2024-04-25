@@ -1,0 +1,41 @@
+prototype(Litespeed.Presentation:Block.Popover) < prototype(Neos.Fusion:Component) {
+    tagName = 'div'
+    attributes = Neos.Fusion:DataStructure {
+        x-data = '{open:false}'
+        class = null
+        class.@process.value = ${Tailwind.merge('relative svg:size-[1em] svg:fill-current', value)}
+    }
+    buttonAttributes = Neos.Fusion:DataStructure {
+        x-ref = 'button'
+        type = 'button'
+        x-on:click = 'open=!open'
+        class = null
+        class.@process.value = ${Tailwind.merge('text-theme-front flex items-center justify-center', value)}
+    }
+    buttonContent = null
+    bottom = false
+    content = null
+    beside = null
+
+    renderer = afx`
+        <Neos.Fusion:Tag tagName={props.tagName} attributes={props.attributes} @if={props.content}>
+            {props.beside}
+            <button {...props.buttonAttributes}>{props.buttonContent}</button>
+            <ul
+                x-show="open"
+                x-cloak
+                x-anchor={props.bottom ? null : "$refs.button"}
+                "x-anchor.bottom"={props.bottom ? "$refs.button" : null}
+                "x-trap.noscroll.inert"="open"
+                "x-on:keyup.down"="$focus.wrap().next()"
+                "x-on:keyup.up"="$focus.wrap().previous()"
+                "x-on:keyup.escape"="open=false"
+                "x-on:click.outside"="open=false"
+                class="z-10 bg-theme-back -bg-lightness-offset-5 shadow-lg text-left overflow-clip rounded-box text-base leading-tight whitespace-nowrap"
+            >
+                <li @if={props.headline} class="py-2 px-4 uppercase">{props.headline}</li>
+                {props.content}
+            </ul>
+        </Neos.Fusion:Tag>
+    `
+}

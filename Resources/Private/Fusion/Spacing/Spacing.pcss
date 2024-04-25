@@ -1,0 +1,65 @@
+@layer base {
+  .-width {
+    --spacing-width: none;
+
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--spacing-width);
+    width: 100%;
+  }
+
+  .-width.prose {
+    max-width: var(--spacing-width);
+  }
+
+  .-width--default {
+    --spacing-width: var(--content-max-width);
+  }
+
+  .-width--wide {
+    --spacing-width: var(--content-max-width-wide);
+  }
+
+  .-width--full {
+    --spacing-width: 100%;
+  }
+
+  .-padding,
+  .-padding-force {
+    padding-left: var(--content-padding-left);
+    padding-right: var(--content-padding-right);
+  }
+
+  .-padding-clear {
+    --content-padding-left: 0;
+    --content-padding-right: 0;
+  }
+
+  .-padding :where(.-padding) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .-padding :where(.-padding-reset .-padding) {
+    padding-left: var(--content-padding-left);
+    padding-right: var(--content-padding-right);
+  }
+
+  .-padding:where(.-width--default) {
+    --spacing-width: calc(var(--content-max-width) + var(--content-padding-left) + var(--content-padding-right));
+  }
+
+  .-padding:where(.-width--wide) {
+    --spacing-width: calc(var(--content-max-width-wide) + var(--content-padding-left) + var(--content-padding-right));
+  }
+
+  .-wave-spacing {
+    @apply clippath-next:mt-0 clippath-next-inside:mt-clippath-half lg:clippath-next-inside:mt-clippath;
+  }
+}
+
+@layer components {
+  .prose:where(:not(.-width)) {
+    max-width: none;
+  }
+}

@@ -1,0 +1,216 @@
+Carbon:
+  Eel:
+    tailwindMergeConfig:
+      classGroups:
+        # Fluid font size
+        'font-size':
+          - 'text-fl': ['base', 'TEXT_SIZE_VALIDATOR']
+        # Fluid margin
+        'm':
+          - 'm-fl': ['TEXT_SIZE_VALIDATOR']
+        'mx':
+          - 'mx-fl': ['TEXT_SIZE_VALIDATOR']
+        'my':
+          - 'my-fl': ['TEXT_SIZE_VALIDATOR']
+        'ms':
+          - 'ms-fl': ['TEXT_SIZE_VALIDATOR']
+        'me':
+          - 'me-fl': ['TEXT_SIZE_VALIDATOR']
+        'mt':
+          - 'mt-fl': ['TEXT_SIZE_VALIDATOR']
+        'mr':
+          - 'mr-fl': ['TEXT_SIZE_VALIDATOR']
+        'mb':
+          - 'mb-fl': ['TEXT_SIZE_VALIDATOR']
+        'ml':
+          - 'ml-fl': ['TEXT_SIZE_VALIDATOR']
+        # Fluid padding
+        'p':
+          - 'p-fl': ['TEXT_SIZE_VALIDATOR']
+        'px':
+          - 'px-fl': ['TEXT_SIZE_VALIDATOR']
+        'py':
+          - 'py-fl': ['TEXT_SIZE_VALIDATOR']
+        'ps':
+          - 'ps-fl': ['TEXT_SIZE_VALIDATOR']
+        'pe':
+          - 'pe-fl': ['TEXT_SIZE_VALIDATOR']
+        'pt':
+          - 'pt-fl': ['TEXT_SIZE_VALIDATOR']
+        'pr':
+          - 'pr-fl': ['TEXT_SIZE_VALIDATOR']
+        'pb':
+          - 'pb-fl': ['TEXT_SIZE_VALIDATOR']
+        'pl':
+          - 'pl-fl': ['TEXT_SIZE_VALIDATOR']
+        # Fluid size
+        'min-w':
+          - 'min-w-fl': ['TEXT_SIZE_VALIDATOR']
+        'w':
+          - 'w-fl': ['TEXT_SIZE_VALIDATOR']
+        'max-w':
+          - 'max-w-fl': ['TEXT_SIZE_VALIDATOR']
+        'min-h':
+          - 'min-h-fl': ['TEXT_SIZE_VALIDATOR']
+        'h':
+          - 'h-fl': ['TEXT_SIZE_VALIDATOR']
+        'max-h':
+          - 'max-h-fl': ['TEXT_SIZE_VALIDATOR']
+        'size':
+          - 'size-fl': ['TEXT_SIZE_VALIDATOR']
+        # Fluid gap
+        'gap':
+          - 'gap-fl': ['TEXT_SIZE_VALIDATOR']
+        'gap-x':
+          - 'gap-x-fl': ['TEXT_SIZE_VALIDATOR']
+        'gap-y':
+          - 'gap-y-fl': ['TEXT_SIZE_VALIDATOR']
+        # Fluid inset
+        'inset':
+          - 'inset-fl': ['TEXT_SIZE_VALIDATOR']
+        'inset-x':
+          - 'inset-x-fl': ['TEXT_SIZE_VALIDATOR']
+        'inset-y':
+          - 'inset-y-fl': ['TEXT_SIZE_VALIDATOR']
+        'start':
+          - 'start-fl': ['TEXT_SIZE_VALIDATOR']
+        'end':
+          - 'end-fl': ['TEXT_SIZE_VALIDATOR']
+        'top':
+          - 'top-fl': ['TEXT_SIZE_VALIDATOR']
+        'right':
+          - 'right-fl': ['TEXT_SIZE_VALIDATOR']
+        'bottom':
+          - 'bottom-fl': ['TEXT_SIZE_VALIDATOR']
+        'left':
+          - 'left-fl': ['TEXT_SIZE_VALIDATOR']
+        # Fluid space
+        'space-x':
+          - 'space-x-fl': ['TEXT_SIZE_VALIDATOR']
+        'space-y':
+          - 'space-y-fl': ['TEXT_SIZE_VALIDATOR']
+        # Fluid translate
+        'translate-x':
+          - 'translate-x-fl': ['TEXT_SIZE_VALIDATOR']
+        'translate-y':
+          - 'translate-y-fl': ['TEXT_SIZE_VALIDATOR']
+        # Fluid scroll margin
+        'scroll-m':
+          - 'scroll-m-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-mx':
+          - 'scroll-mx-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-my':
+          - 'scroll-my-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-ms':
+          - 'scroll-ms-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-me':
+          - 'scroll-me-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-mt':
+          - 'scroll-mt-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-mr':
+          - 'scroll-mr-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-mb':
+          - 'scroll-mb-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-ml':
+          - 'scroll-ml-fl': ['TEXT_SIZE_VALIDATOR']
+          # Fluid scroll padding
+        'scroll-p':
+          - 'scroll-p-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-px':
+          - 'scroll-px-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-py':
+          - 'scroll-py-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-ps':
+          - 'scroll-ps-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-pe':
+          - 'scroll-pe-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-pt':
+          - 'scroll-pt-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-pr':
+          - 'scroll-pr-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-pb':
+          - 'scroll-pb-fl': ['TEXT_SIZE_VALIDATOR']
+        'scroll-pl':
+          - 'scroll-pl-fl': ['TEXT_SIZE_VALIDATOR']
+
+        # OKLCH Plugin
+        'divide-lightness':
+          - 'divide-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'bg-lightness':
+          - 'bg-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'border-lightness':
+          - 'border-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'text-lightness':
+          - 'text-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'placeholder-lightness':
+          - 'placeholder-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'ouline-lightness':
+          - 'ouline-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'ring-lightness':
+          - 'ring-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'fill-lightness':
+          - 'fill-offset-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'stroke-lightness':
+          - 'stroke-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'accent-lightness':
+          - 'accent-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'shadow-lightness':
+          - 'shadow-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'caret-lightness':
+          - 'caret-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'decoration-lightness':
+          - 'decoration-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'from-lightness':
+          - 'from-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'via-lightness':
+          - 'via-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'to-lightness':
+          - 'to-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+
+  FileLoader:
+    strategy: attributes
+  IncludeAssets:
+    Packages:
+      'zzz_Presentation':
+        Package: 'Litespeed.Presentation'
+        General:
+          HeadStart:
+            - <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+            - <meta name="view-transition" content="same-origin" />
+          Head:
+            - Main.css
+            - Print.css[media="print"]
+            - Inline.js[inline]
+            - Main.js[defer]
+        Backend:
+          Head:
+            - Backend.js[defer]
+  Image:
+    inlineSVG: false
+    quality: 70
+    lazy:
+      enabled: true
+    alternativeText:
+      property: caption
+    lightbox:
+      class: 'lightbox block h-full -print-hidelink'
+      quality: 85
+  Notification:
+    default:
+      width: '100%'

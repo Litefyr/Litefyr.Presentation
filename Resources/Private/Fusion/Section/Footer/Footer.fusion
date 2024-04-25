@@ -1,0 +1,143 @@
+prototype(Litespeed.Presentation:Section.Footer) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        items = ${PropTypes.arrayOf(PropTypes.dataStructure({'href': PropTypes.string, 'label': PropTypes.string, 'isLightbox': PropTypes.boolean}))}
+        itemsMultiColumn = PropTypes:Array {
+            type = PropTypes:DataStructure {
+                headline = PropTypes:String
+                content = PropTypes:String
+                items = ${PropTypes.arrayOf(PropTypes.dataStructure({'href': PropTypes.string, 'label': PropTypes.string, 'isLightbox': PropTypes.boolean, 'content': PropTypes.string}))}
+            }
+        }
+        email = ${PropTypes.string}
+        legalName = ${PropTypes.string}
+        typeOfContact = ${PropTypes.string}
+        salutation = ${PropTypes.string}
+        colorSchemeSwitchter = ${PropTypes.oneOf(['top', 'bottom', 'both', ''])}
+        newsletterForm = ${PropTypes.string}
+        enableBreadcrumb = ${PropTypes.boolean}
+        clipPathAboveFooter = ${PropTypes.boolean}
+        spacing = ${PropTypes.float}
+    }
+    @styleguide {
+        props {
+            items = Neos.Fusion:Map {
+                items = ${['In Kürze', 'Team', 'Auszeichnungen']}
+                itemRenderer = Neos.Fusion:DataStructure {
+                    label = ${item}
+                    href = ${'#' + Carbon.String.urlize(item)}
+                }
+            }
+
+            phone = '0012 345 6789 0'
+            email = 'mail@example.test'
+        }
+    }
+
+    backgroundClass = 'bg-theme-back'
+
+    clipPathAboveFooter = false
+    enableBreadcrumb = true
+    multiColumnEnabled = false
+    logo = null
+    spacing = null
+    additionalSocialMarkup = ''
+
+    @private {
+        plural = ${props.typeOfContact != 'single'}
+        formal = ${props.salutation != 'informal'}
+        pluralModifier = ${private.plural ? '.group' : '.single'}
+        formalModifier = ${private.formal ? '.formal' : '.informal'}
+        itemsMultiColumn = ${props.multiColumnEnabled ? Carbon.Array.check(props.itemsMultiColumn) : false}
+        itemsSingleColumn = ${props.multiColumnEnabled ? false : Carbon.Array.check(props.items)}
+        spacing = ${Carbon.Number.pxToRem(props.spacing, 32)}
+    }
+
+    renderer = afx`
+        <footer class="text-theme-front -mt-px" data-theme="footer" aria-labelledby="footer-heading" style={'--spacing:' + private.spacing} x-data>
+            <div @if={props.clipPathAboveFooter} class={Tailwind.merge(props.backgroundClass, "clippath-top !-mb-0.5 -mt-clippath-half")} aria-hidden="true"></div>
+            <h2 id="footer-heading" class="sr-only">{Translation.translate('footer.heading', null, [], 'Main', 'Litespeed.Presentation')}</h2>
+            <div class={Tailwind.merge(props.backgroundClass, "space-y-8 pt-[--spacing] pb-4")}>
+                <!-- Show only the Logo -->
+                <Litespeed.Presentation:Spacing
+                    @if={props.logo && (props.multiColumnEnabled ? !private.itemsMultiColumn : !private.itemsSingleColumn)}
+                    wide padding
+                    content={props.logo}
+                    tailwind="mb-[--spacing]"
+                />
+                <!-- Show MultiColumn -->
+                <Litespeed.Presentation:Spacing
+                    @if={private.itemsMultiColumn}
+                    tailwind="flex flex-col items-start flex-wrap md:flex-row gap-12 justify-between mb-[--spacing]"
+                    wide padding
+                >
+                    {props.logo || ''}
+                    <Neos.Fusion:Loop items={private.itemsMultiColumn}>
+                        <div class="mt-2">
+                            <h3 @if={item.headline} class="text-sm font-bold opacity-80 tracking-wider uppercase mb-4">{item.headline}</h3>
+                            <ul class="space-y-4">
+                                <Litespeed.Presentation:Section.Footer.Fragment.Links items={item.items} />
+                            </ul>
+                            {item.content}
+                        </div>
+                    </Neos.Fusion:Loop>
+                </Litespeed.Presentation:Spacing>
+                <!-- Show SingleColumn width logo -->
+                <Litespeed.Presentation:Spacing
+                    @if={props.logo && private.itemsSingleColumn}
+                    wide padding
+                    tailwind="flex justify-between items-start gap-4 flex-wrap mb-[--spacing]"
+                >
+                    {props.logo}
+                    <ul class="flex justify-start gap-4 flex-wrap mt-4">
+                        <Litespeed.Presentation:Section.Footer.Fragment.Links items={private.itemsSingleColumn} />
+                    </ul>
+                </Litespeed.Presentation:Spacing>
+                <!-- Show SingleColumn without logo -->
+                <Litespeed.Presentation:Spacing
+                    @if={private.itemsSingleColumn && !props.logo}
+                    tagName="ul"
+                    tailwind="flex justify-center gap-4 flex-wrap text-sm mb-[--spacing]"
+                    wide padding
+                >
+                    <Litespeed.Presentation:Section.Footer.Fragment.Links items={private.itemsSingleColumn} />
+                </Litespeed.Presentation:Spacing>
+
+                <Litespeed.Presentation:Spacing
+                    @if={props.newsletterForm}
+                    tailwind="lg:grid lg:grid-cols-5 lg:gap-8 lg:mt-0 lg:items-end"
+                    wide padding
+                >
+                    <div class="lg:col-span-3">
+                        <h3 class="text-sm font-bold tracking-wider uppercase">
+                            {Translation.translate('newsletter.headline' + private.formalModifier + private.pluralModifier, null, [], 'Main', 'Litespeed.Presentation')}
+                        </h3>
+                        <p class="mt-2 text-base opacity-90">
+                            {Translation.translate('newsletter.text' + private.formalModifier, null, [], 'Main', 'Litespeed.Presentation')}
+                        </p>
+                    </div>
+                    <Litespeed.Presentation:Block.SingleInputForm.Newsletter
+                        class="mt-4 mb-0 max-w-md lg:max-w-none lg:mt-0 lg:col-span-2"
+                    />
+                </Litespeed.Presentation:Spacing>
+                <Litespeed.Presentation:Spacing tailwind="md:flex md:items-end md:justify-between" wide padding>
+                    <Litespeed.Presentation:Block.SocialNetworks
+                        {...props}
+                        plural={private.plural}
+                        formal={private.formal}
+                        wrapper={[!props.logo && !private.itemsMultiColumn ? 'justify-center' : null, "flex gap-x-3 text-xl items-center md:order-2"]}
+                        itemClass="flex p-2 text-theme-front opacity-80 transition-opacity hocus:opacity-100"
+                        additionalMarkup={props.additionalSocialMarkup}
+                    />
+                    <Neos.Fusion:Augmenter class="flex flex-wrap gap-4 items-center mt-8 md:mt-0">
+                        <Litespeed.Presentation:Block.Breadcrumb @if={props.enableBreadcrumb}  />
+                        <Litespeed.Presentation:Block.ColorSchemeSwitchter @if={props.colorSchemeSwitchter == 'bottom' || props.colorSchemeSwitchter == 'both'} left={true} bottom={true} />
+                        <p class="text-xs opacity-90 leading-none">
+                            {Translation.translate('copyright', null, {year: Date.format(Date.now(), 'Y'), legalName: Carbon.String.nl2br(props.legalName, ', ')}, 'Main', 'Litespeed.Presentation')}
+                        </p>
+                    </Neos.Fusion:Augmenter>
+                </Litespeed.Presentation:Spacing>
+            </div>
+        </footer>
+        {props.newsletterForm}
+    `
+}

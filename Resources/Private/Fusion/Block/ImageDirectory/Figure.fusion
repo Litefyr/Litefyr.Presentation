@@ -1,0 +1,24 @@
+prototype(Litespeed.Presentation:Block.ImageDirectory.Figure) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        imageUri = ${PropTypes.string}
+        uri = ${PropTypes.string}
+        caption = ${PropTypes.string}
+        copyright = ${PropTypes.string}
+        imageWidth = ${PropTypes.integer}
+    }
+
+    isVideo = ${String.startsWith(this.mediaType, 'video/')}
+    isImage = ${this.imageUri}
+
+    @if.set = ${this.isVideo || this.isImage}
+
+    renderer = afx`
+        <figure class="p-4 flex flex-col gap-2 shadow rounded-box max-w-[calc(var(--imagedirectory-width,200px)+theme(spacing.8))]">
+            <video @if={props.isVideo} src={props.uri} class="w-full flex-1 aspect-1 object-contain" controls />
+            <img @if={props.isImage} src={props.imageUri} alt={props.caption} width={props.imageWidth} class="w-full flex-1 aspect-1 object-contain" />
+            <figcaption @if={props.copyright}>
+                <footer class="block"><small>{props.copyright}</small></footer>
+            </figcaption>
+        </figure>
+    `
+}

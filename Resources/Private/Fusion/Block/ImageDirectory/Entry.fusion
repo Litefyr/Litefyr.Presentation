@@ -1,0 +1,41 @@
+prototype(Litespeed.Presentation:Block.ImageDirectory.Entry) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        nodeUri = ${PropTypes.string}
+        label = ${PropTypes.string}
+        sortBy = ${PropTypes.string}
+    }
+
+    assets = ${[]}
+    documents = ${[]}
+
+    @if.hasSomething = ${Carbon.Array.check(this.assets) || Carbon.Array.check(this.documents)}
+
+    renderer = afx`
+        <hr class="first:hidden border-theme-accent opacity-50 my-8 md:my-10" />
+        <Litespeed.Presentation:Spacing tagName="section" wide padding class="py-8 first:pt-0 last:pb-0" @if={Carbon.Array.check(props.assets)}>
+            <h2 class="text-lg">
+                <a href={props.nodeUri} @if={props.nodeUri} class="hocus:underline">
+                    {props.label}
+                </a>
+                {props.nodeUri ? "" : props.label}
+            </h2>
+            <div class="flex flex-wrap gap-4 mt-4 empty:hidden">
+                <Neos.Fusion:Loop items={props.assets}>
+                    <Litespeed.Presentation:Block.ImageDirectory.Figure {...item} />
+                </Neos.Fusion:Loop>
+                {props.content}
+            </div>
+        </Litespeed.Presentation:Spacing>
+        <Litespeed.Presentation:Spacing tagName="section" wide padding class="py-8 first:pt-0 last:pb-0 sm:flex sm:gap-4" @if={Carbon.Array.check(props.documents)}>
+            <Litespeed.Presentation:Block.ImageDirectory.Figure {...props} />
+            <ul class="empty:hidden">
+                <Neos.Fusion:Loop items={props.documents}>
+                    <li class="mt-4">
+                        <a href={item.nodeUri} @if={item.nodeUri} class="hocus:underline">{item.title}</a>
+                        {item.nodeUri ? "" : item.title}
+                    </li>
+                </Neos.Fusion:Loop>
+            </ul>
+        </Litespeed.Presentation:Spacing>
+    `
+}

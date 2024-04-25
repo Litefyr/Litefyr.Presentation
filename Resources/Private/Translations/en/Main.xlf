@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Litespeed.Presentation" source-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="noPagesWithImagesFound" xml:space="preserve">
+                <source>No pages with images were found.</source>
+            </trans-unit>
+            <trans-unit id="readMore" xml:space="preserve">
+                <source>read more</source>
+            </trans-unit>
+            <trans-unit id="back" xml:space="preserve">
+                <source>Back</source>
+            </trans-unit>
+            <trans-unit id="scrollDown" xml:space="preserve">
+                <source>scroll down</source>
+            </trans-unit>
+            <trans-unit id="page.share" xml:space="preserve">
+                <source>share this page</source>
+            </trans-unit>
+            <trans-unit id="page.goToHome" xml:space="preserve">
+                <source>Go to homepage</source>
+            </trans-unit>
+            <trans-unit id="print" xml:space="preserve">
+                <source>Print</source>
+            </trans-unit>
+            <trans-unit id="copyLink" xml:space="preserve">
+                <source>Copy Link</source>
+            </trans-unit>
+            <trans-unit id="share" xml:space="preserve">
+                <source>Share</source>
+            </trans-unit>
+            <trans-unit id="page.next" xml:space="preserve">
+                <source>Next Page</source>
+            </trans-unit>
+            <trans-unit id="page.prev" xml:space="preserve">
+                <source>Previous Page</source>
+            </trans-unit>
+            <trans-unit id="colorSchemeSwitchter.light" xml:space="preserve">
+                <source>Light Mode</source>
+            </trans-unit>
+            <trans-unit id="colorSchemeSwitchter.dark" xml:space="preserve">
+                <source>Dark Mode</source>
+            </trans-unit>
+            <trans-unit id="colorSchemeSwitchter.system" xml:space="preserve">
+                <source>System Mode</source>
+            </trans-unit>
+            <trans-unit id="chooseCategory.formal" xml:space="preserve">
+                <source>Choose a category</source>
+            </trans-unit>
+            <trans-unit id="chooseCategory.informal" xml:space="preserve">
+                <source>Choose a category</source>
+            </trans-unit>
+            <trans-unit id="legal.registerNumber" xml:space="preserve">
+                <source>Commercial Register Number</source>
+            </trans-unit>
+            <trans-unit id="legal.registerCourt" xml:space="preserve">
+                <source>Commercial Register Court</source>
+            </trans-unit>
+            <trans-unit id="legal.taxIdentificationNumber" xml:space="preserve">
+                <source>Tax Identification Number</source>
+            </trans-unit>
+            <trans-unit id="social.phone" xml:space="preserve">
+                <source>Phone</source>
+            </trans-unit>
+            <trans-unit id="social.mobile" xml:space="preserve">
+                <source>Mobile</source>
+            </trans-unit>
+            <trans-unit id="social.website" xml:space="preserve">
+                <source>Website</source>
+            </trans-unit>
+            <trans-unit id="social.email" xml:space="preserve">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="social.twitter" xml:space="preserve">
+                <source>X</source>
+            </trans-unit>
+            <trans-unit id="social.linkedin" xml:space="preserve">
+                <source>LinkedIn</source>
+            </trans-unit>
+            <trans-unit id="social.facebook" xml:space="preserve">
+                <source>Facebook</source>
+            </trans-unit>
+            <trans-unit id="social.instagram" xml:space="preserve">
+                <source>Instagram</source>
+            </trans-unit>
+            <trans-unit id="social.github" xml:space="preserve">
+                <source>GitHub</source>
+            </trans-unit>
+            <trans-unit id="social.mastodon" xml:space="preserve">
+                <source>Mastodon</source>
+            </trans-unit>
+            <trans-unit id="social.youtube" xml:space="preserve">
+                <source>YouTube</source>
+            </trans-unit>
+            <trans-unit id="social.vimeo" xml:space="preserve">
+                <source>Vimeo</source>
+            </trans-unit>
+            <trans-unit id="social.appleMusic" xml:space="preserve">
+                <source>Apple Music</source>
+            </trans-unit>
+            <trans-unit id="social.spotify" xml:space="preserve">
+                <source>Spotify</source>
+            </trans-unit>
+            <trans-unit id="social.soundcloud" xml:space="preserve">
+                <source>SoundCloud</source>
+            </trans-unit>
+            <trans-unit id="social.twitch" xml:space="preserve">
+                <source>Twitch</source>
+            </trans-unit>
+            <trans-unit id="social.tiktok" xml:space="preserve">
+                <source>TikTok</source>
+            </trans-unit>
+            <trans-unit id="social.snapchat" xml:space="preserve">
+                <source>Snapchat</source>
+            </trans-unit>
+            <trans-unit id="social.whatsapp" xml:space="preserve">
+                <source>WhatsApp</source>
+            </trans-unit>
+            <trans-unit id="social.telegram" xml:space="preserve">
+                <source>Telegram</source>
+            </trans-unit>
+            <trans-unit id="social.xing" xml:space="preserve">
+                <source>Xing</source>
+            </trans-unit>
+            <trans-unit id="social.discord" xml:space="preserve">
+                <source>Discord</source>
+            </trans-unit>
+            <trans-unit id="social.slack" xml:space="preserve">
+                <source>Slack</source>
+            </trans-unit>
+            <trans-unit id="social.mattermost" xml:space="preserve">
+                <source>Mattermost</source>
+            </trans-unit>
+            <trans-unit id="social.matrix" xml:space="preserve">
+                <source>Matrix</source>
+            </trans-unit>
+            <trans-unit id="social.element" xml:space="preserve">
+                <source>Element</source>
+            </trans-unit>
+            <trans-unit id="social.visit.formal.group" xml:space="preserve">
+                <source>Visit us on {0}</source>
+            </trans-unit>
+            <trans-unit id="social.visit.informal.group" xml:space="preserve">
+                <source>Visit us on {0}</source>
+            </trans-unit>
+            <trans-unit id="call.formal.group" xml:space="preserve">
+                <source>Call us</source>
+            </trans-unit>
+            <trans-unit id="call.informal.group" xml:space="preserve">
+                <source>Call us</source>
+            </trans-unit>
+            <trans-unit id="call.formal.single" xml:space="preserve">
+                <source>Call me</source>
+            </trans-unit>
+            <trans-unit id="call.informal.group" xml:space="preserve">
+                <source>Call me</source>
+            </trans-unit>
+            <trans-unit id="callWithNumber.formal.group" xml:space="preserve">
+                <source>Call us: {0}</source>
+            </trans-unit>
+            <trans-unit id="callWithNumber.informal.group" xml:space="preserve">
+                <source>Call us: {0}</source>
+            </trans-unit>
+            <trans-unit id="callWithNumber.formal.single" xml:space="preserve">
+                <source>Call me: {0}</source>
+            </trans-unit>
+            <trans-unit id="callWithNumber.informal.single" xml:space="preserve">
+                <source>Call me: {0}</source>
+            </trans-unit>
+            <trans-unit id="visitWebsite.formal.single" xml:space="preserve">
+                <source>Visit me on {0}</source>
+            </trans-unit>
+            <trans-unit id="visitWebsite.informal.single" xml:space="preserve">
+                <source>Visit me on {0}</source>
+            </trans-unit>
+            <trans-unit id="visitWebsite.formal.group" xml:space="preserve">
+                <source>Visit us on {0}</source>
+            </trans-unit>
+            <trans-unit id="visitWebsite.informal.group" xml:space="preserve">
+                <source>Visit us on {0}</source>
+            </trans-unit>
+            <trans-unit id="writeAnEmail.formal.single" xml:space="preserve">
+                <source>Write me an email</source>
+            </trans-unit>
+            <trans-unit id="writeAnEmail.informal.single" xml:space="preserve">
+                <source>Write me an email</source>
+            </trans-unit>
+            <trans-unit id="social.visit.formal.single" xml:space="preserve">
+                <source>Visit me on {0}</source>
+            </trans-unit>
+            <trans-unit id="social.visit.informal.single" xml:space="preserve">
+                <source>Visit me on {0}</source>
+            </trans-unit>
+            <trans-unit id="social.write.formal.single" xml:space="preserve">
+                <source>Write me via {0}</source>
+            </trans-unit>
+            <trans-unit id="social.write.informal.single" xml:space="preserve">
+                <source>Write me via {0}</source>
+            </trans-unit>
+            <trans-unit id="social.write.formal.group" xml:space="preserve">
+                <source>Write us via {0}</source>
+            </trans-unit>
+            <trans-unit id="social.write.informal.group" xml:space="preserve">
+                <source>Write us via {0}</source>
+            </trans-unit>
+            <trans-unit id="writeAnEmail.formal.group" xml:space="preserve">
+                <source>Write us an email</source>
+            </trans-unit>
+            <trans-unit id="writeAnEmail.informal.group" xml:space="preserve">
+                <source>Write us an email</source>
+            </trans-unit>
+            <trans-unit id="copyright" xml:space="preserve">
+                <source><![CDATA[&copy; {year} {legalName}, All rights reserved.]]></source>
+            </trans-unit>
+            <trans-unit id="navigation.home" xml:space="preserve">
+                <source>Home</source>
+            </trans-unit>
+            <trans-unit id="footer.heading" xml:space="preserve">
+                <source>Footer</source>
+            </trans-unit>
+            <trans-unit id="navigation.open" xml:space="preserve">
+                <source>Open menu</source>
+            </trans-unit>
+            <trans-unit id="navigation.close" xml:space="preserve">
+                <source>Close Menu</source>
+            </trans-unit>
+            <trans-unit id="close" xml:space="preserve">
+                <source>Close</source>
+            </trans-unit>
+            <trans-unit id="more" xml:space="preserve">
+                <source>Learn more</source>
+            </trans-unit>
+            <trans-unit id="time.text" xml:space="preserve">
+                <source>{0} min to read</source>
+            </trans-unit>
+            <trans-unit id="time.audio" xml:space="preserve">
+                <source>{0} min to listen</source>
+            </trans-unit>
+            <trans-unit id="time.video" xml:space="preserve">
+                <source>{0} min to watch</source>
+            </trans-unit>
+            <trans-unit id="imageFromPerson" xml:space="preserve">
+                <source>Image from {0}</source>
+            </trans-unit>
+            <trans-unit id="imageFromAddress" xml:space="preserve">
+                <source>Image from {0}</source>
+            </trans-unit>
+            <trans-unit id="downloadVCard" xml:space="preserve">
+                <source>Download vCard</source>
+            </trans-unit>
+            <trans-unit id="newsletter.headline.formal.group" xml:space="preserve">
+                <source>Subscribe to our Newsletter</source>
+            </trans-unit>
+            <trans-unit id="newsletter.headline.formal.single" xml:space="preserve">
+                <source>Subscribe to my Newsletter</source>
+            </trans-unit>
+            <trans-unit id="newsletter.headline.informal.group" xml:space="preserve">
+                <source>Subscribe to our Newsletter</source>
+            </trans-unit>
+            <trans-unit id="newsletter.headline.informal.single" xml:space="preserve">
+                <source>Subscribe to my Newsletter</source>
+            </trans-unit>
+            <trans-unit id="newsletter.text.formal" xml:space="preserve">
+                <source>The latest news and articles regularly in your inbox.</source>
+            </trans-unit>
+            <trans-unit id="newsletter.text.informal" xml:space="preserve">
+                <source>The latest news and articles regularly in your inbox.</source>
+            </trans-unit>
+            <trans-unit id="newsletter.email" xml:space="preserve">
+                <source>Email address</source>
+            </trans-unit>
+            <trans-unit id="newsletter.submit" xml:space="preserve">
+                <source>Sign Up</source>
+            </trans-unit>
+            <trans-unit id="spacingWithPixel" xml:space="preserve">
+                <source>{0} pixel spacing</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

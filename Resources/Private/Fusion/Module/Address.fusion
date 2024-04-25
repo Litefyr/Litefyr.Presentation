@@ -1,0 +1,203 @@
+prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        textBesideAddress = ${PropTypes.string}
+        addressName = ${PropTypes.string}
+        phone = ${PropTypes.string}
+        email = ${PropTypes.string}
+        street = ${PropTypes.string}
+        postCode = ${PropTypes.anyOf( PropTypes.string, PropTypes.integer )}
+        city = ${PropTypes.string}
+        country = ${PropTypes.string}
+        registerNumber = ${PropTypes.string}
+        registerCourt = ${PropTypes.string}
+        taxIdentificationNumber = ${PropTypes.string}
+        legalItems = PropTypes:Array {
+            type = PropTypes:DataStructure {
+                key = ${PropTypes.string}
+                value = ${PropTypes.string}
+            }
+        }
+        formal = ${PropTypes.boolean}
+        plural = ${PropTypes.boolean}
+        map = ${PropTypes.string}
+        form = ${PropTypes.string}
+        themeSecond = ${PropTypes.string}
+    }
+
+    formal = true
+    plural = true
+
+    iconBesideAddress = false
+    socialSettings = Neos.Fusion:DataStructure {
+        iconClass = 'size-[1em]'
+        itemClass = 'flex items-center gap-2 text-theme-front/70 is-interaction:hocus:text-theme-front group/underline'
+
+        // Only gets applied to phone, mobile, email and website
+        description = false
+        itemDescriptionClass = 'mb-4 gap-x-4 theme:gap-x-8 theme:mb-8 theme:svg:is-a:transition theme:is-interaction:svg:hocus:scale-125'
+        iconDescriptionWrapper = 'bg-theme-back flex items-center justify-center theme:size-[3em] theme:rounded-full'
+        iconWrapperTheme = 'nested'
+    }
+
+    @private {
+        country = ${props.country ? Translation.translate(props.country, String.toUpperCase(props.country), [], 'Countries', 'Carbon.GeoMap') : null}
+        renderAddress = ${props.addressName || props.street || props.postCode || props.city || props.country}
+
+        iconBesideAddress = afx`
+            <Neos.Fusion:Augmenter @if={props.iconBesideAddress} class="self-start mt-2">
+                <Litespeed.Presentation:Block.SocialNetworks.Fragment.Icon
+                    enableWrapper={props.socialSettings.description}
+                    styleAndIcon={Type.isString(props.iconBesideAddress) ? props.iconBesideAddress : Configuration.setting('Litespeed.Presentation.icons.location')}
+                    class={props.socialSettings.iconClass}
+                    wrapperClass={props.socialSettings.iconDescriptionWrapper}
+                    wrapperTheme={props.socialSettings.iconWrapperTheme}
+                />
+            </Neos.Fusion:Augmenter>
+        `
+        phoneAndMail = afx`
+            <Litespeed.Presentation:Block.SocialNetworks
+                wrapper="flex flex-col items-start gap-2 mb-2 mt-4 not-prose"
+                additionalLinks={['phone', 'mobile', 'email']}
+                iconAnimationClass={null}
+                {...props}
+                {...props.socialSettings}
+                socialNetworks={null}
+                text={true}
+                tooltip={false}
+            />
+        `
+        legal = Litespeed.Presentation:Helper.JoinItems {
+            tagName = 'table'
+            class = 'mt-4 mb-2 w-auto mr-auto'
+            items = Neos.Fusion:Map {
+                items = ${['registerNumber', 'registerCourt', 'taxIdentificationNumber']}
+                keyRenderer = ${Translation.translate('legal.' + item, null, [], null, 'Litespeed.Presentation')}
+                itemRenderer = ${props[item]}
+                @process.addDynamicItems = Neos.Fusion:Value {
+                    @if.hasItems = ${Carbon.Array.check(props.legalItems)}
+                    items = Neos.Fusion:Map {
+                        items = ${props.legalItems}
+                        keyRenderer = ${item.key}
+                        itemRenderer = ${item.value}
+                    }
+                    value = ${Array.concat(value, this.items)}
+                }
+            }
+        }
+        socialNetworks = afx`
+            <Litespeed.Presentation:Block.SocialNetworks
+                wrapper="inline-flex flex-wrap gap-4 mb-2 mt-4 items-baseline not-prose"
+                additionalLinks={null}
+                {...props}
+                {...props.socialSettings}
+                iconClass="size-[1.5em]"
+                text={false}
+            />
+        `
+    }
+
+    renderer = Neos.Fusion:Component {
+        @if.set = ${Array.some(props, property => !!property)}
+        @apply.props = ${props}
+        private = ${private}
+
+        _content = afx`
+            <Carbon.Eel:Tag
+                tagName={props.textBesideAddress ? "div" : null}
+                attributes.class="@container flex flex-wrap gap-x-12 gap-y-4 justify-between justify-between items-start *:flex-1"
+            >
+                <Carbon.Eel:Tag tagName={props.textBesideAddress && private.renderAddress && private.phoneAndMail && "div"}>
+
+                    <!-- Address with icon -->
+                    <Carbon.Eel:Tag
+                        tagName={private.renderAddress && private.iconBesideAddress && "div"}
+                        attributes.class={Tailwind.merge(props.socialSettings.itemClass, props.socialSettings.description ? props.socialSettings.itemDescriptionClass : null)}
+                    >
+                        {private.renderAddress ? private.iconBesideAddress : ''}
+                        <address class="not-italic block" @if={private.renderAddress}>
+                            <strong @if.set={props.addressName} class="block font-bold">
+                                {Carbon.String.nl2br(props.addressName)}
+                            </strong>
+                            <Litespeed.Presentation:Helper.JoinItems
+                                class="block mb-2"
+                                items={[props.street, Carbon.String.classNames(props.postCode, props.city), private.country]}
+                            />
+                        </address>
+                    </Carbon.Eel:Tag>
+
+                    {private.phoneAndMail}
+
+                </Carbon.Eel:Tag>
+
+                <div @if={props.textBesideAddress} class="prose min-w-none">
+                    {props.textBesideAddress}
+                </div>
+
+            </Carbon.Eel:Tag>
+            {private.legal}
+            {private.socialNetworks}
+        `
+
+        _mapContentClass = 'relative w-full xl:h-full xl:*:!aspect-auto xl:*:!absolute xl:*:inset-0'
+
+         renderer = Neos.Fusion:Case {
+            withMap {
+                condition = ${props.map}
+                renderer = afx`
+                    <Litespeed.Presentation:Module.TextWithContent
+                        breakpoint="xl"
+                        align={props.screenHeight ? "center" : "start"}
+                        {...props}
+                        contentClass="relative w-full xl:h-full xl:*:!aspect-auto xl:*:!absolute xl:*:inset-0"
+                        textClass="[&_form]:mt-8 first:[&_form]:mt-0"
+                        breakout="full"
+                        aside={props._content}
+                        asideOnEnd={props.form}
+                        singleContent={props.map}
+                    />
+                `
+            }
+            withForm {
+                condition = ${props.form}
+                renderer = afx`
+                    <Litespeed.Presentation:Module.TextWithContent
+                        breakpoint="xl"
+                        align={props.screenHeight ? "center" : "start"}
+                        {...props}
+                        contentClass={Tailwind.merge('xl:mt-8')}
+                        breakout="full"
+                        aside={props._content}
+                    >
+                        <Litespeed.Presentation:Spacing augmenter content={props.form} />
+                    </Litespeed.Presentation:Module.TextWithContent>
+                `
+            }
+            default {
+                condition = ${props.private.renderAddress || props.private.phoneAndMail || props.private.legal || props.private.socialNetworks}
+                renderer = afx`
+                    <Litespeed.Presentation:Spacing
+                        tailwind="has-prose prose"
+                        padding
+                        waveSpacing
+                        content={props._content}
+                    />
+                `
+            }
+        }
+    }
+
+    @styleguide {
+        props {
+            addressName = 'Company Name'
+            phone = '+12 345 678 90'
+            email = 'mail@domain.tld'
+            street = 'Street 123'
+            postCode = '1234'
+            city = 'City'
+            country = 'Country'
+            registerNumber = '007'
+            registerCourt = '008'
+            taxIdentificationNumber = '007.008'
+        }
+    }
+}

@@ -1,0 +1,25 @@
+prototype(Litespeed.Presentation:Atom.Counter) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        content = ${PropTypes.anyOf(PropTypes.integer, PropTypes.string)}
+        duration = ${PropTypes.integer}
+        xData = ${PropTypes.boolean}
+    }
+
+    @styleguide.props.content = 53213
+
+    xData = false
+
+    @if.hasContent = ${String.length(this.content)}
+
+    renderer = Neos.Fusion:Case {
+        isNotNumber {
+            condition = ${!Type.isInteger(props.content)}
+            renderer = ${props.content}
+        }
+        isNumber = Neos.Fusion:Join {
+            openTag = ${'<span' + (props.xData ? ' x-data' : '') + ' x-counter' + (props.duration ? '.duration.' + props.duration + 'ms' : '') + '="' + props.content + '">'}
+            content = ${Carbon.Number.format(props.content, null, '.' , "'")}
+            closeTag = '</span>'
+        }
+    }
+}

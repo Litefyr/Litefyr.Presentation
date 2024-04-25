@@ -1,0 +1,107 @@
+prototype(Litespeed.Presentation:Atom.Logo) < prototype(Neos.Fusion:Component) {
+    image = null
+    markup = null
+    size = null
+    height = null
+    width = null
+    alternativeText = 'Logo'
+    name = null
+    class = null
+    customOutput = null
+    markupRenderer = null
+    setStyle = false
+
+    thumbnail = ${this.image ? Neos.Seo.Image.createThumbnail(this.image, null, this.width, null, this.height, null, false, true) : null}
+
+    preview = false
+    additionalLinkClass = null
+    linkAttributes = Neos.Fusion:DataStructure {
+        aria-label = ${Translation.translate('page.goToHome', null, [], 'Main', 'Litespeed.Presentation')}
+        class = '-print-hidelink flex leading-tight items-center *:fill-current *:w-auto *:h-logo *:max-h-logo *:transition-all hocus:text-theme-front transition duration-200 hocus:scale-110'
+    }
+
+    @private {
+        image = Neos.Fusion:Tag {
+            @if.hasAsset = ${props.thumbnail}
+            tagName = 'img'
+            attributes {
+                src = Neos.Fusion:ResourceUri {
+                    resource = ${props.thumbnail.resource}
+                }
+                width = ${Math.round(props.thumbnail.width / 2)}
+                height = ${props.thumbnail.height / 2}
+                alt = ${props.alternativeText}
+            }
+        }
+        class = Neos.Fusion:Case {
+            hasHeight {
+                condition = ${props.height}
+                renderer = ${[BEM.modifier('-logo', 'height'), Tailwind.merge(props.class)]}
+            }
+            default {
+                condition = true
+                renderer = ${[BEM.modifier('-logo', 'content'), Tailwind.merge(props.class)]}
+            }
+        }
+        markup = ${props.markup ? String.replace(props.markup, '{image}', private.image) : false}
+        screenReaderName = afx`<span @if={props.name} class="!sr-only">{props.name}</span>`
+        linkTagName = ${props.linkAttributes && props.linkAttributes.href ? 'a' : null}
+        sizeValue = ${Carbon.Number.pxToRem(props.height ? props.height : props.size)}
+        defaultStyle = ${props.setStyle ? ('--logo-size:' + private.sizeValue) : null}
+        style = ${private.linkTagName ? null : private.defaultStyle}
+        content = Neos.Fusion:Case {
+            customOutput {
+                condition = ${props.content}
+                renderer = ${props.content}
+            }
+            hasMarkupAndRenderer {
+                condition = ${props.markup && props.markupRenderer}
+                renderer = afx`
+                    <Neos.Fusion:Augmenter class={private.class} style={private.style}>
+                        <Neos.Fusion:Renderer
+                            type={props.markupRenderer}
+                            element.content={private.markup}
+                        />
+                    </Neos.Fusion:Augmenter>
+                    {private.screenReaderName}
+                `
+            }
+            hasMarkup {
+                condition = ${props.markup}
+                renderer = afx`
+                    <Neos.Fusion:Augmenter class={private.class} style={private.style} content={private.markup} />
+                    {private.screenReaderName}
+                `
+            }
+            hasImage {
+                condition = ${private.image}
+                renderer = afx`
+                    <Neos.Fusion:Augmenter class={private.class} style={private.style} content={private.image} />
+                    {private.screenReaderName}
+                `
+            }
+            fallback {
+                condition = ${props.name}
+                renderer = afx`<span class={props.class}>{props.name}</span>`
+            }
+            noLogo {
+                condition = true
+                renderer = ''
+            }
+        }
+    }
+
+    renderer = Carbon.Eel:Tag {
+        @if.hasContentOrPreview = ${private.content || props.preview}
+        tagName = ${private.linkTagName}
+        attributes = afx`
+            <Neos.Fusion:DataStructure
+                style={private.defaultStyle}
+                id={props.preview ? "carbon-codepen-preview" : null}
+                {...props.linkAttributes}
+                class={['text-theme-front text-logosmall sm:text-logo', Tailwind.merge(props.linkAttributes.class, props.additionalLinkClass)]}
+            />
+        `
+        content = ${private.content}
+    }
+}

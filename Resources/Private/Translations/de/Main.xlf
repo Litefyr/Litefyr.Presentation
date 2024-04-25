@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Litespeed.Presentation" source-language="en" target-language="de" datatype="plaintext">
+        <body>
+            <trans-unit id="noPagesWithImagesFound" xml:space="preserve">
+                <source>No pages with images were found.</source>
+                <target>Es wurden keine Seiten mit Bildern gefunden.</target>
+            </trans-unit>
+            <trans-unit id="readMore" xml:space="preserve">
+                <source>read more</source>
+                <target>weiterlesen</target>
+            </trans-unit>
+            <trans-unit id="back" xml:space="preserve">
+                <source>Back</source>
+                <target>Zurück</target>
+            </trans-unit>
+            <trans-unit id="scrollDown" xml:space="preserve">
+                <source>scroll down</source>
+                <target>Runterscrollen</target>
+            </trans-unit>
+            <trans-unit id="page.share" xml:space="preserve">
+                <source>share this page</source>
+                <target>Dieses Seite teilen</target>
+            </trans-unit>
+            <trans-unit id="page.goToHome" xml:space="preserve">
+                <source>Go to homepage</source>
+                <target>Gehe zur Startseite</target>
+            </trans-unit>
+            <trans-unit id="print" xml:space="preserve">
+                <source>Print</source>
+                <target>Drucken</target>
+            </trans-unit>
+            <trans-unit id="copyLink" xml:space="preserve">
+                <source>Copy Link</source>
+                <target>Link kopieren</target>
+            </trans-unit>
+            <trans-unit id="share" xml:space="preserve">
+                <source>Share</source>
+                <target>Teilen</target>
+            </trans-unit>
+            <trans-unit id="page.next" xml:space="preserve">
+                <source>Next Page</source>
+                <target>Nächste Seite</target>
+            </trans-unit>
+            <trans-unit id="page.prev" xml:space="preserve">
+                <source>Previous Page</source>
+                <target>Vorherige Seite</target>
+            </trans-unit>
+            <trans-unit id="colorSchemeSwitchter.light" xml:space="preserve">
+                <source>Light Mode</source>
+                <target>Helle Darstellung</target>
+            </trans-unit>
+            <trans-unit id="colorSchemeSwitchter.dark" xml:space="preserve">
+                <source>Dark Mode</source>
+                <target>Dunkle Darstellung</target>
+            </trans-unit>
+            <trans-unit id="colorSchemeSwitchter.system" xml:space="preserve">
+                <source>System Mode</source>
+                <target>System Darstellung</target>
+            </trans-unit>
+            <trans-unit id="chooseCategory.formal" xml:space="preserve">
+                <source>Choose a category</source>
+                <target>Wählen Sie eine Kategorie</target>
+            </trans-unit>
+            <trans-unit id="chooseCategory.informal" xml:space="preserve">
+                <source>Choose a category</source>
+                <target>Wähle eine Kategorie</target>
+            </trans-unit>
+            <trans-unit id="legal.registerNumber" xml:space="preserve">
+                <source>Commercial Register Number</source>
+                <target>Firmenbuchnummer</target>
+            </trans-unit>
+            <trans-unit id="legal.registerCourt" xml:space="preserve">
+                <source>Commercial Register Court</source>
+                <target>Firmenbuchgericht</target>
+            </trans-unit>
+            <trans-unit id="legal.taxIdentificationNumber" xml:space="preserve">
+                <source>Tax Identification Number</source>
+                <target>UID Nr.</target>
+            </trans-unit>
+            <trans-unit id="social.phone" xml:space="preserve">
+                <source>Phone</source>
+                <target>Telefon</target>
+            </trans-unit>
+            <trans-unit id="social.mobile" xml:space="preserve">
+                <source>Mobile</source>
+                <target>Mobil</target>
+            </trans-unit>
+            <trans-unit id="social.website" xml:space="preserve">
+                <source>Website</source>
+                <target>Webseite</target>
+            </trans-unit>
+            <trans-unit id="social.email" xml:space="preserve">
+                <source>Email</source>
+                <target>E-Mail</target>
+            </trans-unit>
+            <trans-unit id="social.twitter" xml:space="preserve">
+                <source>X</source>
+                <target>X</target>
+            </trans-unit>
+            <trans-unit id="social.linkedin" xml:space="preserve">
+                <target>LinkedIn</target>
+                <source>LinkedIn</source>
+            </trans-unit>
+            <trans-unit id="social.facebook" xml:space="preserve">
+                <source>Facebook</source>
+                <target>Facebook</target>
+            </trans-unit>
+            <trans-unit id="social.instagram" xml:space="preserve">
+                <target>Instagram</target>
+                <source>Instagram</source>
+            </trans-unit>
+            <trans-unit id="social.github" xml:space="preserve">
+                <target>GitHub</target>
+                <source>GitHub</source>
+            </trans-unit>
+            <trans-unit id="social.mastodon" xml:space="preserve">
+                <source>Mastodon</source>
+                <target>Mastodon</target>
+            </trans-unit>
+            <trans-unit id="social.youtube" xml:space="preserve">
+                <source>YouTube</source>
+                <target>YouTube</target>
+            </trans-unit>
+            <trans-unit id="social.vimeo" xml:space="preserve">
+                <source>Vimeo</source>
+                <target>Vimeo</target>
+            </trans-unit>
+            <trans-unit id="social.appleMusic" xml:space="preserve">
+                <source>Apple Music</source>
+                <target>Apple Music</target>
+            </trans-unit>
+            <trans-unit id="social.spotify" xml:space="preserve">
+                <source>Spotify</source>
+                <target>Spotify</target>
+            </trans-unit>
+            <trans-unit id="social.soundcloud" xml:space="preserve">
+                <source>SoundCloud</source>
+                <target>SoundCloud</target>
+            </trans-unit>
+            <trans-unit id="social.twitch" xml:space="preserve">
+                <source>Twitch</source>
+                <target>Twitch</target>
+            </trans-unit>
+            <trans-unit id="social.tiktok" xml:space="preserve">
+                <source>TikTok</source>
+                <target>TikTok</target>
+            </trans-unit>
+            <trans-unit id="social.snapchat" xml:space="preserve">
+                <source>Snapchat</source>
+                <target>Snapchat</target>
+            </trans-unit>
+            <trans-unit id="social.whatsapp" xml:space="preserve">
+                <source>WhatsApp</source>
+                <target>WhatsApp</target>
+            </trans-unit>
+            <trans-unit id="social.telegram" xml:space="preserve">
+                <source>Telegram</source>
+                <target>Telegram</target>
+            </trans-unit>
+            <trans-unit id="social.xing" xml:space="preserve">
+                <source>Xing</source>
+                <target>Xing</target>
+            </trans-unit>
+            <trans-unit id="social.discord" xml:space="preserve">
+                <source>Discord</source>
+                <target>Discord</target>
+            </trans-unit>
+            <trans-unit id="social.slack" xml:space="preserve">
+                <source>Slack</source>
+                <target>Slack</target>
+            </trans-unit>
+            <trans-unit id="social.mattermost" xml:space="preserve">
+                <source>Mattermost</source>
+                <target>Mattermost</target>
+            </trans-unit>
+            <trans-unit id="social.matrix" xml:space="preserve">
+                <source>Matrix</source>
+                <target>Matrix</target>
+            </trans-unit>
+            <trans-unit id="social.element" xml:space="preserve">
+                <source>Element</source>
+                <target>Element</target>
+            </trans-unit>
+            <trans-unit id="social.visit.formal.group" xml:space="preserve">
+                <source>Visit us on {0}</source>
+                <target>Besuchen Sie uns auf {0}</target>
+            </trans-unit>
+            <trans-unit id="social.visit.informal.group" xml:space="preserve">
+                <source>Visit us on {0}</source>
+                <target>Besuche uns auf {0}</target>
+            </trans-unit>
+            <trans-unit id="call.formal.group" xml:space="preserve">
+                <source>Call us</source>
+                <target>Rufen Sie uns an</target>
+            </trans-unit>
+            <trans-unit id="call.informal.group" xml:space="preserve">
+                <source>Call us</source>
+                <target>Rufe uns an</target>
+            </trans-unit>
+            <trans-unit id="call.formal.single" xml:space="preserve">
+                <source>Call me</source>
+                <target>Rufen Sie mich an</target>
+            </trans-unit>
+            <trans-unit id="call.informal.group" xml:space="preserve">
+                <source>Call me</source>
+                <target>Rufe mich an</target>
+            </trans-unit>
+            <trans-unit id="callWithNumber.formal.group" xml:space="preserve">
+                <source>Call us: {0}</source>
+                <target>Rufen Sie uns an: {0}</target>
+            </trans-unit>
+            <trans-unit id="callWithNumber.informal.group" xml:space="preserve">
+                <source>Call us: {0}</source>
+                <target>Rufe uns an: {0}</target>
+            </trans-unit>
+            <trans-unit id="callWithNumber.formal.single" xml:space="preserve">
+                <source>Call me: {0}</source>
+                <target>Rufen Sie mich an: {0}</target>
+            </trans-unit>
+            <trans-unit id="callWithNumber.informal.single" xml:space="preserve">
+                <source>Call me: {0}</source>
+                <target>Rufe mich an: {0}</target>
+            </trans-unit>
+            <trans-unit id="visitWebsite.formal.single" xml:space="preserve">
+                <source>Visit me on {0}</source>
+                <target>Besuchen Sie mich auf {0}</target>
+            </trans-unit>
+            <trans-unit id="visitWebsite.informal.single" xml:space="preserve">
+                <source>Visit me on {0}</source>
+                <target>Besuche mich auf {0}</target>
+            </trans-unit>
+            <trans-unit id="visitWebsite.formal.group" xml:space="preserve">
+                <source>Visit us on {0}</source>
+                <target>Besuchen Sie uns auf {0}</target>
+            </trans-unit>
+            <trans-unit id="visitWebsite.informal.group" xml:space="preserve">
+                <source>Visit us on {0}</source>
+                <target>Besuche uns auf {0}</target>
+            </trans-unit>
+            <trans-unit id="writeAnEmail.formal.single" xml:space="preserve">
+                <source>Write me an email</source>
+                <target>Schreiben Sie mir eine E-Mail</target>
+            </trans-unit>
+            <trans-unit id="writeAnEmail.informal.single" xml:space="preserve">
+                <source>Write me an email</source>
+                <target>Schreibe mir eine E-Mail</target>
+            </trans-unit>
+            <trans-unit id="social.visit.formal.single" xml:space="preserve">
+                <source>Visit me on {0}</source>
+                <target>Besuchen Sie mich auf {0}</target>
+            </trans-unit>
+            <trans-unit id="social.visit.informal.single" xml:space="preserve">
+                <source>Visit me on {0}</source>
+                <target>Besuche mich auf {0}</target>
+            </trans-unit>
+            <trans-unit id="social.write.formal.single" xml:space="preserve">
+                <source>Write me via {0}</source>
+                <target>Schreiben Sie mir via {0}</target>
+            </trans-unit>
+            <trans-unit id="social.write.informal.single" xml:space="preserve">
+                <source>Write me via {0}</source>
+                <target>Schreibe mir via {0}</target>
+            </trans-unit>
+            <trans-unit id="social.write.formal.group" xml:space="preserve">
+                <source>Write us via {0}</source>
+                <target>Schreiben Sie uns via {0}</target>
+            </trans-unit>
+            <trans-unit id="social.write.informal.group" xml:space="preserve">
+                <source>Write us via {0}</source>
+                <target>Schreibe uns via {0}</target>
+            </trans-unit>
+            <trans-unit id="writeAnEmail.formal.group" xml:space="preserve">
+                <source>Write us an email</source>
+                <target>Schreiben Sie uns eine E-Mail</target>
+            </trans-unit>
+            <trans-unit id="writeAnEmail.informal.group" xml:space="preserve">
+                <source>Write us an email</source>
+                <target>Schreibe uns eine E-Mail</target>
+            </trans-unit>
+            <trans-unit id="copyright" xml:space="preserve">
+                <source><![CDATA[&copy; {year} {legalName}, All rights reserved.]]></source>
+                <target><![CDATA[&copy; {year} {legalName}, Alle Rechte vorbehalten.]]></target>
+            </trans-unit>
+            <trans-unit id="navigation.home" xml:space="preserve">
+                <source>Home</source>
+                <target>Startseite</target>
+            </trans-unit>
+            <trans-unit id="footer.heading" xml:space="preserve">
+                <source>Footer</source>
+                <target>Fusszeile</target>
+            </trans-unit>
+            <trans-unit id="navigation.open" xml:space="preserve">
+                <source>Open menu</source>
+                <target>Menü öffnen</target>
+            </trans-unit>
+            <trans-unit id="navigation.close" xml:space="preserve">
+                <source>Close Menu</source>
+                <target>Menü schließen</target>
+            </trans-unit>
+            <trans-unit id="close" xml:space="preserve">
+                <source>Close</source>
+                <target>Schließen</target>
+            </trans-unit>
+            <trans-unit id="more" xml:space="preserve">
+                <source>Learn more</source>
+                <target>mehr erfahren</target>
+            </trans-unit>
+            <trans-unit id="time.text" xml:space="preserve">
+                <source>{0} min to read</source>
+                <target>{0} min zum lesen</target>
+            </trans-unit>
+            <trans-unit id="time.audio" xml:space="preserve">
+                <source>{0} min to listen</source>
+                <target>{0} min zum hören</target>
+            </trans-unit>
+            <trans-unit id="time.video" xml:space="preserve">
+                <source>{0} min to watch</source>
+                <target>{0} min zum schauen</target>
+            </trans-unit>
+            <trans-unit id="imageFromPerson" xml:space="preserve">
+                <source>Image from {0}</source>
+                <target>Bild von {0}</target>
+            </trans-unit>
+            <trans-unit id="imageFromAddress" xml:space="preserve">
+                <source>Image from {0}</source>
+                <target>Bild von {0}</target>
+            </trans-unit>
+            <trans-unit id="downloadVCard" xml:space="preserve">
+                <source>Download vCard</source>
+                <target>vCard downloaden</target>
+            </trans-unit>
+            <trans-unit id="newsletter.headline.formal.group" xml:space="preserve">
+                <source>Subscribe to our Newsletter</source>
+                <target>Abonnieren Sie unseren Newsletter</target>
+            </trans-unit>
+            <trans-unit id="newsletter.headline.formal.single" xml:space="preserve">
+                <source>Subscribe to my Newsletter</source>
+                <target>Abonnieren Sie meinen Newsletter</target>
+            </trans-unit>
+            <trans-unit id="newsletter.headline.informal.group" xml:space="preserve">
+                <source>Subscribe to our Newsletter</source>
+                <target>Abonniere unseren Newsletter</target>
+            </trans-unit>
+            <trans-unit id="newsletter.headline.informal.single" xml:space="preserve">
+                <source>Subscribe to my Newsletter</source>
+                <target>Abonniere meinen Newsletter</target>
+            </trans-unit>
+            <trans-unit id="newsletter.text.formal" xml:space="preserve">
+                <source>The latest news and articles regularly in your inbox.</source>
+                <target>Die neuesten News und Artikel regelmässig in Ihrem Posteingang.</target>
+            </trans-unit>
+            <trans-unit id="newsletter.text.informal" xml:space="preserve">
+                <source>The latest news and articles regularly in your inbox.</source>
+                <target>Die neuesten News und Artikel regelmässig in deinem Posteingang.</target>
+            </trans-unit>
+            <trans-unit id="newsletter.email" xml:space="preserve">
+                <source>Email address</source>
+                <target>E-Mail Adresse</target>
+            </trans-unit>
+            <trans-unit id="newsletter.submit" xml:space="preserve">
+                <source>Sign Up</source>
+                <target>Anmelden</target>
+            </trans-unit>
+            <trans-unit id="spacingWithPixel" xml:space="preserve">
+                <source>{0} pixel spacing</source>
+                <target>{0} Pixel Abstand</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

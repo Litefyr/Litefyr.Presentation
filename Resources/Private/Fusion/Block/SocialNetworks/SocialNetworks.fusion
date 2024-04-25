@@ -1,0 +1,123 @@
+prototype(Litespeed.Presentation:Block.SocialNetworks) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        socialNetworks = PropTypes:Array {
+            type = PropTypes:DataStructure {
+                network = PropTypes:String
+                url = PropTypes:String
+            }
+        }
+        itemClass = ${PropTypes.anyOf(PropTypes.string, PropTypes.arrayOf(PropTypes.string))}
+        itemDescriptionClass = ${PropTypes.anyOf(PropTypes.string, PropTypes.arrayOf(PropTypes.string))}
+        iconClass = ${PropTypes.anyOf(PropTypes.string, PropTypes.arrayOf(PropTypes.string))}
+        iconDescriptionClass = ${PropTypes.anyOf(PropTypes.string, PropTypes.arrayOf(PropTypes.string))}
+        icon = ${PropTypes.boolean}
+        text = ${PropTypes.boolean}
+        description = ${PropTypes.boolean}
+        plural = ${PropTypes.boolean}
+        formal = ${PropTypes.boolean}
+        additionalMarkup = ${PropTypes.string}
+        additionalLinks = ${PropTypes.arrayOf(PropTypes.oneOf(['email', 'phone', 'mobile', 'website']))}
+    }
+    @styleguide {
+        props {
+            icon = true
+            text = false
+            class = 'block'
+            email = 'mail@example.dev'
+            phone = '+12 321 654 987'
+            mobile = '+12 321 654 987'
+            website = 'https://example.dev'
+        }
+    }
+
+    additionalLinks = ${['email', 'phone', 'mobile', 'website']}
+    icon = true
+    text = false
+    tooltip = true
+    glue = ''
+
+    // Only gets applied to phone, mobile, email and website
+    description = false
+
+    itemClass = 'flex items-center gap-2 text-theme-front/70 is-interaction:hocus:text-theme-front'
+    // Additional classes for items with description
+    itemDescriptionClass = null
+
+    iconClass = 'size-[1em]'
+    iconAnimationClass = 'transition group-hover:scale-110 group-focus:scale-110 group-active:scale-90 group-active:text-theme-accent'
+    // Additional wrapper for icons with description
+    iconDescriptionWrapper = null
+    iconWrapperTheme = 'nested'
+
+
+    wrapper = null
+    formal = true
+    plural = true
+
+    icons = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks')}
+
+    @if.hasIconOrText= ${this.icon || this.text}
+
+    @private {
+        items = Litespeed.Presentation:Helper.SocialNetworks {
+            @apply.props = ${props}
+        }
+    }
+
+    renderer.@process.convertUris = Neos.Neos:ConvertUris {
+        @if.set = ${!!node}
+        forceConversion = true
+    }
+
+    renderer = afx`
+        <Carbon.Eel:Tag
+            @if={Carbon.Array.check(props.socialShare) || Carbon.Array.check(private.items) || props.additionalMarkup}
+            tagName={props.wrapper ? 'ul' : null}
+            attributes.class={props.wrapper != true ? Tailwind.merge('list-none pl-0', props.wrapper) : null}
+            attributes.x-data={props.tooltip}
+            attributes.x-tooltips={props.tooltip}
+        >
+            <Litespeed.Presentation:Module.Share
+                @if={Carbon.Array.check(props.socialShare)}
+                itemWrapper={props.wrapper ? 'li' : null}
+                socialShare={props.socialShare}
+                tooltip={false}
+                itemClass={[props.itemClass, 'group']}
+                iconClass={props.iconClass}
+                iconAnimationClass={props.iconAnimationClass}
+            />
+            <Neos.Fusion:Map
+                @if={Carbon.Array.check(private.items)}
+                items={private.items}
+                @process={Array.join(value, props.glue)}
+            >
+                <Carbon.Eel:Tag tagName={props.wrapper ? 'li' : null}>
+                    <a
+                        href={item.href}
+                        class={Tailwind.merge('group', props.itemClass, props.description && Array.indexOf(["email", "phone", "mobile", "website"], item.network) != -1 ? props.itemDescriptionClass : null)}
+                        x-data={props.wrapper ? null : props.tooltip}
+                        x-tooltip={props.wrapper ? null : props.tooltip}
+                        aria-label={item.label}
+                    >
+                        <Litespeed.Presentation:Block.SocialNetworks.Fragment.Icon
+                            @if={props.icon}
+                            enableWrapper={props.description}
+                            network={item.network}
+                            icons={props.icons}
+                            class={Tailwind.merge(props.iconAnimationClass, props.iconClass)}
+                            wrapperClass={props.iconDescriptionWrapper}
+                            wrapperTheme={props.iconWrapperTheme}
+                        />
+                        <Carbon.Eel:Tag @if={props.text} tagName={props.icon ? 'span' : null} attributes.class="block">
+                            <Neos.Fusion:Fragment @if={props.description && Array.indexOf(["email", "phone", "mobile", "website"], item.network) != -1}>
+                                {item.description} <br />
+                            </Neos.Fusion:Fragment>
+                            <span class="group-hover/underline:underline group-focus/underline:underline">{item.content}</span>
+                        </Carbon.Eel:Tag>
+                    </a>
+                </Carbon.Eel:Tag>
+            </Neos.Fusion:Map>
+            {props.additionalMarkup}
+        </Carbon.Eel:Tag>
+    `
+}

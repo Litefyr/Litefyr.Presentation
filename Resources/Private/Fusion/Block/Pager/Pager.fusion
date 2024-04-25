@@ -1,0 +1,59 @@
+prototype(Litespeed.Presentation:Block.Pager) < prototype(Neos.Fusion:Component) {
+    currentLabel = null
+
+    previous = Neos.Fusion:DataStructure {
+        uri = null
+        label = null
+    }
+
+    next = Neos.Fusion:DataStructure {
+        uri = null
+        label = null
+    }
+
+    prevLabel = ${Translation.translate('page.prev', null, [], 'Main', 'Litespeed.Presentation')}
+    nextLabel = ${Translation.translate('page.next', null, [], 'Main', 'Litespeed.Presentation')}
+
+    @private {
+        hasNext = ${props.next && props.next.label && props.next.uri}
+        hasPrevious = ${props.previous && props.previous.label && props.previous.uri}
+    }
+
+    renderer = afx`
+        <Litespeed.Presentation:Spacing
+            @if={private.hasNext || private.hasPrevious}
+            tagName="nav"
+            padding
+            full
+            class={props.class}
+            tailwind="border-t border-theme-front/10 text-sm font-bold mb-10"
+            x-data
+        >
+            <Litespeed.Presentation:Spacing wide class="w-full mx-auto flex items-center justify-between" tagName="ul">
+                <li class="-mt-px w-0 flex-1 flex">
+                    <Litespeed.Presentation:Block.Pager.Fragment.PrevNext
+                        @if={private.hasPrevious}
+                        type="prev"
+                        uri={props.previous.uri}
+                        tooltip={props.previous.label}
+                        label={props.prevLabel || props.previous.label}
+                    />
+                </li>
+                <li class="hidden md:-mt-px md:flex">
+                    <Litespeed.Presentation:Block.Pager.Fragment.Item
+                        label={props.currentLabel}
+                    />
+                </li>
+                <li class="-mt-px w-0 flex-1 flex justify-end">
+                    <Litespeed.Presentation:Block.Pager.Fragment.PrevNext
+                        @if={private.hasNext}
+                        type="next"
+                        uri={props.next.uri}
+                        tooltip={props.next.label}
+                        label={props.nextLabel || props.next.label}
+                    />
+                </li>
+            </Litespeed.Presentation:Spacing>
+        </Litespeed.Presentation:Spacing>
+    `
+}

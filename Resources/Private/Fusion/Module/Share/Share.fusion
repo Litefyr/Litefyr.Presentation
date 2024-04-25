@@ -1,0 +1,239 @@
+prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        topClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        headline = ${PropTypes.string}
+        showText = ${PropTypes.boolean}
+        listIcons = ${PropTypes.boolean}
+        socialShare = ${PropTypes.arrayOf(PropTypes.oneOf(['native', 'print', 'email', 'copy', 'linkedin', 'facebook', 'instagram', 'x', 'mastodon', 'xing', 'pinterest']))}
+    }
+
+    headline = ${Translation.translate('page.share', null, [], 'Main', 'Litespeed.Presentation')}
+
+    listIcons = false
+    showText = false
+
+    tooltip = ${!props.showText}
+    itemWrapper = null
+
+    itemClass = null
+    iconClass = 'size-[1em]'
+    iconAnimationClass = 'transition group-hover:scale-110 group-focus:scale-110 group-active:scale-90 group-active:text-theme-accent'
+
+    @private {
+        shareButtonContent = afx`
+            <Litespeed.Theme:Component.Icon
+                styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.share')}
+                attributes.class={Tailwind.merge(props.iconAnimationClass, props.iconClass)}
+            />
+            <span @if={props.showText}>{Translation.translate('share', null, [], 'Main', 'Litespeed.Presentation')}</span>
+        `
+        ariaLabel = ${props.headline || Translation.translate('share', null, [], 'Main', 'Litespeed.Presentation')}
+
+        items = Neos.Fusion:Map {
+            @process.filter = ${Array.filter(value)}
+            items = ${props.socialShare}
+            keyRenderer = ${item}
+            itemRenderer = Neos.Fusion:Case {
+                print {
+                    condition = ${item == 'print'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = ${Translation.translate('print', null, [], 'Main', 'Litespeed.Presentation')}
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.print')}
+                        attributes.x-on:click = 'window.print()'
+                    }
+                }
+                native {
+                    condition = ${item == 'native'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = ${Translation.translate('share', null, [], 'Main', 'Litespeed.Presentation')}
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.share')}
+                        attributes {
+                            x-on:click = 'navigator.share({url})'
+                            x-if = 'native'
+                        }
+                    }
+                }
+                facebook {
+                    condition = ${item == 'facebook'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = 'Facebook'
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.facebook') || 'brands:facebook'}
+                        attributes {
+                            target = '_blank'
+                            rel = 'noopener external'
+                            :href = "'https://www.facebook.com/sharer/sharer.php?u='+encodedUrl"
+                        }
+                    }
+                }
+                mastodon {
+                    condition = ${item == 'mastodon'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = 'Mastodon'
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.mastodon') || 'brands:mastodon'}
+                        attributes {
+                            target = '_blank'
+                            rel = 'noopener external'
+                            :href = "'https://mastodonshare.com/?url='+encodedUrl"
+                        }
+                    }
+                }
+                x {
+                    condition = ${item == 'x'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = 'X'
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.x') || 'brands:x-twitter'}
+                        attributes {
+                            target = '_blank'
+                            rel = 'noopener external'
+                            :href = "'https://twitter.com/intent/tweet?text='+encodedUrl"
+                        }
+                    }
+                }
+                linkedin {
+                    condition = ${item == 'linkedin'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = 'LinkedIn'
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.linkedin') || 'brands:linkedin'}
+                        attributes {
+                            target = '_blank'
+                            rel = 'noopener external'
+                            :href = "'https://www.linkedin.com/shareArticle?mini=true&url='+encodedUrl"
+                        }
+                    }
+                }
+                xing {
+                    condition = ${item == 'xing'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = 'Xing'
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.xing') || 'brands:xing'}
+                        attributes {
+                            target = '_blank'
+                            rel = 'noopener external'
+                            :href = "'https://www.xing.com/spi/shares/new?url='+encodedUrl"
+                        }
+                    }
+                }
+                pinterest {
+                    condition = ${item == 'pinterest'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = 'Pinterest'
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.pinterest') || 'brands:pinterest'}
+                        attributes {
+                            target = '_blank'
+                            rel = 'noopener external'
+                            :href = "'https://pinterest.com/pin/create/button/?url=&media='+encodedUrl"
+                        }
+                    }
+                }
+                email {
+                    condition = ${item == 'email'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = ${Translation.translate('social.email', null, [], 'Main', 'Litespeed.Presentation')}
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.shareEmail')}
+                        attributes.:href = "'mailto:?body='+encodedUrl"
+                    }
+                }
+                copy {
+                    condition = ${item == 'copy'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = ${Translation.translate('copyLink', null, [], 'Main', 'Litespeed.Presentation')}
+                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.shareCopy')}
+                        attributes.x-clipboard = 'url'
+                    }
+                }
+            }
+        }
+
+        buttonClass = ${Tailwind.merge('flex justify-center items-baseline p-2 gap-2 group print:hidden', props.itemClass)}
+        numberOfItems = ${Carbon.Array.length(private.items)}
+        singleItem = ${private.numberOfItems == 1 ? Array.keys(private.items)[0] : null}
+        printButton = afx`
+            <Carbon.Eel:Tag tagName={props.itemWrapper} @if={private.items.print}>
+                <Litespeed.Presentation:Module.Share.Fragment.Items
+                    items={private.items}
+                    showText={props.showText}
+                    singleItem="print"
+                    class={private.buttonClass}
+                    iconClass={props.iconClass}
+                    iconAnimationClass={props.iconAnimationClass}
+                />
+            </Carbon.Eel:Tag>
+        `
+    }
+
+    renderer = Neos.Fusion:Case {
+        hasNoItems {
+            condition = ${!private.numberOfItems}
+            renderer = ''
+        }
+        listIcons {
+            condition = ${props.listIcons}
+            renderer = afx`
+                <Neos.Fusion:Tag
+                    tagName={props.itemWrapper || 'div'}
+                    attributes.x-data="share"
+                    attributes.x-cloak={private.singleItem == 'native'}
+                    attributes.x-show={private.singleItem == 'native' ? 'native' : null}
+                >
+                    <h4
+                        @if={props.headline}
+                        class={Tailwind.merge("text-lg mb-0", props.topClass)}
+                    >
+                        {props.headline}
+                    </h4>
+                    <div
+                        x-tooltips
+                        class={Tailwind.merge("inline-flex items-baseline print:hidden not-prose", props.headline ? null : props.topClass)}
+                    >
+                        <Litespeed.Presentation:Module.Share.Fragment.Items
+                            items={private.items}
+                            showText={false}
+                            class={private.buttonClass}
+                            iconClass={props.iconClass}
+                            iconAnimationClass={props.iconAnimationClass}
+                        />
+                    </div>
+                </Neos.Fusion:Tag>
+            `
+        }
+        hasOnlyNativeWithOptionalPrint {
+            condition = ${private.singleItem == 'native' || !!(private.numberOfItems == 2 && private.items.native && private.items.print)}
+            renderer = afx`
+                <Neos.Fusion:Augmenter x-data="share" x-cloak x-show="native">
+                    <Carbon.Eel:Tag tagName={props.itemWrapper}>
+                        <Litespeed.Presentation:Module.Share.Fragment.Items
+                            items={private.items}
+                            showText={props.showText}
+                            singleItem="native"
+                            class={private.buttonClass}
+                            iconClass={props.iconClass}
+                            iconAnimationClass={props.iconAnimationClass}
+                        />
+                    </Carbon.Eel:Tag>
+                </Neos.Fusion:Augmenter>
+                {private.printButton}
+            `
+        }
+        openInPopover {
+            condition = true
+            renderer = afx`
+                <Litespeed.Presentation:Block.Popover
+                    tagName={props.itemWrapper || 'div'}
+                    attributes.x-data="share"
+                    headline={props.headline}
+                    buttonContent={private.shareButtonContent}
+                    buttonAttributes.aria-label={private.ariaLabel}
+                    buttonAttributes.class={private.buttonClass}
+                    attributes.x-show={private.items.native ? "!native || !$isMobile" : null}
+                >
+                    <Neos.Fusion:Loop items={private.items}>
+                        <Litespeed.Presentation:Block.Popover.ListItem {...item} />
+                    </Neos.Fusion:Loop>
+                    <button @if={private.items.native} @path="beside" aria-label={private.ariaLabel} x-show="native && $isMobile" x-cloak type="button" x-on:click="navigator.share({url})" class={private.buttonClass}>
+                        {private.shareButtonContent}
+                    </button>
+                </Litespeed.Presentation:Block.Popover>
+            `
+        }
+    }
+}

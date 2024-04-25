@@ -1,0 +1,30 @@
+prototype(Litespeed.Presentation:Block.Pager.Fragment.PrevNext) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        uri = ${PropTypes.string}
+        label = ${PropTypes.string}
+        tooltip = ${PropTypes.string}
+        type = ${PropTypes.oneOf(['prev', 'next'])}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+
+    type = 'prev'
+    class = ${this.type == 'prev' ? '-ml-4' : '-mr-4'}
+    iconClass = ${this.type == 'prev' ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}
+
+    @if.set = ${this.label && this.uri}
+
+    renderer = afx`
+        <a
+            href={props.uri}
+            aria-label={props.tooltip}
+            x-tooltip={!!props.tooltip || null}
+            rel={props.type}
+            class={Tailwind.merge("transition border-t-2 pt-4 inline-flex items-center gap-2 px-4 border-transparent text-theme-front !text-opacity-70 hocus:border-theme-accent hocus:!text-opacity-100 group", props.class)}
+        >
+            {props.type != 'prev' && props.label}
+            <Litespeed.Theme:Component.Icon styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.pagination.' + props.type)} attributes.class={Tailwind.merge("w-3 transition-transform", props.iconClass)} />
+            {props.type == 'prev' && props.label}
+        </a>
+    `
+}

@@ -1,0 +1,63 @@
+prototype(Litespeed.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        headline = ${PropTypes.string}
+        text = ${PropTypes.string}
+        href = ${PropTypes.string}
+        date = ${PropTypes.any}
+        time = ${PropTypes.string}
+        label = ${PropTypes.string}
+        alternativeText = ${PropTypes.string}
+        placeholder = ${PropTypes.boolean}
+        bottomContent = ${PropTypes.string}
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', '', 'nested'])}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        rootClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    @styleguide {
+        props {
+            headline = Sitegeist.ChitChat:Line {
+                length = 20
+            }
+            text = Sitegeist.ChitChat:Line {
+                length = 200
+            }
+            href = '#'
+            time = '<span>4 min zum lesen</span>'
+            alternativeText = 'Bildbeschreibung'
+            placeholder = false
+            date = ${Date.now()}
+        }
+    }
+
+    @if.hasHrefAndContent = ${this.placeholder || (this.href && (this.headline || this.text))}
+
+    @private.classes = Neos.Fusion:DataStructure {
+        root = '-teaser rounded-box flex-1 bg-theme-back flex group/teaser bg-lightness-offset-5'
+    }
+
+    theme = 'default'
+
+    renderer = afx`
+        <div class={Tailwind.merge("w-full flex flex-col", props.class)}>
+            <div
+                @if={props.placeholder}
+                class={[private.classes.root, "justify-center items-center animate-pulse min-h-24"]}
+                aria-hidden="true"
+                data-theme={props.theme}
+            >
+                <Litespeed.Theme:Component.Icon
+                    styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.loadingIndicator')}
+                    attributes.class="size-5 animate-spin"
+                />
+            </div>
+            <div
+                @if={!props.placeholder}
+                class={Tailwind.merge(private.classes.root, "relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-2xl p-6 flex-col justify-between", props.rootClass)}
+                data-theme={props.theme}
+            >
+                <Litespeed.Presentation:Block.Teaser.Fragment.Content {...props} />
+            </div>
+        </div>
+    `
+}

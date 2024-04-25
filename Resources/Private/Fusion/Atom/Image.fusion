@@ -1,0 +1,84 @@
+prototype(Litespeed.Presentation:Atom.Image) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        integration = ${PropTypes.boolean.isRequired}
+        breakout = ${PropTypes.oneOf(['wide', 'full', ''])}
+        screenHeightBreakpoint = ${PropTypes.oneOf(['sm', 'md', 'lg', 'xl', ''])}
+        screenHeight = ${PropTypes.integer}
+    }
+    @styleguide {
+        props {
+            imageSource = Carbon.Image:Helper.ImageSource {
+                outputDummy = true
+            }
+            alternativeText = 'Alternativer Text'
+        }
+    }
+
+    breakout = null
+    figureAttributes = Neos.Fusion:DataStructure
+    linkAdditonalAttributes = Neos.Fusion:DataStructure {
+        class = 'block'
+    }
+    integration = ${!!node}
+    rounded = false
+    screenHeight = 0
+    objectFit = ${this.screenHeight ? 'cover' : null}
+
+    minMaxImageSize = Neos.Fusion:DataStructure
+    maxImageSizeDefault = 896
+    maxImageSizeWide = 1280
+    maxImageSizeFull = 1950
+
+    @private {
+        minMaxImageSize = Neos.Fusion:DataStructure {
+            step = ${props.minMaxImageSize.step || Configuration.setting('Carbon.Image.minMaxImageSize.step')}
+            multiplicator = ${props.minMaxImageSize.multiplicator || Configuration.setting('Carbon.Image.minMaxImageSize.multiplicator')}
+            min = ${props.minMaxImageSize.min || Configuration.setting('Carbon.Image.minMaxImageSize.min')}
+            max = Neos.Fusion:Case {
+                maxImageSize {
+                    condition = ${props.minMaxImageSize.max}
+                    renderer = ${props.minMaxImageSize.max}
+                }
+                basedOnBreakout {
+                    condition = true
+                    renderer = Neos.Fusion:Match {
+                        @subject = ${props.breakout}
+                        @default = ${props.maxImageSizeDefault * 2}
+                        wide = ${props.maxImageSizeWide * 2}
+                        full = ${props.maxImageSizeFull * 2}
+                    }
+                }
+            }
+        }
+
+        content = afx`
+            <Carbon.Image:Component.Presentation.Image {...props} minMaxImageSize={private.minMaxImageSize} breakout={null} @if={!props.integration}/>
+            <Carbon.Image:Component.Image {...props}  minMaxImageSize={private.minMaxImageSize} breakout={null} @if={props.integration}/>
+        `
+    }
+
+    renderer = Neos.Fusion:Augmenter {
+        @if.hasContent = ${private.content}
+        style = ${props.screenHeight ? '--height:' + props.screenHeight + 'vh' : null}
+        class = Neos.Fusion:DataStructure {
+            screenHeight = Neos.Fusion:Match {
+                @if.set = ${props.screenHeight}
+                @subject = ${props.screenHeightBreakpoint || 'default'}
+                @default = 'imagecontent:min-h-[--height]'
+                sm = 'sm:imagecontent:min-h-[--height]'
+                md = 'md:imagecontent:min-h-[--height]'
+                lg = 'lg:imagecontent:min-h-[--height]'
+                xl = 'xl:imagecontent:min-h-[--height]'
+            }
+            rounded = Neos.Fusion:Match {
+                @if.set = ${props.rounded}
+                @subject = ${props.breakout}
+                @default = 'imagecontent:rounded-image'
+                wide = 'xl:imagecontent:rounded-image'
+                full = ''
+            }
+           @process.merge = ${Tailwind.merge(value)}
+        }
+        content = ${private.content}
+    }
+}

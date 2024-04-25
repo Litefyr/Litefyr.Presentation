@@ -1,0 +1,85 @@
+prototype(Litespeed.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        headline = ${PropTypes.string}
+        text = ${PropTypes.string}
+        href = ${PropTypes.string}
+        date = ${PropTypes.any}
+        time = ${PropTypes.string}
+        label = ${PropTypes.string}
+        alternativeText = ${PropTypes.string}
+        bottomContent = ${PropTypes.string}
+        placeholder = ${PropTypes.boolean}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    @styleguide {
+        props {
+            headline = Sitegeist.ChitChat:Line {
+                length = 20
+            }
+            text = Sitegeist.ChitChat:Line {
+                length = 200
+            }
+            href = '#'
+            time = '<span>4 min zum lesen</span>'
+            alternativeText = 'Bildbeschreibung'
+            placeholder = false
+            date = ${Date.now()}
+            imageSource = Carbon.Image:Helper.ImageSource {
+                outputDummy = true
+            }
+        }
+    }
+
+    @if.hasHrefAndContent = ${this.placeholder || (this.href && (this.headline || this.text))}
+
+    imageWith = 937
+    ratio = 1.875
+
+    theme = 'default'
+
+    @private.classes = Neos.Fusion:DataStructure {
+        root = '-teaser flex-1 flex flex-col @5xl:flex-row shadow-lg overflow-clip rounded-box group/teaser'
+        figure = 'flex-shrink-0 aspect-[15/8] @5xl:flex-1 @5xl:basis-1/2 bg-theme-back -bg-lightness-offset-5 dark:bg-lightness-offset-5 max-w-full'
+        content = 'flex-1 bg-theme-back bg-lightness-offset-10 p-6 flex flex-col justify-between @5xl:min-w-80'
+    }
+
+    renderer = afx`
+        <div class={Tailwind.merge("w-full flex flex-col @container", props.class)}>
+            <div
+                @if={props.placeholder}
+                aria-hidden="true"
+                class={private.classes.root}
+                data-theme={props.theme}
+            >
+                <div class={[private.classes.figure, "animate-pulse"]}></div>
+                <div class={[private.classes.content]}>
+                    <div class="flex-1 min-h-48 flex justify-center items-center animate-pulse">
+                        <Litespeed.Theme:Component.Icon
+                            styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.loadingIndicator')}
+                            attributes.class="size-5 animate-spin"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div
+                @if={!props.placeholder}
+                class={[private.classes.root, "relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-2xl"]}
+                data-theme={props.theme}
+            >
+                <Litespeed.Presentation:Atom.Image
+                    imageSource={props.imageSource}
+                    image={props.image}
+                    alternativeText={props.alternativeText}
+                    figureAttributes.class={private.classes.figure}
+                    width={props.imageWith}
+                    height={Math.round(props.imageWith / props.ratio)}
+                />
+                <div class={private.classes.content}>
+                    <Litespeed.Presentation:Block.Teaser.Fragment.Content {...props} />
+                </div>
+            </div>
+        </div>
+    `
+}

@@ -1,0 +1,103 @@
+prototype(Litespeed.Presentation:Block.Text) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        headline = ${PropTypes.string}
+        label = ${PropTypes.string}
+        lead = ${PropTypes.string}
+        content = ${PropTypes.string}
+        links = ${PropTypes.string}
+        isFirstElement = ${PropTypes.boolean}
+        textClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        headlineClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
+        position = ${PropTypes.oneOf(['left', 'right', ''])}
+    }
+
+    @styleguide {
+        props {
+            headline = Sitegeist.ChitChat:Line {
+                length = 80
+            }
+            label = Sitegeist.ChitChat:Line {
+                length = 10
+            }
+            lead = Sitegeist.ChitChat:Line
+            content = afx`
+                <Sitegeist.ChitChat:P />
+                <Sitegeist.ChitChat:UL />
+                <hr />
+                <Sitegeist.ChitChat:OL />
+                <Sitegeist.ChitChat:H2 />
+                <Sitegeist.ChitChat:P />
+                <blockquote>
+                    <Sitegeist.ChitChat:P />
+                </blockquote>
+                <Sitegeist.ChitChat:H3 />
+                <Sitegeist.ChitChat:P />
+                <Sitegeist.ChitChat:H4 />
+                <Sitegeist.ChitChat:P />
+                <Sitegeist.ChitChat:H2 />
+                <Sitegeist.ChitChat:H3 />
+                <Sitegeist.ChitChat:H4 />
+                <Sitegeist.ChitChat:P />
+            `
+        }
+    }
+
+    isFirstElement = false
+
+    textClass = 'has-prose prose w-full -wave-spacing'
+    headlineClass = 'has-prose prose text-center -wave-spacing'
+    inBackend = false
+
+    @if.hasProps = ${this.headline || this.lead || this.content || this.links}
+
+    renderer = afx`
+        <Litespeed.Presentation:Atom.Clippath.Top theme={props.theme} @if={props.theme} />
+        <Litespeed.Presentation:Background
+            theme={props.theme}
+            augmenter={!props.theme}
+            tailwind={[props.theme ? "py-12" : null, props.class]}
+            waveSpacing
+        >
+            <Litespeed.Presentation:Spacing
+                augmenter={!props.position}
+                padding
+                tailwind={props.position ? 'lg:grid lg:grid-cols-2 lg:gap-[--element-gap]' : null}
+            >
+                <Carbon.Eel:Tag
+                    tagName={props.position ? 'div' : null}
+                    attributes.class={props.position == 'right' ? 'lg:col-start-2' : null}
+                >
+                    <Litespeed.Presentation:Atom.Headline
+                        @if={props.headline}
+                        isFirstElement={props.isFirstElement}
+                        class={props.headlineClass}
+                        enableTypewriter={false}
+                    >
+                        <small
+                            @if={props.label}
+                            class="block text-base text-theme-accent font-bold tracking-wide uppercase mb-2"
+                        >
+                            {props.label}
+                        </small>
+                        <span class="block leading-8 opacity-80 theme:opacity-90 text-fl-xl">
+                                {Theme.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
+                        </span>
+                    </Litespeed.Presentation:Atom.Headline>
+                    <div
+                        @if={props.content || props.lead || props.links}
+                        class={Tailwind.merge(props.headline ? "mt-6" : null, props.textClass)}
+                    >
+                        <p @if={props.lead} class="lead">
+                            {Theme.typewriter(props.lead, !props.inBackend, 'text-theme-accent')}
+                        </p>
+                        {props.content}
+                        {props.links}
+                    </div>
+                </Carbon.Eel:Tag>
+            </Litespeed.Presentation:Spacing>
+        </Litespeed.Presentation:Background>
+        <Litespeed.Presentation:Atom.Clippath.Bottom theme={props.theme} @if={props.theme} />
+    `
+}

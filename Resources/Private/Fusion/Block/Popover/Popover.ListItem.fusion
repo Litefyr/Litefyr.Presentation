@@ -1,0 +1,28 @@
+prototype(Litespeed.Presentation:Block.Popover.ListItem) < prototype(Neos.Fusion:Component) {
+    closePopoverOnClick = false
+    styleAndIcon = null
+
+    attributes = Neos.Fusion:DataStructure
+
+    @if.hasActionAndContent = ${this.content}
+
+    @private {
+        tagName = ${props.attributes.href || props.attributes[':href'] ? 'a' : 'button'}
+        onClick = ${Array.join(Array.filter([props.attributes['x-on:click'] || null, props.closePopoverOnClick ? 'open=false' : null]), ';')}
+        attributes = ${Array.filter(Array.concat({'type': private.tagName == 'button' ? 'button' : null, 'class': 'flex items-center gap-2 w-full transition-colors py-2 px-4 overflow-clip text-bg-contrast hocus:bg-text-contrast hocus:text-theme-back'}, props.attributes, {'x-if': null, 'x-on:click': private.onClick || null}))}
+    }
+
+    renderer = afx`
+        <Carbon.Eel:Tag
+            tagName={props.attributes['x-if'] ? 'template' : null}
+            attributes.x-if={props.attributes['x-if']}
+        >
+            <li>
+                <Neos.Fusion:Tag tagName={private.tagName} attributes={private.attributes}>
+                    <Litespeed.Theme:Component.Icon styleAndIcon={props.styleAndIcon} />
+                    {props.content}
+                </Neos.Fusion:Tag>
+            </li>
+        </Carbon.Eel:Tag>
+    `
+}

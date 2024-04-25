@@ -1,0 +1,112 @@
+prototype(Litespeed.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusion:Component) {
+    enableSpacing = true
+    breakout = null
+    text = null
+    boxClass = null
+    boxMaxWidth = null
+    boxDirection = null
+    insideLink = false
+
+    // sm, md, lg
+    boxBreakpoint = null
+
+    boxClassMap = Neos.Fusion:DataStructure {
+        south {
+            default = 'py-2 px-3 leading-tight box-decoration-clone inline rounded-box'
+        }
+        default {
+            default = 'shadow-xl rounded-box rounded-box p-content my-content sm:max-w-[--size]'
+            sm = 'py-4 sm:rounded-box sm:my-content sm:shadow-xl sm:rounded-box sm:max-w-[--size] sm:p-content'
+            md = 'py-4 md:rounded-box md:my-content md:shadow-xl md:rounded-box md:max-w-[--size] md:p-content'
+            lg = 'py-4 lg:rounded-box lg:my-content lg:shadow-xl lg:rounded-box lg:max-w-[--size] lg:p-content'
+        }
+    }
+
+    spacingClassMap = Neos.Fusion:DataStructure {
+        south {
+            default = 'text-balance p-[--content-padding-south] pl-content'
+        }
+        default {
+            default = 'px-content'
+            sm = 'sm:px-content'
+            md = 'md:px-content'
+            lg = 'lg:px-content'
+        }
+    }
+
+    @private {
+        verticalClass = Neos.Fusion:Match {
+            @subject = ${props.boxDirection}
+            @default = 'self-end'
+            northWest = 'self-start'
+            northEast = 'self-start'
+        }
+        horizontalClass = Neos.Fusion:Match {
+            @subject = ${props.boxDirection}
+            @default = ''
+            northEast = 'ml-auto'
+            southEast = 'ml-auto'
+        }
+        style = ${props.boxDirection == "south" ? '--content-padding-south:calc(var(--content-padding,0) + .3rem)' : ('--size: ' + (props.boxMaxWidth || 75) + '%')}
+        boxClass = Litespeed.Presentation:Block.ImageWithTextOverlay.MapValue {
+            map = ${props.boxClassMap}
+            direction = ${props.boxDirection}
+            breakpoint = ${props.boxBreakpoint}
+        }
+        spacingClass = Litespeed.Presentation:Block.ImageWithTextOverlay.MapValue {
+            map = ${props.spacingClassMap}
+            direction = ${props.boxDirection}
+            breakpoint = ${props.boxBreakpoint}
+        }
+        gridClass = Neos.Fusion:Match {
+            @subject = ${props.boxBreakpoint || 'default'}
+            @default = 'grid grid-layered'
+            sm = 'sm:grid sm:grid-layered'
+            md = 'md:grid md:grid-layered'
+            lg = 'lg:grid lg:grid-layered'
+        }
+        tagName = ${props.insideLink ? 'span' : 'div'}
+    }
+
+    renderer = afx`
+        <Litespeed.Presentation:Spacing
+            width={props.enableSpacing ? props.breakout : false}
+            padding="auto"
+            tailwind={["mediacontent", private.gridClass]}
+            tagName={private.tagName}
+        >
+            <Litespeed.Presentation:Atom.Image objectFit="cover" {...props} linkAdditonalAttributes={null} />
+            <Litespeed.Presentation:Spacing
+                style={private.style}
+                tailwind={[private.verticalClass, private.spacingClass]}
+                padding={!!(props.boxDirection != "south" && props.breakout)}
+                width={props.boxDirection == "south" || props.breakout == 'full' ? 'wide' : 'default'}
+                tagName={private.tagName}
+            >
+                <Neos.Fusion:Tag
+                    tagName={props.insideLink ? 'span' : 'p'}
+                    attributes.class={Tailwind.merge('bg-theme-back text-theme-front prose', private.horizontalClass, private.boxClass, props.boxClass)}
+                >
+                    <!-- We need to isolate the text to prevent cutting letters because of the padding -->
+                    <span class="isolate">{props.text}</span>
+                </Neos.Fusion:Tag>
+            </Litespeed.Presentation:Spacing>
+        </Litespeed.Presentation:Spacing>
+    `
+}
+
+prototype(Litespeed.Presentation:Block.ImageWithTextOverlay.MapValue) < prototype(Neos.Fusion:Component) {
+    map = null
+    direction = null
+    breakpoint = null
+
+    @if.hasMap = ${this.map && this.map.default && this.map.default.default}
+
+    @private {
+        customDirection = ${props.map[props.direction]}
+        direction = ${private.customDirection ? private.customDirection : props.map.default}
+        customBreakpoint = ${private.direction[props.breakpoint]}
+    }
+
+    renderer = ${private.customBreakpoint ? private.customBreakpoint : private.direction.default}
+}

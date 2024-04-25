@@ -1,0 +1,18 @@
+prototype(Litespeed.Presentation:Atom.Label) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        label = ${PropTypes.string}
+        currentColor = ${PropTypes.boolean}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+    @styleguide.props.label = "I'm a label"
+
+    currentColor = false
+
+    @if.set = ${this.label}
+
+    renderer = afx`
+        <p class={Tailwind.merge(props.currentColor ? "opacity-90" : "text-theme-accent", "text-base font-bold tracking-wide uppercase mb-2", props.class)}>
+            {props.label}
+        </p>
+    `
+}

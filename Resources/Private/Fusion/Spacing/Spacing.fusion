@@ -1,0 +1,95 @@
+prototype(Litespeed.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}
+        tailwind = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}
+
+        // this defines the max width of the content
+        default = ${PropTypes.boolean}
+        wide = ${PropTypes.boolean}
+        full = ${PropTypes.boolean}
+
+        // Return only the CSS class, not the element
+        onlyClass = ${PropTypes.boolean}
+
+        // this defines the horizontal padding (if false, content can touch the edges)
+        // auto set based on the width (full = false, wide = false, others true)
+        padding = ${PropTypes.oneOf(['auto', 'autoForce', 'force', true, false])}
+
+        width = ${PropTypes.oneOf(['full', 'wide', 'default', '', true, false])}
+
+        // If the next element has a wave, remove negative margin from that element
+        waveSpacing = ${PropTypes.boolean}
+
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        tagName = ${PropTypes.string}
+        content = ${PropTypes.string}
+
+        augmenter = ${PropTypes.boolean}
+    }
+
+    default = true
+    wide = false
+    full = false
+    width = ${this.full ? 'full' : this.wide ? 'wide' : true}
+    augmenter = false
+
+    padding = false
+    waveSpacing = false
+
+    class = null
+    tagName = 'div'
+
+    content = ${this.onlyClass ? null : value}
+
+    @private {
+        width = ${Array.indexOf(['wide', 'full', false], props.width) != -1 ? props.width : 'default'}
+        class = Neos.Fusion:DataStructure {
+            width = ${private.width ? BEM.modifier('-width', private.width) : null}
+            padding = ${props.padding == true || (props.padding == 'auto' && private.width == 'default') ? '-padding' : null}
+            paddingForce = ${props.padding == 'force' || (props.padding == 'autoForce' && private.width == 'default') ? '-padding-force' : null}
+            waveSpacing = ${props.waveSpacing ? '-wave-spacing' : null}
+            customClass = ${props.class}
+            tailwindClass = ${Carbon.Tailwind.merge(props.tailwind)}
+            @process.merge = ${Carbon.String.classNames(value)}
+        }
+        attributes = afx`
+            <Neos.Fusion:DataStructure
+                @ignoreProperties={['tagName', 'width', 'default', 'wide', 'full', 'padding', 'augmenter', 'content', 'waveSpacing', 'tailwind']}
+                {...props}
+                class={private.class}
+            />
+        `
+    }
+
+    renderer = Neos.Fusion:Case {
+        onlyClass {
+            condition = ${props.onlyClass}
+            renderer = ${private.class}
+        }
+        isAugmenter {
+            condition = ${props.augmenter && props.tagName}
+            renderer = Neos.Fusion:Augmenter {
+                @apply.attributes = ${private.attributes}
+                fallbackTagName = ${props.tagName}
+                content = ${props.content}
+            }
+        }
+        hasTagName {
+            condition = ${props.tagName}
+            renderer = Neos.Fusion:Tag {
+                tagName = ${props.tagName}
+                attributes = ${private.attributes}
+                content = ${props.content}
+            }
+        }
+        justTheContent {
+            condition = true
+            content = ${props.content}
+        }
+    }
+
+    // This is for tailwind CSS
+    // -width--default
+    // -width--wide
+    // -width--full
+}

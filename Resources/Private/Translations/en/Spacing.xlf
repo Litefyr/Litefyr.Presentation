@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Litespeed.Presentation" source-language="en" target-language="de" datatype="plaintext">
+        <body>
+            <trans-unit id="-4" xml:space="preserve">
+                <source>Tiny</source>
+            </trans-unit>
+            <trans-unit id="-3" xml:space="preserve">
+                <source>Extremly small</source>
+            </trans-unit>
+            <trans-unit id="-2" xml:space="preserve">
+                <source>Very small</source>
+            </trans-unit>
+            <trans-unit id="-1" xml:space="preserve">
+                <source>Small</source>
+            </trans-unit>
+            <trans-unit id="0" xml:space="preserve">
+                <source>Medium</source>
+            </trans-unit>
+            <trans-unit id="1" xml:space="preserve">
+                <source>Large</source>
+            </trans-unit>
+            <trans-unit id="2" xml:space="preserve">
+                <source>Very large</source>
+            </trans-unit>
+            <trans-unit id="3" xml:space="preserve">
+                <source>Extra large</source>
+            </trans-unit>
+            <trans-unit id="4" xml:space="preserve">
+                <source>Huge</source>
+            </trans-unit>
+            <trans-unit id="spacing.3xs" xml:space="preserve">
+                <source>Tiny spacing</source>
+            </trans-unit>
+            <trans-unit id="spacing.2xs" xml:space="preserve">
+                <source>Extremly small spacing</source>
+            </trans-unit>
+            <trans-unit id="spacing.xs" xml:space="preserve">
+                <source>Very small spacing</source>
+            </trans-unit>
+            <trans-unit id="spacing.sm" xml:space="preserve">
+                <source>Small spacing</source>
+            </trans-unit>
+            <trans-unit id="spacing.md" xml:space="preserve">
+                <source>Medium spacing</source>
+            </trans-unit>
+            <trans-unit id="spacing.lg" xml:space="preserve">
+                <source>Large spacing</source>
+            </trans-unit>
+            <trans-unit id="spacing.xl" xml:space="preserve">
+                <source>Very large spacing</source>
+            </trans-unit>
+            <trans-unit id="spacing.2xl" xml:space="preserve">
+                <source>Extra large spacing</source>
+            </trans-unit>
+            <trans-unit id="spacing.3xl" xml:space="preserve">
+                <source>Huge spacing</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

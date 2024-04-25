@@ -1,0 +1,30 @@
+@layer utilities {
+  .loading-indicator[aria-busy] {
+    --loading-size: 3rem;
+    --loading-stroke: 0.3rem;
+    --loading-opacity: 0.75;
+    --loading-color: oklch(var(--color-front-l) var(--color-front-c) var(--color-front-h) / 20%);
+    --loading-color-accent: oklch(var(--color-accent-l) var(--color-accent-c) var(--color-accent-h));
+
+    position: relative;
+    opacity: var(--loading-opacity);
+    pointer-events: none;
+
+    &::before {
+      @apply animate-spin;
+
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--loading-size);
+      height: var(--loading-size);
+      margin-top: calc(var(--loading-size) / 2 * -1);
+      margin-left: calc(var(--loading-size) / 2 * -1);
+      border: var(--loading-stroke) solid var(--loading-color);
+      border-radius: 50%;
+      border-top-color: var(--loading-color-accent);
+      z-index: 20;
+    }
+  }
+}

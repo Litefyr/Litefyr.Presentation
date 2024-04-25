@@ -1,0 +1,75 @@
+prototype(Litespeed.Presentation:Atom.Link) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        appearance = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'ghost', 'link', 'nested'])}
+        href = ${PropTypes.string}
+        content = ${PropTypes.string}
+        bigArea = ${PropTypes.boolean}
+        inline = ${PropTypes.boolean}
+        main = ${PropTypes.boolean}
+        minor = ${PropTypes.boolean}
+        minor2 = ${PropTypes.boolean}
+        nested = ${PropTypes.boolean}
+        ghost = ${PropTypes.boolean}
+        link = ${PropTypes.boolean}
+        enableIcon = ${PropTypes.boolean}
+        icon = PropTypes:DataStructure {
+            main = PropTypes:DataStructure {
+                markup = ${PropTypes.string}
+                position = ${PropTypes.oneOf(['start', 'end'])}
+            }
+            minor = PropTypes:DataStructure {
+                markup = ${PropTypes.string}
+                position = ${PropTypes.oneOf(['start', 'end'])}
+            }
+            ghost = PropTypes:DataStructure {
+                markup = ${PropTypes.string}
+                position = ${PropTypes.oneOf(['start', 'end'])}
+            }
+            link = PropTypes:DataStructure {
+                markup = ${PropTypes.string}
+                position = ${PropTypes.oneOf(['start', 'end'])}
+            }
+        }
+    }
+    @styleguide.props.href = '#href'
+
+    appearance = ${this.main ? 'main' : this.ghost ? 'ghost' : this.link ? 'link' : this.nested ? 'nested' : this.minor2 ? 'minor2' : 'minor'}
+
+    enableIcon = false
+    icon = Neos.Fusion:DataStructure {
+        main = Neos.Fusion:DataStructure {
+            markup = null
+            position = 'start'
+        }
+        minor = Neos.Fusion:DataStructure {
+            markup = null
+            position = 'start'
+        }
+        ghost = Neos.Fusion:DataStructure {
+            markup = null
+            position = 'start'
+        }
+        link = Neos.Fusion:DataStructure {
+            markup = null
+            position = 'start'
+        }
+    }
+
+    href = null
+    content = null
+
+    bigArea = false
+    inline = true
+
+    groupClass = 'group/link'
+
+    @if.hasHref = ${!!this.href}
+
+    renderer = afx`
+        <a>
+            <Litespeed.Presentation:Atom.ButtonAndLink.Fragment.Attributes @path="attributes" {...props} content={null} />
+            <Litespeed.Presentation:Atom.ButtonAndLink.Fragment.Content {...props} />
+        </a>
+    `
+}

@@ -1,0 +1,184 @@
+.svg-inline--fa {
+  fill: currentColor;
+  pointer-events: none;
+}
+
+:where(.-collection) > :not([hidden]):where(:not(.clippath-top)) {
+  margin-top: theme("spacing.content");
+}
+
+.-collection > :last-child:not([data-theme]) {
+  margin-bottom: theme("spacing.8");
+}
+
+:where(.is-flat) .-collection {
+  /* The -1px prevent a line to appear */
+
+  & > [data-theme]:first-child,
+  & > :is([data-theme], .-width--full, .-text-with-content--full) + :is([data-theme], .-width--full, .-text-with-content--full),
+  & > :where(.-width--full:not(.margin-on-top)):first-child {
+    margin-top: -1px;
+  }
+
+  & > :last-child:is(.-width--full, .-text-with-content--full) {
+    margin-bottom: -1px;
+  }
+}
+
+:where(.has-wave) .-collection {
+  & > [data-theme]:first-child:where(:not(.clippath-top)),
+  & > [data-theme] + [data-theme]:where(:not(.clippath-top)),
+  & > :where(.-width--full:not(.margin-on-top)):first-child {
+    margin-top: -3px;
+  }
+
+  & ~ .-collection > [data-theme]:first-child {
+    --clippath-margin: 0;
+  }
+}
+
+.clippath-top.clippath-top + [data-theme] {
+  margin-top: -3px;
+}
+
+.-collection--top,
+.-collection--main {
+  & > :first-child:not(.clippath-on-top) {
+    &.clippath-top,
+    & .clippath-top {
+      clip-path: inset(0 0 0 0);
+      margin-top: calc(var(--header-height) * -1);
+      padding-top: var(--header-height);
+      aspect-ratio: auto;
+    }
+  }
+}
+
+:where(.-links) a {
+  @apply underline hocus:no-underline;
+}
+
+:where(h1, h2, h3, h4, h5) {
+  @apply text-balance font-headline;
+}
+
+:where(h1, h2, h3, h4, h5):where(.-links) a,
+:where(.-links) :where(h1, h2, h3, h4, h5) a {
+  font-weight: inherit;
+}
+
+.jonnitto-imagesinarow--container {
+  @apply overflow-x-clip;
+}
+
+.jonnitto-imagesinarow + .jonnitto-imagesinarow {
+  @apply mt-0;
+}
+
+.pswp {
+  @apply backdrop-blur;
+}
+
+.jonnitto-imagesinarow + .mediacontent,
+.mediacontent + .jonnitto-imagesinarow {
+  margin-top: 5px;
+}
+
+.-collection > :where(h1, h2, h3, h4, h5) + .jonnitto-imagesinarow,
+.-collection > :where(h1, h2, h3, h4, h5) + .mediacontent {
+  @apply mt-4;
+}
+
+.jonnitto-imagesinarow__image {
+  @apply overflow-clip rounded-image;
+}
+
+.-collection > .mediacontent + .mediacontent {
+  margin-top: 10px;
+}
+
+.has-prose + .has-prose {
+  @apply mt-8;
+}
+
+.mapboxgl-popup-content {
+  @apply text-black;
+
+  & address {
+    @apply not-italic;
+  }
+}
+
+figure.prose img {
+  @apply m-0;
+}
+
+.-quotes {
+  & > p:first-of-type::before {
+    content: open-quote;
+  }
+
+  & > p:last-of-type::after {
+    content: close-quote;
+  }
+}
+
+::selection {
+  @apply bg-theme-accent text-bg-contrast;
+}
+
+.-count-entries {
+  counter-reset: entry;
+
+  & .-count-entry::before {
+    content: counter(entry, decimal-leading-zero) ". ";
+    counter-increment: entry;
+  }
+}
+
+.-count-headlines {
+  counter-reset: h2 h3 h4;
+
+  & h2:not(.-no-count-headlines) {
+    counter-reset: h3 h4;
+
+    &::before {
+      content: counter(h2) ". ";
+      counter-increment: h2;
+    }
+  }
+
+  & h3:not(.-no-count-headlines) {
+    counter-reset: h4;
+
+    &::before {
+      content: counter(h2) "." counter(h3) ". ";
+      counter-increment: h3;
+    }
+  }
+
+  & h4:not(.-no-count-headlines)::before {
+    content: counter(h2) "." counter(h3) "." counter(h4) ". ";
+    counter-increment: h4;
+  }
+}
+
+.neos-message-header,
+.neos-message-wrapper {
+  overflow-x: auto;
+  max-width: var(--content-max-width-wide);
+  padding-left: var(--content-padding-left);
+  padding-right: var(--content-padding-right);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.neos-message-wrapper {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+a.lightbox {
+  @apply cursor-zoom-in;
+}

@@ -1,0 +1,21 @@
+prototype(Litespeed.Presentation:Section.Footer.Fragment.Links) < prototype(Neos.Fusion:Component) {
+    items = ${[]}
+    class = 'text-base opacity-90 hocus:opacity-100 hocus:underline'
+    currentClass = 'font-bold'
+
+    renderer = afx`
+        <Neos.Fusion:Loop items={props.items}>
+            <li>
+                <a
+                    href={item.href}
+                    :class={"$isCurrentPage()&&'" + props.currentClass + "'"}
+                    :aria-current="$isCurrentPage()&&'page'"
+                    class={props.class}
+                    data-pswp-type={item.isLightbox ? "fetch" : null}
+                >
+                    {item.label}
+                </a>
+            </li>
+        </Neos.Fusion:Loop>
+    `
+}

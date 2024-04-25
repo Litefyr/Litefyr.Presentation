@@ -1,0 +1,137 @@
+@page {
+  size: A4;
+}
+
+:root,
+[data-theme][data-theme] {
+  --color-front-l: 0;
+  --color-accent-l: 0;
+  --color-back-l: 1;
+  --clippath-height-half: 0;
+  --clippath-height: 0;
+  --clippath-margin: 0;
+  --content-max-width: 100%;
+  --content-max-width-wide: 100%;
+  --clippath-display-top: none;
+  --clippath-display-bottom: none;
+  --clippath-display: none;
+}
+
+html {
+  color-scheme: light !important;
+}
+
+body {
+  background: transparent;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5 !important;
+  display: block !important;
+}
+
+.text-theme-back {
+  color: white !important;
+}
+
+.text-center {
+  text-align: left !important;
+}
+
+.max-w-content {
+  max-width: 100% !important;
+}
+
+.text-theme-accent {
+  font-weight: bold;
+}
+
+.-collection > .-width {
+  padding-left: var(--content-padding-left);
+  padding-right: var(--content-padding-right);
+}
+
+.min-h-\[--height\],
+.imagecontent\:min-h-\[--height\] :where(img) {
+  min-height: 0 !important;
+}
+
+.clippath-bottom,
+.clippath-top,
+.jonnitto-prettyembed,
+.btn,
+.swiper-pagination,
+.swiper-button,
+.swiper-scrollbar,
+.swiper-autoplay-progress,
+footer[data-theme="footer"],
+audio,
+aside,
+embed,
+form,
+iframe,
+object,
+script,
+style,
+video,
+main nav {
+  display: none !important;
+}
+
+a:any-link:not(.-print-hidelink) {
+  text-decoration: none !important;
+  color: #00f;
+
+  &::after {
+    content: " " attr(href) " ";
+    font-size: 0.8em;
+  }
+}
+
+.carbon-geomap__canvas a {
+  color: inherit;
+
+  &::after {
+    display: none;
+  }
+}
+
+img {
+  width: 100%;
+}
+
+.text-5xl {
+  font-size: 24pt !important;
+  line-height: 1.5 !important;
+}
+
+.text-4xl {
+  font-size: 22pt !important;
+  line-height: 1.5 !important;
+}
+
+.text-3xl {
+  font-size: 20pt !important;
+  line-height: 1.5 !important;
+}
+
+.text-2xl {
+  font-size: 18pt !important;
+  line-height: 1.5 !important;
+}
+
+.text-xl {
+  font-size: 16pt !important;
+  line-height: 1.5 !important;
+}
+
+.text-lg {
+  font-size: 14pt !important;
+  line-height: 1.5 !important;
+}
+
+.text-base,
+p {
+  font-size: 12pt !important;
+  line-height: 1.5 !important;
+}

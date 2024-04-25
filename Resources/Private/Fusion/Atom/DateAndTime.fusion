@@ -1,0 +1,23 @@
+prototype(Litespeed.Presentation:Atom.DateAndTime) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        date = ${PropTypes.any}
+        time = ${PropTypes.string}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    @if.hasDateOrTime = ${this.date || this.time}
+    renderer = afx`
+        <div class={Tailwind.merge("flex flex-wrap gap-x-4 text-sm text-theme-front/80 items-center", props.class)}>
+            <div class="flex items-center gap-1" @if={props.date}>
+                <Litespeed.Theme:Component.Icon @if={props.date} styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.day')} attributes.class="size-3 opacity-60 hidden sm:block" />
+                <time datetime={Date.format(props.date, 'Y-m-d')}>
+                    {Date.formatCldr(props.date, 'd. MMMM y')}
+                </time>
+            </div>
+            <div class="flex items-center gap-1" @if={props.time}>
+                <Litespeed.Theme:Component.Icon styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.time')} attributes.class="size-3 opacity-60 hidden sm:block" />
+                {props.time}
+            </div>
+        </div>
+    `
+}

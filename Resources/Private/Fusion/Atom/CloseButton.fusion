@@ -1,0 +1,55 @@
+prototype(Litespeed.Presentation:Atom.CloseButton) < prototype(Neos.Fusion:Component) {
+    class = null
+    alpineVariable = null
+    theme = null
+    activeText = null
+    inactiveText = null
+
+    attributes = Neos.Fusion:DataStructure
+
+    @if.hasAlpineVariable = ${this.alpineVariable}
+
+    renderer = afx`
+        <button
+            x-on:click={props.alpineVariable + "=!" + props.alpineVariable}
+            x-cloak
+            x-show="mobile"
+            type="button"
+            data-theme={props.theme}
+            class={Tailwind.merge("relative flex overflow-clip items-center justify-center rounded-full min-w-12 min-h-12 max-w-12 max-h-12 transform transition-all ring-0 ring-theme-accent hover:ring-8 focus:outline-none focus:ring-4 ring-opacity-30 focus-visible:ring-opacity-100 duration-200", props.class)}
+            :aria-label={props.alpineVariable + "?'" + props.activeText + "':'" + props.inactiveText + "'"}
+            :aria-label.@if={props.activeText && props.inactiveText}
+            x-tooltip
+            {...props.attributes}
+        >
+            <span class="flex flex-col justify-between min-w-5 min-h-4 transform transition-all duration-300 origin-center overflow-clip">
+                <span
+                    :class={props.alpineVariable + "&&'translate-x-10'"}
+                    class="block bg-theme-front h-0.5 w-5 rounded-box transform transition-all duration-300 origin-left"
+                ></span>
+                <span
+                    :class={props.alpineVariable + "&&'translate-x-10'"}
+                    class="block bg-theme-front h-0.5 w-5 rounded-box transform transition-all duration-300 delay-75"
+                ></span>
+                <span
+                    :class={props.alpineVariable + "&&'translate-x-10'"}
+                    class="block bg-theme-front h-0.5 w-5 rounded-box transform transition-all duration-300 origin-left delay-150"
+                ></span>
+
+                <span
+                    :class={props.alpineVariable + "?'translate-x-0 w-12':'-translate-x-10 w-0'"}
+                    class="absolute flex items-center justify-between transform transition-all duration-500 top-2"
+                >
+                    <span
+                        :class={props.alpineVariable + "?'rotate-45':'rotate-0'"}
+                        class="absolute block bg-theme-front h-0.5 w-5 rounded-box transform transition-all duration-500 delay-300"
+                    ></span>
+                    <span
+                        :class={props.alpineVariable + "?'-rotate-45':'-rotate-0'"}
+                        class="absolute block bg-theme-front h-0.5 w-5 rounded-box transform transition-all duration-500 delay-300"
+                    ></span>
+                </span>
+            </span>
+        </button>
+    `
+}

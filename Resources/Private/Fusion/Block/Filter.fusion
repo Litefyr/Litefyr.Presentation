@@ -1,0 +1,55 @@
+prototype(Litespeed.Presentation:Block.Filter) < prototype(Neos.Fusion:Component) {
+    items = null
+
+    overview = null
+    formal = true
+    label =${Translation.translate('chooseCategory' + (this.formal ? '.formal' : '.informal') , null, [], 'Main', 'Litespeed.Presentation')}
+    items.@process.overview = ${this.overview && value ? Array.concat([this.overview], value) : value}
+    class = null
+
+    @if.hasItems = ${Carbon.Array.check(this.items)}
+    renderer = afx`
+        <Litespeed.Presentation:Spacing
+            padding
+            class={Tailwind.merge("sm:hidden", props.class)}
+            x-data="{current:window.location.pathname.split('~')[0]}"
+        >
+            <label for="categories" class="sr-only">{props.label}</label>
+            <select
+                x-data="{uri:''}"
+                x-model="uri"
+                x-on:change="window.location.href=uri"
+                id="categories"
+                name="categories"
+                class="block w-full rounded-box border-theme-front border-lightness-offset-50 py-2 pl-3 pr-10 text-base focus:border-theme-accent focus:outline-none focus:ring-theme-accent"
+            >
+                <Neos.Fusion:Loop items={props.items}>
+                    <option value={item.href} :selected="$el.value==current">{item.label}</option>
+                </Neos.Fusion:Loop>
+            </select>
+        </Litespeed.Presentation:Spacing>
+        <Litespeed.Presentation:Spacing
+            full padding
+            class={Tailwind.merge("hidden border-b border-theme-front/20 font-bold sm:grid", props.class)}
+            x-data="{current:window.location.pathname.split('~')[0]}"
+        >
+            <nav class="-mb-px flex items-center justify-center gap-8 text-sm w-full mx-auto text-theme-front">
+                <Neos.Fusion:Loop items={props.items}>
+                    <a
+                        href={item.href}
+                        class="whitespace-nowrap flex py-4 px-1 border-b-2 gap-2 text-theme-front"
+                        :class={"'" + item.href + "'==current?'border-theme-accent':'border-transparent text-lightness-offset-25 hocus:border-theme-accent hocus:text-lightness-offset-0'"}
+                    >
+                        {item.label}
+                        <span
+                            @if={item.count}
+                            class="hidden -translate-y-1 text-xs font-normal md:block"
+                        >
+                            {item.count}
+                        </span>
+                    </a>
+                </Neos.Fusion:Loop>
+            </nav>
+        </Litespeed.Presentation:Spacing>
+    `
+}

@@ -1,0 +1,41 @@
+prototype(Litespeed.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        uri = ${PropTypes.string.isRequired}
+        label = ${PropTypes.string.isRequired}
+    }
+
+    subItems = null
+
+    @if.hasLabelAndUri = ${this.uri && this.label}
+    defaultLinkClass = 'leading-tight text-base transition-colors'
+
+    renderer = afx`
+        <li class="group relative h-full">
+            <a
+                href={props.uri}
+                class={[props.defaultLinkClass, 'whitespace-nowrap h-full p-4 flex flex-col items-center justify-center text-center text-theme-front group-hocus-within:text-theme-accent']}
+                :class="$isActivePage()?'font-bold':'font-normal'"
+                :aria-current="$isCurrentPage()&&'page'"
+            >
+                {props.label}
+            </a>
+            <ul
+                @if={Carbon.Array.check(props.subItems)}
+                class={["pointer-events-none absolute bg-theme-back -bg-lightness-offset-5 shadow-lg w-max max-w-sm font-normal rounded-box overflow-clip opacity-0 -translate-y-4 transition duration-300 group-hocus-within:z-10 group-hocus-within:opacity-100 group-hocus-within:translate-y-0 group-hocus-within:pointer-events-auto group-hocus-within:block", iterator.isLast ? "right-0" : "left-0"]}
+            >
+                <Neos.Fusion:Loop items={props.subItems}>
+                    <li>
+                        <a
+                            href={item.uri}
+                            class={[props.defaultLinkClass, "block py-2 px-4 overflow-clip text-theme-front hocus:bg-theme-accent hocus:text-theme-back"]}
+                            :class="$isActivePage()?'font-bold':'font-normal'"
+                            :aria-current="$isCurrentPage()&&'page'"
+                        >
+                            {item.label}
+                        </a>
+                    </li>
+                </Neos.Fusion:Loop>
+            </ul>
+        </li>
+    `
+}

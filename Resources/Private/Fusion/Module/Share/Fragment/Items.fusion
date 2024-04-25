@@ -1,0 +1,34 @@
+prototype(Litespeed.Presentation:Module.Share.Fragment.Items) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        iconClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        iconAnimationClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        showText = ${PropTypes.boolean}
+        showPrint = ${PropTypes.boolean}
+    }
+
+    items = null
+    showText = true
+    showPrint = true
+    singleItem = null
+
+    @if.hasItmes = ${Carbon.Array.check(this.items)}
+
+    renderer = Neos.Fusion:Loop {
+        items = ${props.items}
+        itemRenderer = Carbon.Eel:Tag {
+            @if.showPrint = ${itemKey == 'print' ? props.showPrint : true}
+            @if.singleItem = ${props.singleItem ? props.singleItem == itemKey : true}
+            tagName = ${item.attributes['x-if'] ? 'template' : null}
+            attributes.x-if = ${item.attributes['x-if']}
+            content = Neos.Fusion:Tag {
+                tagName = ${item.attributes.href || item.attributes[':href'] ? 'a' : 'button'}
+                attributes = ${Array.concat(item.attributes, {'x-if': null, class: props.class, 'aria-label': props.showText ? null : item.content})}
+                content = afx`
+                    <Litespeed.Theme:Component.Icon attributes.class={Tailwind.merge(props.iconAnimationClass, props.iconClass)} styleAndIcon={item.styleAndIcon} />
+                    <span @if={props.showText}>{item.label}</span>
+                `
+            }
+        }
+    }
+}

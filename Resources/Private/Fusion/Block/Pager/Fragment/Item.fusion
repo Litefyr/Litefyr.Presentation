@@ -1,0 +1,45 @@
+prototype(Litespeed.Presentation:Block.Pager.Fragment.Item) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        type = ${PropTypes.oneOf(['current', 'link', 'separator'])}
+        uri = ${PropTypes.string}
+        label = ${PropTypes.anyOf( PropTypes.string, PropTypes.integer )}
+        content = ${PropTypes.anyOf( PropTypes.string, PropTypes.integer )}
+        tooltip = ${PropTypes.string}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    type = 'current'
+
+
+    @if.set = ${this.label || this.content || this.type == 'separator'}
+
+    @private {
+        baseClass = 'border-t-2 pt-4 px-4 text-theme-front'
+        typeClass = Neos.Fusion:Match {
+            @subject = ${props.type}
+            @default = 'border-theme-accent'
+            separator = 'border-transparent !text-opacity-70'
+            link = 'transition border-transparent !text-opacity-70 hocus:border-theme-accent hocus:!text-opacity-100'
+        }
+    }
+
+
+    renderer = afx`
+        <a
+            @if={props.uri}
+            href={props.uri}
+            aria-label={props.tooltip}
+            x-tooltip={!!props.tooltip || null}
+            aria-current={props.type == 'current' ? 'page' : null}
+            class={Tailwind.merge(private.baseClass, private.typeClass, props.class)}
+        >
+            {props.label || props.content}
+        </a>
+        <span
+            @if={!props.uri && props.type != 'link'}
+            class={Tailwind.merge(private.baseClass, private.typeClass, props.class)}
+        >
+            {props.label || props.content || '…'}
+        </span>
+    `
+}

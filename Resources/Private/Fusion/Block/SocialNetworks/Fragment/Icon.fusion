@@ -1,0 +1,24 @@
+prototype(Litespeed.Presentation:Block.SocialNetworks.Fragment.Icon) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        network = PropTypes:String
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        wrapperClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        wrapperTheme = ${PropTypes.string}
+        styleAndIcon = ${PropTypes.string}
+        enableWrapper = ${PropTypes.boolean}
+    }
+
+    @private.enableWrapper = ${props.network && props.enableWrapper ? Array.indexOf(["email", "phone", "mobile", "website"], props.network) != -1 : props.enableWrapper}
+
+    renderer = Carbon.Eel:Tag {
+        tagName = ${private.enableWrapper && props.wrapperClass ? 'span' : null}
+        attributes {
+            class = ${props.wrapperClass}
+            data-theme = ${props.wrapperTheme}
+        }
+        content = Litespeed.Theme:Component.Icon {
+            styleAndIcon = ${props.styleAndIcon || props.icons[props.network] || ('brands:' + props.network)}
+            attributes.class = ${props.class}
+        }
+    }
+}

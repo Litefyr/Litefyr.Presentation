@@ -1,0 +1,41 @@
+prototype(Litespeed.Presentation:Block.Breadcrumb) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        wrapperClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        listClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        homeIcon = ${PropTypes.string}
+        separator = ${PropTypes.string}
+    }
+
+    homeIcon = afx`<Litespeed.Theme:Component.Icon styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.breadcrumb.home')} attributes.class="flex-shrink-0 size-[1.2em] transition opacity-80 group-hocus:opacity-100"/>`
+    separator = afx`<Litespeed.Theme:Component.Icon styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.breadcrumb.separator')} attributes.class="flex-shrink-0 size-[1em] opacity-60 mr-2" />`
+
+    tagName = 'nav'
+    wrapperClass = 'w-full text-left'
+    listClass = 'text-fl-xs li:flex li:items-center a:block a:text-theme-front hocus:a:underline'
+
+    renderer = afx`
+        <Neos.Fusion:Augmenter x-data x-breadcrump x-cloak>
+            <Carbon.Eel:Tag tagName={props.tagName} attributes.class={props.wrapperClass}>
+                <ol class={Tailwind.merge("flex items-center gap-x-2 flex-wrap", props.listClass, props.class)}>
+                    <li>
+                        <a
+                            :href="home.href"
+                            :aria-label={props.homeIcon ? "home.label" : null}
+                            x-tooltip={props.homeIcon ? "right" : null}
+                            x-text={props.homeIcon ? null : "home.label"}
+                            class="group"
+                        >
+                            {props.homeIcon}
+                        </a>
+                    </li>
+                    <template x-for="item in items">
+                        <li>
+                            {props.separator}
+                            <a :href="item.href" x-text="item.label"></a>
+                        </li>
+                    </template>
+                </ol>
+            </Carbon.Eel:Tag>
+        </Neos.Fusion:Augmenter>
+    `
+}

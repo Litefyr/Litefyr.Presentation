@@ -1,0 +1,20 @@
+prototype(Litespeed.Presentation:Atom.Clippath.Filler) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'header', 'footer', ''])}
+        content = ${PropTypes.string}
+        ariaHidden = ${PropTypes.boolean}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        height = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    ariaHidden = ${!this.content}
+    height = null
+
+
+    renderer = Litespeed.Presentation:Atom.Clippath.Tag {
+        theme = ${props.theme}
+        content = ${props.content}
+        ariaHidden = ${props.ariaHidden}
+        class = ${[props.class, props.height, 'clippath-display -mt-1']}
+    }
+}

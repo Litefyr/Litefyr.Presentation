@@ -1,0 +1,22 @@
+{
+    "name": "litespeed/presentation",
+    "description": "Presentational components for Litespeed",
+    "type": "neos-litespeed",
+    "license": "GPL-3.0-or-later",
+    "require" : {
+        "carbon/eel" : "^2.15",
+        "carbon/fileloader": "^0.1",
+        "carbon/image" : "^4.0",
+        "carbon/includeassets" : "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Litespeed\\Presentation\\": "Classes"
+        }
+    },
+    "keywords": [
+        "flow",
+        "neos",
+        "litespeed"
+    ]
+}

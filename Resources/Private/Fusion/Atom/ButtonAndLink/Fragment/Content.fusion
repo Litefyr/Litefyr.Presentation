@@ -1,0 +1,45 @@
+prototype(Litespeed.Presentation:Atom.ButtonAndLink.Fragment.Content) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        content = ${PropTypes.string}
+        appearance = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'ghost', 'link', 'nested'])}
+        enableIcon = ${PropTypes.boolean}
+        icon = PropTypes:DataStructure {
+            main = PropTypes:DataStructure {
+                markup = ${PropTypes.string}
+                position = ${PropTypes.oneOf(['start', 'end'])}
+            }
+            minor = PropTypes:DataStructure {
+                markup = ${PropTypes.string}
+                position = ${PropTypes.oneOf(['start', 'end'])}
+            }
+            minor2 = PropTypes:DataStructure {
+                markup = ${PropTypes.string}
+                position = ${PropTypes.oneOf(['start', 'end'])}
+            }
+            ghost = PropTypes:DataStructure {
+                markup = ${PropTypes.string}
+                position = ${PropTypes.oneOf(['start', 'end'])}
+            }
+            link = PropTypes:DataStructure {
+                markup = ${PropTypes.string}
+                position = ${PropTypes.oneOf(['start', 'end'])}
+            }
+        }
+    }
+
+    content = null
+
+    @private {
+        startIcon = ${props.enableIcon && props.icon[props.appearance]['markup'] && props.icon[props.appearance]['position'] == 'start' ? props.icon[props.appearance]['markup'] : ''}
+        endIcon = ${props.enableIcon && props.icon[props.appearance]['markup'] && props.icon[props.appearance]['position'] == 'end' ? props.icon[props.appearance]['markup'] : ''}
+    }
+
+    renderer = afx`
+        {private.startIcon}
+        <Carbon.Eel:Tag
+            tagName={private.startIcon || private.endIcon ? "span" : null}
+            content={props.content || Translation.translate('readMore', null, [], 'Main', 'Litespeed.Presentation')}
+        />
+        {private.endIcon}
+    `
+}

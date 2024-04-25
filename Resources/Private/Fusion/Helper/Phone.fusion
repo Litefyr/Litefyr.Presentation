@@ -1,0 +1,32 @@
+prototype(Litespeed.Presentation:Helper.Phone) < prototype(Neos.Fusion:Component) {
+    country = ${q(site).property('country')}
+    countryPhoneCode = ${q(site).property('defaultCountryPhoneCode')}
+
+    @private.defaultCountryCodeMap = Neos.Fusion:DataStructure {
+        at = '0043'
+        ch = '0041'
+        de = '0049'
+        fr = '0033'
+        es = '0034'
+        gb = '0044'
+    }
+
+    value = ${value}
+    renderer = Neos.Fusion:Case {
+        noValue {
+            condition = ${!props.value}
+            renderer = null
+        }
+        hasCountryPhoneCode {
+            condition = ${props.countryPhoneCode}
+            renderer = ${Carbon.String.phone(props.value, props.countryPhoneCode)}
+        }
+        hasCountry {
+            condition = ${props.country && private.defaultCountryCodeMap[props.country]}
+            renderer = ${Carbon.String.phone(props.value, private.defaultCountryCodeMap[props.country])}
+        }
+        fallback {
+            renderer = ${Carbon.String.phone(props.value)}
+        }
+    }
+}

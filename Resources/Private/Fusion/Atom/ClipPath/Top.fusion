@@ -1,0 +1,20 @@
+prototype(Litespeed.Presentation:Atom.Clippath.Top) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        content = ${PropTypes.string}
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'header', 'footer', ''])}
+        ariaHidden = ${PropTypes.boolean}
+        bgColor = ${PropTypes.boolean}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    ariaHidden = true
+    bgColor = true
+
+    renderer = Litespeed.Presentation:Atom.Clippath.Tag {
+        theme = ${props.theme}
+        content = ${props.content}
+        ariaHidden = ${props.ariaHidden}
+        bgColor = ${props.bgColor}
+        class = ${[props.class, 'clippath-top']}
+    }
+}

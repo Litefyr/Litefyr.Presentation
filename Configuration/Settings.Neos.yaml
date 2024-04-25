@@ -1,0 +1,10 @@
+Neos:
+  Neos:
+    fusion:
+      autoInclude:
+        Litespeed.Presentation: true
+    userInterface:
+      translation:
+        autoInclude:
+          Litespeed.Presentation:
+            - 'Spacing'

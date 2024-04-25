@@ -1,0 +1,176 @@
+prototype(Litespeed.Presentation:Section.Header) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        logo = ${PropTypes.string}
+        logoPositionRight = ${PropTypes.boolean}
+        clipPathBelowNavigation = ${PropTypes.boolean}
+        colorSchemeSwitchter = ${PropTypes.oneOf(['top', 'bottom', 'both', ''])}
+    }
+
+    homeUri = '/'
+    items = Neos.Fusion:DataStructure
+    logo = ''
+    clipPathBelowNavigation = false
+    logoMarginTop = 16
+    logoMarginBottom = 16
+    logoPreview= false
+    headerGap = 16
+
+    scrollAmount = 150
+    classNameOnScroll = '-translate-y-[--header-translate]'
+    addScrollClassOnlyOnTop = false
+
+    @private {
+        clipPath = afx`
+            <div
+                @if={props.clipPathBelowNavigation}
+                class="bg-theme-back clippath-bottom"
+                aria-hidden="true"
+            ></div>
+        `
+        showColorSchemeSwitchter = ${props.colorSchemeSwitchter == 'top' || props.colorSchemeSwitchter == 'both'}
+        style = Neos.Fusion:Loop {
+            @glue = ';'
+            items = Neos.Fusion:DataStructure {
+                --header-translate = ${props.logoMarginBottom < 0 ? 'calc(101% + ' + (props.logoMarginBottom * -1)  + 'px)' : '101%'}
+                --header-gap = ${Carbon.Number.pxToRem(props.headerGap)}
+                --logo-mt = ${String.toString(props.logoMarginTop) + 'px'}
+                --logo-mb = ${String.toString(props.logoMarginBottom) + 'px'}
+            }
+            itemRenderer = ${itemKey + ':' + item}
+        }
+    }
+
+    renderer = afx`
+        <header
+            class.base="group/header z-[500] fixed inset-x-0 top-0 transition-transform transform-gpu duration-500 mt-0 pointer-events-none"
+            class.margin={private.clipPath ? '+:mt-[calc(var(--header-height)+var(--clippath-height-half))] xl:+:mt-header' : '+:mt-header'}
+            class.print="print:static"
+            style={private.style}
+            x-bind="header"
+            x-data={AlpineJS.function("header", props.scrollAmount, props.classNameOnScroll, props.addScrollClassOnlyOnTop)}
+            data-theme="header"
+            x-trap="mobileMenuOpen"
+        >
+            <div class="relative">
+                <div aria-hidden="true" class="absolute inset-0 bg-theme-back"></div>
+                <div class="pointer-events-auto" x-ref="header">
+                    <div
+                        class="max-w-7xl mx-auto flex gap-x-6 items-stretch px-safe-offset-4 sm:px-safe-offset-6 lg:px-safe-offset-8 lg:space-x-10 z-30 relative"
+                        :class="mobileMenuOpen&&'backdrop-blur-md'"
+                        x-ref="container"
+                    >
+                        <Litespeed.Presentation:Section.Header.Fragment.Logo
+                            linkAttributes.href={props.homeUri}
+                            positionRight={props.logoPositionRight}
+                            marginTop={props.logoMarginTop}
+                            marginBottom={props.logoMarginBottom}
+                            preview={props.logoPreview}
+                            content={props.logo}
+                        />
+                        <div class="flex flex-1 items-stretch gap-x-[--header-gap] print:hidden">
+                            <nav
+                                x-ref="navMain"
+                                :class="mobile&&'pointer-events-none invisible'"
+                                class.base="flex flex-1 items-center"
+                                class.position={props.logoPositionRight ? 'justify-start order-last' : 'justify-end'}
+                            >
+                                <ul
+                                    x-ref="navList"
+                                    class="flex items-stretch gap-x-[--header-gap]"
+                                    :style="mobile?{marginLeft:width.list*-1.1+'px'}:{}"
+                                    x-cloak
+                                    @if={Carbon.Array.check(props.items)}
+                                >
+                                    <Neos.Fusion:Loop items={props.items}>
+                                        <Litespeed.Presentation:Section.Header.Fragment.MenuItem {...item}/>
+                                    </Neos.Fusion:Loop>
+                                </ul>
+                            </nav>
+                            <div x-ref="switcher" class="flex items-center gap-x-[--header-gap] empty:hidden" :class={props.logoPositionRight ? "mobile&&'absolute top-0 bottom-0 left-[--content-padding-left]'" : "mobile&&'absolute top-0 bottom-0 right-[--content-padding-right]'"}>
+                                <Litespeed.Presentation:Atom.CloseButton
+                                    @if={Carbon.Array.check(props.items)}
+                                    alpineVariable="mobileMenuOpen"
+                                    activeText={Translation.translate('navigation.close', null, [], null, 'Litespeed.Presentation')}
+                                    inactiveText={Translation.translate('navigation.open', null, [], null, 'Litespeed.Presentation')}
+                                    class="self-center"
+                                />
+                                <Litespeed.Presentation:Block.ColorSchemeSwitchter @if={private.showColorSchemeSwitchter} left={props.logoPositionRight} />
+                            </div>
+                            <!-- Placeholder for color scheme mode switcher -->
+                            <div x-show="mobile" @if={private.showColorSchemeSwitchter} class="size-12" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                    <div
+                        @if={Carbon.Array.check(props.items)}
+                        x-cloak
+                        x-show="mobileMenuOpen"
+                        x-transition:enter="ease-out"
+                        x-transition:enter-start="opacity-0 scale-y-0"
+                        x-transition:enter-end="opacity-100 scale-y-100"
+                        x-transition:leave="ease-in"
+                        x-transition:leave-start="opacity-100 scale-y-10"
+                        x-transition:leave-end="opacity-0 scale-y-0"
+                        class="drop-shadow absolute z-20 top-0 inset-x-0 transition transform origin-top"
+                    >
+                        <div class="overscroll-contain overflow-auto max-h-svh">
+                            <nav
+                                class="bg-theme-back px-safe"
+                                style="padding-top:min(var(--header-height),5rem)"
+                            >
+                                <ul
+                                    class="px-4 py-6 grid grid-flow-row grid-cols-1 sm:grid-cols-2 gap-4"
+                                    style={props.logoMarginBottom < 0 ? 'margin-top:' + (props.logoMarginBottom * -1) + 'px' : null}
+                                >
+                                    <Neos.Fusion:Loop items={props.items}>
+                                        <Litespeed.Presentation:Section.Header.Fragment.MobileMenuItem {...item}/>
+                                    </Neos.Fusion:Loop>
+                                </ul>
+                            </nav>
+                            {private.clipPath}
+                        </div>
+                    </div>
+                </div>
+                <template x-teleport="body">
+                    <div x-show="mobileMenuOpen" "x-transition.opacity" x-on:click="mobileMenuOpen=false" aria-hidden="true" class="fixed inset-0 bg-theme-back/60 backdrop-blur z-[499]"></div>
+                </template>
+            </div>
+            {private.clipPath}
+        </header>
+    `
+
+    @styleguide {
+        props {
+            homeUri = '#'
+            items = Neos.Fusion:DataStructure {
+                01 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                    label = 'Lorem ipsum'
+                }
+                02 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                    label = 'Dolor sit amet'
+                    subItems = 6
+                    subsubItems = 4
+                }
+                03 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                    label = 'Lorem'
+                    subItems = 3
+                    subsubItems = 6
+                }
+                04 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                    label = 'Dolor'
+                    subItems = 4
+                }
+                05 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                    label = 'References'
+                    subItems = 1
+                }
+                06 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                    label = 'Journal'
+                }
+                07 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                    label = 'Über uns'
+                    subItems = 1
+                }
+            }
+        }
+    }
+}

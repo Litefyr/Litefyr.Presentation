@@ -1,0 +1,82 @@
+@layer base {
+  :root {
+    --header-height: 84px;
+  }
+
+  .dark {
+    --color-scheme: dark;
+  }
+
+  .light {
+    --color-scheme: light;
+  }
+
+  html {
+    @apply font-main;
+  }
+
+  body {
+    @apply antialiased bg-theme-back text-theme-front color-scheme;
+
+    display: grid;
+    min-height: 100vh;
+    min-height: 100dvh;
+    align-items: start;
+    justify-items: stretch;
+    align-content: space-between;
+
+    & > :where(*) {
+      min-width: 0;
+    }
+  }
+
+  b,
+  strong {
+    @apply font-bold;
+  }
+
+  img {
+    /* https://twitter.com/csswizardry/status/1717841334462005661 */
+    @apply mx-auto bg-cover bg-no-repeat italic;
+
+    shape-margin: 0.75rem;
+  }
+
+  mark {
+    @apply bg-theme-accent text-theme-back;
+  }
+
+  [x-mark] mark,
+  mark[x-mark],
+  mark[style],
+  mark:has(+ .rough-annotation) {
+    @apply bg-transparent text-theme-front;
+  }
+
+  * {
+    outline-color: theme("colors.theme.accent");
+    accent-color: theme("colors.theme.accent");
+  }
+
+  [x-cloak] {
+    @apply !pointer-events-none !invisible;
+  }
+
+  .preview body {
+    background-color: transparent;
+    color: theme("colors.theme.front");
+  }
+
+  address {
+    @apply font-main not-italic;
+  }
+
+  :where(a, button) > * {
+    @apply pointer-events-none;
+  }
+
+  /* focusable elements */
+  :where(a, button, input, select, textarea) {
+    @apply outline-transparent focus-visible:outline-theme-accent;
+  }
+}

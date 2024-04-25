@@ -1,0 +1,35 @@
+prototype(Litespeed.Presentation:Block.StackedImages) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        items = ${PropTypes.arrayOf( PropTypes.any )}
+    }
+
+    @if.hasItems = ${Carbon.Array.check(this.items)}
+    size = 40
+
+    itemClass = 'relative block rounded-full overflow-clip border-2 border-bg'
+
+    renderer = afx`
+        <div class={Tailwind.merge("z-50 isolate flex -space-x-2 overflow-clip", props.wrapper)} x-data x-tooltips>
+            <Neos.Fusion:Loop items={props.items}>
+                <a
+                    @if={item.href}
+                    href={item.href}
+                    class={props.itemClass}
+                    aria-label={item.tooltip || item.label}
+                    style={"z-index:" + (Array.length(props.items) - iterator.index) + ";width:" + (props.size + 2) + "px;height:" + (props.size + 2) + "px"}
+                >
+                    <Carbon.Image:Component.Presentation.Image lazy={false} width={props.size} height={props.size} srcset="1x,2x" figureTagName={null} {...item} alternativeText={item.alternativeText || item.label} />
+                </a>
+                <figure
+                    @if={!item.href}
+                    class={props.itemClass}
+                    aria-label={item.tooltip || item.label}
+                    style={"z-index:" + (Array.length(props.items) - iterator.index)}
+                >
+                    <Carbon.Image:Component.Presentation.Image lazy={false} width={props.size} height={props.size} srcset="1x,2x" figureTagName={null} {...item}  alternativeText={item.alternativeText || item.label} />
+                </figure>
+            </Neos.Fusion:Loop>
+        </div>
+    `
+}

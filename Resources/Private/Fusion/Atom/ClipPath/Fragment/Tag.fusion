@@ -1,0 +1,20 @@
+prototype(Litespeed.Presentation:Atom.Clippath.Tag) < prototype(Litespeed.Presentation:Atom.Clippath.Component) {
+    @propTypes {
+        content = ${PropTypes.string}
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'header', 'footer', ''])}
+        ariaHidden = ${PropTypes.boolean}
+        bgColor = ${PropTypes.boolean}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    ariaHidden = true
+    bgColor = true
+
+    renderer = Litespeed.Presentation:Spacing {
+        data-theme = ${props.theme || false}
+        full = true
+        tailwind = ${[props.bgColor ? 'bg-theme-back' : 'bg-transparent', props.class]}
+        aria-hidden = ${props.ariaHidden ? 'true' : false}
+        content = ${props.content}
+    }
+}

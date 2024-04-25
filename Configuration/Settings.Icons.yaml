@@ -1,0 +1,40 @@
+Base:
+  Presentation:
+    icons:
+      backend:
+        folder: 'regular:folder-open'
+        articles: 'solid:bullhorn'
+        tags: 'solid:tags'
+      accordion:
+        open: 'solid:plus'
+        close: 'solid:minus'
+        always: 'solid:chevron-down'
+      breadcrumb:
+        home: 'solid:house'
+        separator: 'solid:angle-right'
+      pagination:
+        prev: 'solid:arrow-left'
+        next: 'solid:arrow-right'
+      socialNetworks:
+        appleMusic: 'brands:itunes-note'
+        x: 'brands:x-twitter'
+        address: 'solid:location-dot'
+        email: 'solid:paper-plane'
+        website: 'solid:compass'
+        mobile: 'solid:mobile'
+        phone: 'solid:phone'
+
+      share: 'solid:share'
+      print: 'solid:print'
+      shareEmail: 'solid:at'
+      shareCopy: 'solid:copy'
+
+      close: 'solid:xmark'
+      chat: 'solid:comments'
+      support: 'solid:message'
+      blockquote: 'solid:quote-left'
+      loadingIndicator: 'solid:spinner'
+      day: 'solid:calendar'
+      time: 'solid:clock'
+      location: 'solid:location-dot'
+      description: 'solid:note-sticky'
