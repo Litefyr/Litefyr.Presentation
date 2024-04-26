@@ -51,7 +51,7 @@ prototype(Litespeed.Presentation:Block.Teaser.Textbox) < prototype(Neos.Fusion:C
                 class={[private.classes.root, "aspect-[15/8] flex items-center justify-center text-theme-front bg-theme-back bg-lightness-offset-5 animate-pulse"]}
                 data-theme={props.theme}
             >
-                <Litespeed.Theme:Component.Icon
+                <Litespeed.Presentation:Atom.Icon
                     styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.loadingIndicator')}
                     attributes.class="size-5 animate-spin"
                 />

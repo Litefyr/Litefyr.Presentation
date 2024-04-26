@@ -46,7 +46,7 @@ prototype(Litespeed.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Com
                 aria-hidden="true"
                 data-theme={props.theme}
             >
-                <Litespeed.Theme:Component.Icon
+                <Litespeed.Presentation:Atom.Icon
                     styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.loadingIndicator')}
                     attributes.class="size-5 animate-spin"
                 />

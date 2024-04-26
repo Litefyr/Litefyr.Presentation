@@ -6,8 +6,8 @@ prototype(Litespeed.Presentation:Block.Breadcrumb) < prototype(Neos.Fusion:Compo
         separator = ${PropTypes.string}
     }
 
-    homeIcon = afx`<Litespeed.Theme:Component.Icon styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.breadcrumb.home')} attributes.class="flex-shrink-0 size-[1.2em] transition opacity-80 group-hocus:opacity-100"/>`
-    separator = afx`<Litespeed.Theme:Component.Icon styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.breadcrumb.separator')} attributes.class="flex-shrink-0 size-[1em] opacity-60 mr-2" />`
+    homeIcon = afx`<Litespeed.Presentation:Atom.Icon styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.breadcrumb.home')} attributes.class="flex-shrink-0 size-[1.2em] transition opacity-80 group-hocus:opacity-100"/>`
+    separator = afx`<Litespeed.Presentation:Atom.Icon styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.breadcrumb.separator')} attributes.class="flex-shrink-0 size-[1em] opacity-60 mr-2" />`
 
     tagName = 'nav'
     wrapperClass = 'w-full text-left'

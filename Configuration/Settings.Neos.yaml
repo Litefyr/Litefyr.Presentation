@@ -8,3 +8,6 @@ Neos:
         autoInclude:
           Litespeed.Presentation:
             - 'Spacing'
+  Fusion:
+    defaultContext:
+      Presentation: 'Litespeed\Presentation\EelHelper\PresentationHelper'

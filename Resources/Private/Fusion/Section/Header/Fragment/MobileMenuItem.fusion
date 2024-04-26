@@ -42,19 +42,19 @@ prototype(Litespeed.Presentation:Section.Header.Fragment.MobileMenuItem) < proto
                     type="button"
                     class="flex items-center rounded-full size-12 -my-8 justify-center transform transition-all ring-0 ring-theme-accent duration-200 text-theme-front hocus:text-theme-accent focus:outline-none focus-visible:ring-4"
                 >
-                    <Litespeed.Theme:Component.Icon
+                    <Litespeed.Presentation:Atom.Icon
                         styleAndIcon={props.collapseIcon.always}
                         attributes.class="size-6 transition duration-500"
                         attributes.:class="$disclosure.isOpen&&'rotate-180'"
                     />
-                    <Litespeed.Theme:Component.Icon
+                    <Litespeed.Presentation:Atom.Icon
                         @if={!props.collapseIcon.always}
                         styleAndIcon={props.collapseIcon.close}
                         attributes.class="size-6 transition duration-500"
                         attributes.x-show="$disclosure.isOpen"
                         attributes.x-cloak={true}
                     />
-                    <Litespeed.Theme:Component.Icon
+                    <Litespeed.Presentation:Atom.Icon
                         @if={!props.collapseIcon.always}
                         styleAndIcon={props.collapseIcon.open}
                         attributes.class="size-6 transition duration-500"

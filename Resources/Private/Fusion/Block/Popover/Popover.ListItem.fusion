@@ -19,7 +19,7 @@ prototype(Litespeed.Presentation:Block.Popover.ListItem) < prototype(Neos.Fusion
         >
             <li>
                 <Neos.Fusion:Tag tagName={private.tagName} attributes={private.attributes}>
-                    <Litespeed.Theme:Component.Icon styleAndIcon={props.styleAndIcon} />
+                    <Litespeed.Presentation:Atom.Icon styleAndIcon={props.styleAndIcon} />
                     {props.content}
                 </Neos.Fusion:Tag>
             </li>

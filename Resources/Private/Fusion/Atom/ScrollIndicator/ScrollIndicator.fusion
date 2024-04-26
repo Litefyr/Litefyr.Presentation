@@ -53,7 +53,7 @@ prototype(Litespeed.Presentation:Atom.ScrollIndicator) < prototype(Neos.Fusion:C
                 data-theme={props.theme}
             >
                 <Neos.Fusion:Augmenter class={Tailwind.merge(private.itemClass)}>
-                    <Litespeed.Theme:Component.Icon @if={!props.content} styleAndIcon={private.styleAndIcon} />
+                    <Litespeed.Presentation:Atom.Icon @if={!props.content} styleAndIcon={private.styleAndIcon} />
                     {props.content}
                 </Neos.Fusion:Augmenter>
             </button>

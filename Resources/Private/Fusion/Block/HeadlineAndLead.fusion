@@ -49,7 +49,7 @@ prototype(Litespeed.Presentation:Block.HeadlineAndLead) < prototype(Neos.Fusion:
             />
             <Litespeed.Presentation:Atom.Label class="order-first" label={props.label} />
             <p @if={props.lead} class={props.leadClass}>
-                {Theme.typewriter(props.lead, !props.inBackend, 'text-theme-accent')}
+                {Presentation.typewriter(props.lead, !props.inBackend, 'text-theme-accent')}
             </p>
 
         </Litespeed.Presentation:Spacing>

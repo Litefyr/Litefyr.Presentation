@@ -43,7 +43,7 @@ prototype(Litespeed.Presentation:Module.Dialog) < prototype(Neos.Fusion:Componen
                             aria-label={Translation.translate('close', null, [], null, 'Litespeed.Presentation')}
                             x-tooltip
                         >
-                            <Litespeed.Theme:Component.Icon
+                            <Litespeed.Presentation:Atom.Icon
                                 styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.close')}
                                 attributes.class="size-6"
                             />

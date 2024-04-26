@@ -55,7 +55,7 @@ prototype(Litespeed.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component
                 <div class={[private.classes.figure, "animate-pulse"]}></div>
                 <div class={[private.classes.content]}>
                     <div class="flex-1 min-h-48 flex justify-center items-center animate-pulse">
-                        <Litespeed.Theme:Component.Icon
+                        <Litespeed.Presentation:Atom.Icon
                             styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.loadingIndicator')}
                             attributes.class="size-5 animate-spin"
                         />

@@ -21,7 +21,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
 
     @private {
         shareButtonContent = afx`
-            <Litespeed.Theme:Component.Icon
+            <Litespeed.Presentation:Atom.Icon
                 styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.share')}
                 attributes.class={Tailwind.merge(props.iconAnimationClass, props.iconClass)}
             />

@@ -15,22 +15,22 @@ prototype(Litespeed.Presentation:Module.DataPrivacy) < prototype(Neos.Fusion:Com
     }
 
 
-    i18n = ${Translation.id('').package('Litespeed.Theme').source('DataPrivacy')}
+    i18n = ${Translation.id('').package('Litespeed.Integration').source('DataPrivacy')}
     quantity = ${this.plural ? 2 : 1}
 
     renderer = afx`
         <div class="-count-headlines has-prose prose-h2:text-2xl prose-h3:text-xl w-full prose mx-auto px-content max-w-[calc(65ch+var(--content-padding,0)*2)]">
             <Neos.Fusion:Fragment @if={props.useDefaultDataPrivacy}>
                 <h2 class="-no-count-headlines">{props.i18n.id('introduction.headline').translate()}</h2>
-                <p class="text-xl">{Translation.translate('introduction.text', null, {imprintUrl:props.imprintUrl,name:Carbon.String.nl2br(props.name, ', ')}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                <p class="text-xl">{Translation.translate('introduction.text', null, {imprintUrl:props.imprintUrl,name:Carbon.String.nl2br(props.name, ', ')}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
 
                 <h2>{props.i18n.id('personalData.headline').translate()}</h2>
                 <p>{props.i18n.id('personalData.intro').translate()}</p>
-                <p @if={props.hasNewsletter}>{Translation.translate('personalData.newsletter', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                <p @if={props.hasNewsletter}>{Translation.translate('personalData.newsletter', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
                 <p @if={props.hasPlausible}>{props.i18n.id('personalData.plausible').translate()}</p>
                 <p>{props.i18n.id('personalData.usage').translate()}</p>
-                <p @if={!props.hasMembers}>{Translation.translate('personalData.saveData', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
-                <p @if={props.hasMembers}>{Translation.translate('personalData.saveDataMembers', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                <p @if={!props.hasMembers}>{Translation.translate('personalData.saveData', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
+                <p @if={props.hasMembers}>{Translation.translate('personalData.saveDataMembers', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
 
                 <h2>{props.i18n.id('processingPurposes.headline').translate()}</h2>
                 <ol>
@@ -40,20 +40,20 @@ prototype(Litespeed.Presentation:Module.DataPrivacy) < prototype(Neos.Fusion:Com
                 </ol>
 
                 <h2>{props.i18n.id('legalBasisOfProcessing.headline').translate()}</h2>
-                <p>{Translation.translate('legalBasisOfProcessing.text', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                <p>{Translation.translate('legalBasisOfProcessing.text', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
 
                 <h2>{props.i18n.id('transmissionPersonalData.headline').translate()}</h2>
                 <p>
-                    {Translation.translate('transmissionPersonalData.text', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}
-                    {' '}{props.hasNewsletter && Translation.translate('transmissionPersonalData.newsletter', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}
+                    {Translation.translate('transmissionPersonalData.text', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}
+                    {' '}{props.hasNewsletter && Translation.translate('transmissionPersonalData.newsletter', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}
                 </p>
 
                 <h2>{props.i18n.id('storageDuration.headline').translate()}</h2>
-                <p>{Translation.translate('storageDuration.text', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                <p>{Translation.translate('storageDuration.text', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
 
                 <h2>{props.i18n.id('cookies.headline').translate()}</h2>
-                <p>{Translation.translate('cookies.' + (props.hasNewsletter ? 'newsletter' : 'noCookie'), null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
-                <p>{Translation.translate('cookies.external', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                <p>{Translation.translate('cookies.' + (props.hasNewsletter ? 'newsletter' : 'noCookie'), null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
+                <p>{Translation.translate('cookies.external', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
                 <p>{props.i18n.id('cookies.logs').translate()}</p>
 
                 <Neos.Fusion:Fragment @if={props.hasPlausible}>
@@ -63,14 +63,14 @@ prototype(Litespeed.Presentation:Module.DataPrivacy) < prototype(Neos.Fusion:Com
 
                 <Neos.Fusion:Fragment @if={props.hasNewsletter}>
                     <h2>{props.i18n.id('newsletter.headline').translate()}</h2>
-                    <p>{Translation.translate('newsletter.intro', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                    <p>{Translation.translate('newsletter.intro', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
                     <p>{props.i18n.id('newsletter.abo.' + props.salutation).translate()}</p>
 
                     <h3>{props.i18n.id('newsletter.content.headline').translate()}</h3>
-                    <p>{Translation.translate('newsletter.content.text', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                    <p>{Translation.translate('newsletter.content.text', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
 
                     <h3>{props.i18n.id('newsletter.loginData.headline').translate()}</h3>
-                    <p>{Translation.translate('newsletter.loginData.text.' + props.salutation, null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                    <p>{Translation.translate('newsletter.loginData.text.' + props.salutation, null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
 
                     <h3>{props.i18n.id('newsletter.doubleOptIn.headline').translate()}</h3>
                     <p>
@@ -80,7 +80,7 @@ prototype(Litespeed.Presentation:Module.DataPrivacy) < prototype(Neos.Fusion:Com
                     <p>{props.i18n.id('newsletter.doubleOptIn.logs').translate()}</p>
 
                     <h3>{props.i18n.id('newsletter.mautic.headline').translate()}</h3>
-                    <p>{Translation.translate('newsletter.mautic.text', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                    <p>{Translation.translate('newsletter.mautic.text', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
 
                     <h3>{props.i18n.id('newsletter.cancel.headline').translate()}</h3>
                     <p>
@@ -89,24 +89,24 @@ prototype(Litespeed.Presentation:Module.DataPrivacy) < prototype(Neos.Fusion:Com
 
                     <h3>{props.i18n.id('newsletter.legal.headline').translate()}</h3>
                     <p>{props.i18n.id('newsletter.legal.intro').translate()}</p>
-                    <p>{Translation.translate('newsletter.legal.interests', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                    <p>{Translation.translate('newsletter.legal.interests', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
                 </Neos.Fusion:Fragment>
 
                 <h2>{props.i18n.id('minors.headline').translate()}</h2>
                 <p>
                     {props.i18n.id('minors.intro').translate()}
-                    {' '}{Translation.translate('minors.data', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}
+                    {' '}{Translation.translate('minors.data', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}
                 </p>
 
                 <h2>{props.i18n.id('links.headline').translate()}</h2>
-                <p>{Translation.translate('links.text', null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                <p>{Translation.translate('links.text', null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
 
                 <h2>{props.i18n.id('rights.headline.' + props.salutation).translate()}</h2>
-                <p>{Translation.translate('rights.text.' + props.salutation, null, {}, 'DataPrivacy', 'Litespeed.Theme', props.quantity)}</p>
+                <p>{Translation.translate('rights.text.' + props.salutation, null, {}, 'DataPrivacy', 'Litespeed.Integration', props.quantity)}</p>
 
                 <Neos.Fusion:Fragment @if={props.webmasterEmail}>
                     <h2>{props.i18n.id('questions.headline').translate()}</h2>
-                    <p>{Translation.translate('questions.text.' + props.salutation, null, {webmasterEmail:props.webmasterEmail, imprintUrl:props.imprintUrl}, 'DataPrivacy', 'Litespeed.Theme')}</p>
+                    <p>{Translation.translate('questions.text.' + props.salutation, null, {webmasterEmail:props.webmasterEmail, imprintUrl:props.imprintUrl}, 'DataPrivacy', 'Litespeed.Integration')}</p>
                 </Neos.Fusion:Fragment>
 
                 <Neos.Fusion:Fragment @if={props.responsibleText || props.responsibleAddress}>

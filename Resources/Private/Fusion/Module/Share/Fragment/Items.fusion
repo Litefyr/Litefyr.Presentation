@@ -25,7 +25,7 @@ prototype(Litespeed.Presentation:Module.Share.Fragment.Items) < prototype(Neos.F
                 tagName = ${item.attributes.href || item.attributes[':href'] ? 'a' : 'button'}
                 attributes = ${Array.concat(item.attributes, {'x-if': null, class: props.class, 'aria-label': props.showText ? null : item.content})}
                 content = afx`
-                    <Litespeed.Theme:Component.Icon attributes.class={Tailwind.merge(props.iconAnimationClass, props.iconClass)} styleAndIcon={item.styleAndIcon} />
+                    <Litespeed.Presentation:Atom.Icon attributes.class={Tailwind.merge(props.iconAnimationClass, props.iconClass)} styleAndIcon={item.styleAndIcon} />
                     <span @if={props.showText}>{item.label}</span>
                 `
             }

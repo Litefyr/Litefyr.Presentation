@@ -72,11 +72,11 @@ prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion
             <Litespeed.Presentation:Spacing width={private.breakout} padding>
                 <div class={props.textWrapperClass} @if={props.headline || props.text || props.label}>
                     <h2 @if={props.headline}>
-                        {Theme.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
+                        {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
                     </h2>
                     <Litespeed.Presentation:Atom.Label class="order-first" label={props.label} />
                     <p @if={props.text} class={props.textParagraphClass}>
-                        {Theme.typewriter(props.text, !props.inBackend, 'text-theme-accent')}
+                        {Presentation.typewriter(props.text, !props.inBackend, 'text-theme-accent')}
                     </p>
                 </div>
                 <div
@@ -119,11 +119,11 @@ prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion
                         @if={props.headline}
                         class="text-fl-xl text-theme-front"
                     >
-                        {Theme.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
+                        {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
                     </h2>
                     <Litespeed.Presentation:Atom.Label class="order-first" label={props.label} />
                     <p @if={props.text} class={props.textParagraphClass}>
-                        {Theme.typewriter(props.text, !props.inBackend, 'text-theme-front text-lightness-offset-0')}
+                        {Presentation.typewriter(props.text, !props.inBackend, 'text-theme-front text-lightness-offset-0')}
                     </p>
                 </div>
                 <!-- Content START -->

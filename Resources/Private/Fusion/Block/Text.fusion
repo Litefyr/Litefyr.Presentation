@@ -82,7 +82,7 @@ prototype(Litespeed.Presentation:Block.Text) < prototype(Neos.Fusion:Component) 
                             {props.label}
                         </small>
                         <span class="block leading-8 opacity-80 theme:opacity-90 text-fl-xl">
-                                {Theme.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
+                                {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
                         </span>
                     </Litespeed.Presentation:Atom.Headline>
                     <div
@@ -90,7 +90,7 @@ prototype(Litespeed.Presentation:Block.Text) < prototype(Neos.Fusion:Component) 
                         class={Tailwind.merge(props.headline ? "mt-6" : null, props.textClass)}
                     >
                         <p @if={props.lead} class="lead">
-                            {Theme.typewriter(props.lead, !props.inBackend, 'text-theme-accent')}
+                            {Presentation.typewriter(props.lead, !props.inBackend, 'text-theme-accent')}
                         </p>
                         {props.content}
                         {props.links}

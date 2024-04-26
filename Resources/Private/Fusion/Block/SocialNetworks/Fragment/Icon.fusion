@@ -16,7 +16,7 @@ prototype(Litespeed.Presentation:Block.SocialNetworks.Fragment.Icon) < prototype
             class = ${props.wrapperClass}
             data-theme = ${props.wrapperTheme}
         }
-        content = Litespeed.Theme:Component.Icon {
+        content = Litespeed.Presentation:Atom.Icon {
             styleAndIcon = ${props.styleAndIcon || props.icons[props.network] || ('brands:' + props.network)}
             attributes.class = ${props.class}
         }

@@ -20,6 +20,6 @@ prototype(Litespeed.Presentation:Atom.Headline) < prototype(Neos.Fusion:Componen
     renderer = Neos.Fusion:Tag {
         tagName = ${props.tagName}
         attributes.class = ${['-links', Tailwind.merge(props.class)]}
-        content = ${Theme.typewriter(props.content, !props.inBackend && props.enableTypewriter, 'text-theme-accent')}
+        content = ${Presentation.typewriter(props.content, !props.inBackend && props.enableTypewriter, 'text-theme-accent')}
     }
 }
