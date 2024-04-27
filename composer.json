@@ -1,5 +1,5 @@
 {
-    "name": "litespeed/presentation",
+    "name": "lspeed/presentation",
     "description": "Presentational components for Litespeed",
     "type": "neos-litespeed",
     "license": "GPL-3.0-or-later",
