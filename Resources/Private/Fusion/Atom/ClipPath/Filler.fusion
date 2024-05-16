@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Clippath.Filler) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Clippath.Filler) < prototype(Neos.Fusion:Component) {
     @propTypes {
         theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'header', 'footer', ''])}
         content = ${PropTypes.string}
@@ -11,7 +11,7 @@ prototype(Litespeed.Presentation:Atom.Clippath.Filler) < prototype(Neos.Fusion:C
     height = null
 
 
-    renderer = Litespeed.Presentation:Atom.Clippath.Tag {
+    renderer = Litefyr.Presentation:Atom.Clippath.Tag {
         theme = ${props.theme}
         content = ${props.content}
         ariaHidden = ${props.ariaHidden}

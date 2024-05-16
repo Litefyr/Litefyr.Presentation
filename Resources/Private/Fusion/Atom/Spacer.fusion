@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         hr = ${PropTypes.boolean}
@@ -30,11 +30,11 @@ prototype(Litespeed.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component)
         ribbonText = Neos.Fusion:Case {
             responsiveScale {
                 condition = ${props.useResponsiveScale}
-                renderer = ${Translation.translate('spacing.' + private.scale , private.scale, [], 'Spacing', 'Litespeed.Presentation')}
+                renderer = ${Translation.translate('spacing.' + private.scale , private.scale, [], 'Spacing', 'Litefyr.Presentation')}
             }
             height {
                 condition = true
-                renderer = ${Translation.translate('spacingWithPixel', '{0} pixel spacing', [(private.height == 'px' ? 1 : private.height * 4)], 'Main', 'Litespeed.Presentation')}
+                renderer = ${Translation.translate('spacingWithPixel', '{0} pixel spacing', [(private.height == 'px' ? 1 : private.height * 4)], 'Main', 'Litefyr.Presentation')}
             }
         }
         heightClass = Neos.Fusion:Case {
@@ -87,10 +87,10 @@ prototype(Litespeed.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component)
     renderer = afx`
         <!-- Colored spacer -->
         <Neos.Fusion:Fragment @if={props.theme && !props.hr}>
-            <Litespeed.Presentation:Atom.Clippath.Top theme={props.theme} />
+            <Litefyr.Presentation:Atom.Clippath.Top theme={props.theme} />
             <Neos.Fusion:Fragment @if={props.inBackend}>
                 <div data-theme={props.theme} style={props.useResponsiveScale ? null : private.style} class={Tailwind.merge("border-0 bg-theme-back", private.heightClass, props.class)}>
-                    <Litespeed.Presentation:Atom.BackendRibbon content={private.ribbonText} />
+                    <Litefyr.Presentation:Atom.BackendRibbon content={private.ribbonText} />
                 </div>
             </Neos.Fusion:Fragment>
             <hr
@@ -99,14 +99,14 @@ prototype(Litespeed.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component)
                 style={props.useResponsiveScale ? null : private.style}
                 class={Tailwind.merge("border-0 bg-theme-back", private.heightClass, props.class)}
             />
-            <Litespeed.Presentation:Atom.Clippath.Bottom theme={props.theme} />
+            <Litefyr.Presentation:Atom.Clippath.Bottom theme={props.theme} />
         </Neos.Fusion:Fragment>
 
         <!-- HR Element -->
-        <Litespeed.Presentation:Spacing width={props.hrWidth} @if={props.hr} augmenter>
-            <Litespeed.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText}  />
+        <Litefyr.Presentation:Spacing width={props.hrWidth} @if={props.hr} augmenter>
+            <Litefyr.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText}  />
             <hr data-theme={props.theme || null} style={props.useResponsiveScale ? null : private.style} class={Tailwind.merge("theme-hr", private.marginClass, props.class)} />
-        </Litespeed.Presentation:Spacing>
+        </Litefyr.Presentation:Spacing>
 
         <!-- Empty spacer -->
         <div
@@ -115,7 +115,7 @@ prototype(Litespeed.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component)
             style={props.useResponsiveScale ? null : private.style}
             aria-hidden="true"
         >
-            <Litespeed.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText} />
+            <Litefyr.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText} />
         </div>
     `
 }

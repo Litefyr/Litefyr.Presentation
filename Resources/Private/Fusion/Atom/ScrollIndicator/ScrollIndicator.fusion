@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.ScrollIndicator) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.ScrollIndicator) < prototype(Neos.Fusion:Component) {
     @propTypes {
         styleAndIcon = ${PropTypes.string}
         hideAfter = ${PropTypes.integer}
@@ -13,7 +13,7 @@ prototype(Litespeed.Presentation:Atom.ScrollIndicator) < prototype(Neos.Fusion:C
     }
 
     background = true
-    label = ${Translation.translate('scrollDown', null, [], 'Main', 'Litespeed.Presentation')}
+    label = ${Translation.translate('scrollDown', null, [], 'Main', 'Litefyr.Presentation')}
     enabled = true
 
     @private {
@@ -53,11 +53,11 @@ prototype(Litespeed.Presentation:Atom.ScrollIndicator) < prototype(Neos.Fusion:C
                 data-theme={props.theme}
             >
                 <Neos.Fusion:Augmenter class={Tailwind.merge(private.itemClass)}>
-                    <Litespeed.Presentation:Atom.Icon @if={!props.content} styleAndIcon={private.styleAndIcon} />
+                    <Litefyr.Presentation:Atom.Icon @if={!props.content} styleAndIcon={private.styleAndIcon} />
                     {props.content}
                 </Neos.Fusion:Augmenter>
             </button>
-            <Litespeed.Presentation:Atom.Tooltip id="scroll-indicator" fixed={true} />
+            <Litefyr.Presentation:Atom.Tooltip id="scroll-indicator" fixed={true} />
         </div>
     `
 }

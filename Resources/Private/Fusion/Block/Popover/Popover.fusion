@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.Popover) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.Popover) < prototype(Neos.Fusion:Component) {
     tagName = 'div'
     attributes = Neos.Fusion:DataStructure {
         x-data = '{open:false}'

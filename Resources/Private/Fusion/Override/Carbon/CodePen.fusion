@@ -10,7 +10,7 @@ prototype(Carbon.CodePen:PreviewFrame) {
             <meta name="color-scheme" content={q(site).property('themeColorScheme') || 'light'} />
             <style>{q(site).property('themeCSS')}</style>
             <Carbon.IncludeAssets:Collection
-                assetPackage="Litespeed.Presentation"
+                assetPackage="Litefyr.Presentation"
                 collection={["Main.css", "Inline.js[inline]", "Main.js[defer]"]}
             />
         `
@@ -23,11 +23,11 @@ prototype(Carbon.CodePen:PreviewFrame) {
             renderer = afx`
                 <main @if={!props.custom} id="carbon-codepen-preview" class={props.class}></main>
                 {props.custom}
-                <Litespeed.Presentation:Block.ColorSchemeSwitchter
+                <Litefyr.Presentation:Block.ColorSchemeSwitchter
                     @if={q(site).property('themeColorScheme') == 'light dark'}
                     class="fixed bottom-4 right-4 z-50"
                 />
-                <Litespeed.Presentation:Atom.Tooltip />
+                <Litefyr.Presentation:Atom.Tooltip />
             `
         }
     }

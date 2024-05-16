@@ -1,4 +1,4 @@
-import "DistributionPackages/Litespeed.Distribution/Resources/Private/Fusion/Backend";
+import "DistributionPackages/Litefyr.Distribution/Resources/Private/Fusion/Backend";
 
 // Don't init presentation
 const initEvents = "disturber,slider,iCal,mautic,zammad";

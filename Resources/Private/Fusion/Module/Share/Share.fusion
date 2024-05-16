@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Module.Share) < prototype(Neos.Fusion:Component) {
     @propTypes {
         topClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         headline = ${PropTypes.string}
@@ -7,7 +7,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
         socialShare = ${PropTypes.arrayOf(PropTypes.oneOf(['native', 'print', 'email', 'copy', 'linkedin', 'facebook', 'instagram', 'x', 'mastodon', 'xing', 'pinterest']))}
     }
 
-    headline = ${Translation.translate('page.share', null, [], 'Main', 'Litespeed.Presentation')}
+    headline = ${Translation.translate('page.share', null, [], 'Main', 'Litefyr.Presentation')}
 
     listIcons = false
     showText = false
@@ -21,13 +21,13 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
 
     @private {
         shareButtonContent = afx`
-            <Litespeed.Presentation:Atom.Icon
-                styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.share')}
+            <Litefyr.Presentation:Atom.Icon
+                styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.share')}
                 attributes.class={Tailwind.merge(props.iconAnimationClass, props.iconClass)}
             />
-            <span @if={props.showText}>{Translation.translate('share', null, [], 'Main', 'Litespeed.Presentation')}</span>
+            <span @if={props.showText}>{Translation.translate('share', null, [], 'Main', 'Litefyr.Presentation')}</span>
         `
-        ariaLabel = ${props.headline || Translation.translate('share', null, [], 'Main', 'Litespeed.Presentation')}
+        ariaLabel = ${props.headline || Translation.translate('share', null, [], 'Main', 'Litefyr.Presentation')}
 
         items = Neos.Fusion:Map {
             @process.filter = ${Array.filter(value)}
@@ -37,16 +37,16 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                 print {
                     condition = ${item == 'print'}
                     renderer = Neos.Fusion:DataStructure {
-                        content = ${Translation.translate('print', null, [], 'Main', 'Litespeed.Presentation')}
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.print')}
+                        content = ${Translation.translate('print', null, [], 'Main', 'Litefyr.Presentation')}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.print')}
                         attributes.x-on:click = 'window.print()'
                     }
                 }
                 native {
                     condition = ${item == 'native'}
                     renderer = Neos.Fusion:DataStructure {
-                        content = ${Translation.translate('share', null, [], 'Main', 'Litespeed.Presentation')}
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.share')}
+                        content = ${Translation.translate('share', null, [], 'Main', 'Litefyr.Presentation')}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.share')}
                         attributes {
                             x-on:click = 'navigator.share({url})'
                             x-if = 'native'
@@ -57,7 +57,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                     condition = ${item == 'facebook'}
                     renderer = Neos.Fusion:DataStructure {
                         content = 'Facebook'
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.facebook') || 'brands:facebook'}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.socialNetworks.facebook') || 'brands:facebook'}
                         attributes {
                             target = '_blank'
                             rel = 'noopener external'
@@ -69,7 +69,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                     condition = ${item == 'mastodon'}
                     renderer = Neos.Fusion:DataStructure {
                         content = 'Mastodon'
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.mastodon') || 'brands:mastodon'}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.socialNetworks.mastodon') || 'brands:mastodon'}
                         attributes {
                             target = '_blank'
                             rel = 'noopener external'
@@ -81,7 +81,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                     condition = ${item == 'x'}
                     renderer = Neos.Fusion:DataStructure {
                         content = 'X'
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.x') || 'brands:x-twitter'}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.socialNetworks.x') || 'brands:x-twitter'}
                         attributes {
                             target = '_blank'
                             rel = 'noopener external'
@@ -93,7 +93,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                     condition = ${item == 'linkedin'}
                     renderer = Neos.Fusion:DataStructure {
                         content = 'LinkedIn'
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.linkedin') || 'brands:linkedin'}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.socialNetworks.linkedin') || 'brands:linkedin'}
                         attributes {
                             target = '_blank'
                             rel = 'noopener external'
@@ -105,7 +105,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                     condition = ${item == 'xing'}
                     renderer = Neos.Fusion:DataStructure {
                         content = 'Xing'
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.xing') || 'brands:xing'}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.socialNetworks.xing') || 'brands:xing'}
                         attributes {
                             target = '_blank'
                             rel = 'noopener external'
@@ -117,7 +117,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                     condition = ${item == 'pinterest'}
                     renderer = Neos.Fusion:DataStructure {
                         content = 'Pinterest'
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.socialNetworks.pinterest') || 'brands:pinterest'}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.socialNetworks.pinterest') || 'brands:pinterest'}
                         attributes {
                             target = '_blank'
                             rel = 'noopener external'
@@ -128,16 +128,16 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                 email {
                     condition = ${item == 'email'}
                     renderer = Neos.Fusion:DataStructure {
-                        content = ${Translation.translate('social.email', null, [], 'Main', 'Litespeed.Presentation')}
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.shareEmail')}
+                        content = ${Translation.translate('social.email', null, [], 'Main', 'Litefyr.Presentation')}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.shareEmail')}
                         attributes.:href = "'mailto:?body='+encodedUrl"
                     }
                 }
                 copy {
                     condition = ${item == 'copy'}
                     renderer = Neos.Fusion:DataStructure {
-                        content = ${Translation.translate('copyLink', null, [], 'Main', 'Litespeed.Presentation')}
-                        styleAndIcon = ${Configuration.setting('Litespeed.Presentation.icons.shareCopy')}
+                        content = ${Translation.translate('copyLink', null, [], 'Main', 'Litefyr.Presentation')}
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.shareCopy')}
                         attributes.x-clipboard = 'url'
                     }
                 }
@@ -149,7 +149,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
         singleItem = ${private.numberOfItems == 1 ? Array.keys(private.items)[0] : null}
         printButton = afx`
             <Carbon.Eel:Tag tagName={props.itemWrapper} @if={private.items.print}>
-                <Litespeed.Presentation:Module.Share.Fragment.Items
+                <Litefyr.Presentation:Module.Share.Fragment.Items
                     items={private.items}
                     showText={props.showText}
                     singleItem="print"
@@ -185,7 +185,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                         x-tooltips
                         class={Tailwind.merge("inline-flex items-baseline print:hidden not-prose", props.headline ? null : props.topClass)}
                     >
-                        <Litespeed.Presentation:Module.Share.Fragment.Items
+                        <Litefyr.Presentation:Module.Share.Fragment.Items
                             items={private.items}
                             showText={false}
                             class={private.buttonClass}
@@ -201,7 +201,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
             renderer = afx`
                 <Neos.Fusion:Augmenter x-data="share" x-cloak x-show="native">
                     <Carbon.Eel:Tag tagName={props.itemWrapper}>
-                        <Litespeed.Presentation:Module.Share.Fragment.Items
+                        <Litefyr.Presentation:Module.Share.Fragment.Items
                             items={private.items}
                             showText={props.showText}
                             singleItem="native"
@@ -217,7 +217,7 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
         openInPopover {
             condition = true
             renderer = afx`
-                <Litespeed.Presentation:Block.Popover
+                <Litefyr.Presentation:Block.Popover
                     tagName={props.itemWrapper || 'div'}
                     attributes.x-data="share"
                     headline={props.headline}
@@ -227,12 +227,12 @@ prototype(Litespeed.Presentation:Module.Share) < prototype(Neos.Fusion:Component
                     attributes.x-show={private.items.native ? "!native || !$isMobile" : null}
                 >
                     <Neos.Fusion:Loop items={private.items}>
-                        <Litespeed.Presentation:Block.Popover.ListItem {...item} />
+                        <Litefyr.Presentation:Block.Popover.ListItem {...item} />
                     </Neos.Fusion:Loop>
                     <button @if={private.items.native} @path="beside" aria-label={private.ariaLabel} x-show="native && $isMobile" x-cloak type="button" x-on:click="navigator.share({url})" class={private.buttonClass}>
                         {private.shareButtonContent}
                     </button>
-                </Litespeed.Presentation:Block.Popover>
+                </Litefyr.Presentation:Block.Popover>
             `
         }
     }

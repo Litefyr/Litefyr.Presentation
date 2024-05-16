@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Clippath.Group) < prototype(Litespeed.Presentation:Atom.Clippath.Component) {
+prototype(Litefyr.Presentation:Atom.Clippath.Group) < prototype(Litefyr.Presentation:Atom.Clippath.Component) {
     @propTypes {
         content = ${PropTypes.string}
         theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'header', 'footer', ''])}
@@ -19,19 +19,19 @@ prototype(Litespeed.Presentation:Atom.Clippath.Group) < prototype(Litespeed.Pres
             attributes.aria-hidden={props.ariaHidden ? 'true' : null}
             attributes.data-theme={props.theme}
         >
-            <Litespeed.Presentation:Atom.Clippath.Top
+            <Litefyr.Presentation:Atom.Clippath.Top
                 theme={props.wrapClass ? null : props.theme}
                 class={props.topClass}
                 ariaHidden={props.wrapClass && props.ariaHidden ? false : true}
             />
-            <Litespeed.Presentation:Atom.Clippath.Filler
+            <Litefyr.Presentation:Atom.Clippath.Filler
                 theme={props.wrapClass ? null : props.theme}
                 class={props.fillerClass}
                 height={props.height}
                 content={props.content}
                 ariaHidden={props.wrapClass ? null : props.ariaHidden}
             />
-            <Litespeed.Presentation:Atom.Clippath.Bottom
+            <Litefyr.Presentation:Atom.Clippath.Bottom
                 theme={props.wrapClass ? null : props.theme}
                 class={props.bottomClass}
                 ariaHidden={props.wrapClass && props.ariaHidden ? false : true}

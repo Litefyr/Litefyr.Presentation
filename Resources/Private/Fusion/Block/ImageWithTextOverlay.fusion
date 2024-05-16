@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusion:Component) {
     enableSpacing = true
     breakout = null
     text = null
@@ -48,12 +48,12 @@ prototype(Litespeed.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fu
             southEast = 'ml-auto'
         }
         style = ${props.boxDirection == "south" ? '--content-padding-south:calc(var(--content-padding,0) + .3rem)' : ('--size: ' + (props.boxMaxWidth || 75) + '%')}
-        boxClass = Litespeed.Presentation:Block.ImageWithTextOverlay.MapValue {
+        boxClass = Litefyr.Presentation:Block.ImageWithTextOverlay.MapValue {
             map = ${props.boxClassMap}
             direction = ${props.boxDirection}
             breakpoint = ${props.boxBreakpoint}
         }
-        spacingClass = Litespeed.Presentation:Block.ImageWithTextOverlay.MapValue {
+        spacingClass = Litefyr.Presentation:Block.ImageWithTextOverlay.MapValue {
             map = ${props.spacingClassMap}
             direction = ${props.boxDirection}
             breakpoint = ${props.boxBreakpoint}
@@ -69,14 +69,14 @@ prototype(Litespeed.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fu
     }
 
     renderer = afx`
-        <Litespeed.Presentation:Spacing
+        <Litefyr.Presentation:Spacing
             width={props.enableSpacing ? props.breakout : false}
             padding="auto"
             tailwind={["mediacontent", private.gridClass]}
             tagName={private.tagName}
         >
-            <Litespeed.Presentation:Atom.Image objectFit="cover" {...props} linkAdditonalAttributes={null} />
-            <Litespeed.Presentation:Spacing
+            <Litefyr.Presentation:Atom.Image objectFit="cover" {...props} linkAdditonalAttributes={null} />
+            <Litefyr.Presentation:Spacing
                 style={private.style}
                 tailwind={[private.verticalClass, private.spacingClass]}
                 padding={!!(props.boxDirection != "south" && props.breakout)}
@@ -90,12 +90,12 @@ prototype(Litespeed.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fu
                     <!-- We need to isolate the text to prevent cutting letters because of the padding -->
                     <span class="isolate">{props.text}</span>
                 </Neos.Fusion:Tag>
-            </Litespeed.Presentation:Spacing>
-        </Litespeed.Presentation:Spacing>
+            </Litefyr.Presentation:Spacing>
+        </Litefyr.Presentation:Spacing>
     `
 }
 
-prototype(Litespeed.Presentation:Block.ImageWithTextOverlay.MapValue) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.ImageWithTextOverlay.MapValue) < prototype(Neos.Fusion:Component) {
     map = null
     direction = null
     breakpoint = null

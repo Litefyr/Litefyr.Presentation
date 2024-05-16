@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Section.Header.Fragment.MobileMenuItem) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Section.Header.Fragment.MobileMenuItem) < prototype(Neos.Fusion:Component) {
     @propTypes {
         uri = ${PropTypes.string.isRequired}
         label = ${PropTypes.string.isRequired}
@@ -12,7 +12,7 @@ prototype(Litespeed.Presentation:Section.Header.Fragment.MobileMenuItem) < proto
     content = ${null}
     subItems = ${null}
     menuLevel = 1
-    collapse = ${Configuration.setting('Litespeed.Presentation.menu.mobile.collapseSubItems')}
+    collapse = ${Configuration.setting('Litefyr.Presentation.menu.mobile.collapseSubItems')}
 
     @if.hasLabelAndHref = ${this.uri && this.label}
 
@@ -23,7 +23,7 @@ prototype(Litespeed.Presentation:Section.Header.Fragment.MobileMenuItem) < proto
         3 = ${this.base + ' text-sm'}
     }
 
-    collapseIcon = ${Configuration.setting('Litespeed.Presentation.icons.accordion')}
+    collapseIcon = ${Configuration.setting('Litefyr.Presentation.icons.accordion')}
 
     renderer = afx`
         <li x-data={!!(props.collapse && props.subItems)} x-disclosure={!!(props.collapse && props.subItems)} class={Tailwind.merge(props.subItems ? "sm:col-span-2" : null, props.subItems && props.menuLevel > 1 ? "mb-4" : null)}>
@@ -42,19 +42,19 @@ prototype(Litespeed.Presentation:Section.Header.Fragment.MobileMenuItem) < proto
                     type="button"
                     class="flex items-center rounded-full size-12 -my-8 justify-center transform transition-all ring-0 ring-theme-accent duration-200 text-theme-front hocus:text-theme-accent focus:outline-none focus-visible:ring-4"
                 >
-                    <Litespeed.Presentation:Atom.Icon
+                    <Litefyr.Presentation:Atom.Icon
                         styleAndIcon={props.collapseIcon.always}
                         attributes.class="size-6 transition duration-500"
                         attributes.:class="$disclosure.isOpen&&'rotate-180'"
                     />
-                    <Litespeed.Presentation:Atom.Icon
+                    <Litefyr.Presentation:Atom.Icon
                         @if={!props.collapseIcon.always}
                         styleAndIcon={props.collapseIcon.close}
                         attributes.class="size-6 transition duration-500"
                         attributes.x-show="$disclosure.isOpen"
                         attributes.x-cloak={true}
                     />
-                    <Litespeed.Presentation:Atom.Icon
+                    <Litefyr.Presentation:Atom.Icon
                         @if={!props.collapseIcon.always}
                         styleAndIcon={props.collapseIcon.open}
                         attributes.class="size-6 transition duration-500"
@@ -64,7 +64,7 @@ prototype(Litespeed.Presentation:Section.Header.Fragment.MobileMenuItem) < proto
             </Carbon.Eel:Tag>
             <ul @if={props.subItems} x-disclosure:panel={props.collapse} x-collapse={props.collapse} class="grid grid-flow-row grid-cols-1 sm:grid-cols-2 gap-x-4">
                 <Neos.Fusion:Loop items={props.subItems}>
-                    <Litespeed.Presentation:Section.Header.Fragment.MobileMenuItem {...item} menuLevel={props.menuLevel + 1} />
+                    <Litefyr.Presentation:Section.Header.Fragment.MobileMenuItem {...item} menuLevel={props.menuLevel + 1} />
                 </Neos.Fusion:Loop>
             </ul>
         </li>

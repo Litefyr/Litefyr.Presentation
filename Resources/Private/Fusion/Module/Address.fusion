@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component) {
     @propTypes {
         textBesideAddress = ${PropTypes.string}
         addressName = ${PropTypes.string}
@@ -45,9 +45,9 @@ prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Compone
 
         iconBesideAddress = afx`
             <Neos.Fusion:Augmenter @if={props.iconBesideAddress} class="self-start mt-2">
-                <Litespeed.Presentation:Block.SocialNetworks.Fragment.Icon
+                <Litefyr.Presentation:Block.SocialNetworks.Fragment.Icon
                     enableWrapper={props.socialSettings.description}
-                    styleAndIcon={Type.isString(props.iconBesideAddress) ? props.iconBesideAddress : Configuration.setting('Litespeed.Presentation.icons.location')}
+                    styleAndIcon={Type.isString(props.iconBesideAddress) ? props.iconBesideAddress : Configuration.setting('Litefyr.Presentation.icons.location')}
                     class={props.socialSettings.iconClass}
                     wrapperClass={props.socialSettings.iconDescriptionWrapper}
                     wrapperTheme={props.socialSettings.iconWrapperTheme}
@@ -55,7 +55,7 @@ prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Compone
             </Neos.Fusion:Augmenter>
         `
         phoneAndMail = afx`
-            <Litespeed.Presentation:Block.SocialNetworks
+            <Litefyr.Presentation:Block.SocialNetworks
                 wrapper="flex flex-col items-start gap-2 mb-2 mt-4 not-prose"
                 additionalLinks={['phone', 'mobile', 'email']}
                 iconAnimationClass={null}
@@ -66,12 +66,12 @@ prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Compone
                 tooltip={false}
             />
         `
-        legal = Litespeed.Presentation:Helper.JoinItems {
+        legal = Litefyr.Presentation:Helper.JoinItems {
             tagName = 'table'
             class = 'mt-4 mb-2 w-auto mr-auto'
             items = Neos.Fusion:Map {
                 items = ${['registerNumber', 'registerCourt', 'taxIdentificationNumber']}
-                keyRenderer = ${Translation.translate('legal.' + item, null, [], null, 'Litespeed.Presentation')}
+                keyRenderer = ${Translation.translate('legal.' + item, null, [], null, 'Litefyr.Presentation')}
                 itemRenderer = ${props[item]}
                 @process.addDynamicItems = Neos.Fusion:Value {
                     @if.hasItems = ${Carbon.Array.check(props.legalItems)}
@@ -85,7 +85,7 @@ prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Compone
             }
         }
         socialNetworks = afx`
-            <Litespeed.Presentation:Block.SocialNetworks
+            <Litefyr.Presentation:Block.SocialNetworks
                 wrapper="inline-flex flex-wrap gap-4 mb-2 mt-4 items-baseline not-prose"
                 additionalLinks={null}
                 {...props}
@@ -118,7 +118,7 @@ prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Compone
                             <strong @if.set={props.addressName} class="block font-bold">
                                 {Carbon.String.nl2br(props.addressName)}
                             </strong>
-                            <Litespeed.Presentation:Helper.JoinItems
+                            <Litefyr.Presentation:Helper.JoinItems
                                 class="block mb-2"
                                 items={[props.street, Carbon.String.classNames(props.postCode, props.city), private.country]}
                             />
@@ -144,7 +144,7 @@ prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Compone
             withMap {
                 condition = ${props.map}
                 renderer = afx`
-                    <Litespeed.Presentation:Module.TextWithContent
+                    <Litefyr.Presentation:Module.TextWithContent
                         breakpoint="xl"
                         align={props.screenHeight ? "center" : "start"}
                         {...props}
@@ -160,7 +160,7 @@ prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Compone
             withForm {
                 condition = ${props.form}
                 renderer = afx`
-                    <Litespeed.Presentation:Module.TextWithContent
+                    <Litefyr.Presentation:Module.TextWithContent
                         breakpoint="xl"
                         align={props.screenHeight ? "center" : "start"}
                         {...props}
@@ -168,14 +168,14 @@ prototype(Litespeed.Presentation:Module.Address) < prototype(Neos.Fusion:Compone
                         breakout="full"
                         aside={props._content}
                     >
-                        <Litespeed.Presentation:Spacing augmenter content={props.form} />
-                    </Litespeed.Presentation:Module.TextWithContent>
+                        <Litefyr.Presentation:Spacing augmenter content={props.form} />
+                    </Litefyr.Presentation:Module.TextWithContent>
                 `
             }
             default {
                 condition = ${props.private.renderAddress || props.private.phoneAndMail || props.private.legal || props.private.socialNetworks}
                 renderer = afx`
-                    <Litespeed.Presentation:Spacing
+                    <Litefyr.Presentation:Spacing
                         tailwind="has-prose prose"
                         padding
                         waveSpacing

@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Helper.SocialNetworks) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Helper.SocialNetworks) < prototype(Neos.Fusion:Component) {
     @propTypes {
         socialNetworks = PropTypes:Array {
             type = PropTypes:DataStructure {
@@ -61,17 +61,17 @@ prototype(Litespeed.Presentation:Helper.SocialNetworks) < prototype(Neos.Fusion:
                     @subject = ${props.type}
                     @default = ${(String.pregMatch(item.url, '/^https?:\/\//') ? '' : 'https://') + item.url}
                     email = ${'mailto:' + item.url}
-                    tel = Litespeed.Presentation:Helper.Phone {
+                    tel = Litefyr.Presentation:Helper.Phone {
                         value = ${item.url}
                     }
                 }
                 content = Neos.Fusion:Match {
                     @subject = ${props.type}
                     @default = ${item.url}
-                    link = ${Translation.translate('social.' + item.network, item.network, [], null, 'Litespeed.Presentation')}
+                    link = ${Translation.translate('social.' + item.network, item.network, [], null, 'Litefyr.Presentation')}
                     website = ${String.pregReplace(item.url, '/^https?:\/\//', '')}
                 }
-                description = ${Translation.translate('social.' + item.network, String.firstLetterToUpperCase(item.network), [], null, 'Litespeed.Presentation')}
+                description = ${Translation.translate('social.' + item.network, String.firstLetterToUpperCase(item.network), [], null, 'Litefyr.Presentation')}
                 label = Neos.Fusion:Component {
                     salutation = ${props._formal ? '.formal' : '.informal'}
                     amount = ${props._plural ? '.group' : '.single'}
@@ -87,10 +87,10 @@ prototype(Litespeed.Presentation:Helper.SocialNetworks) < prototype(Neos.Fusion:
                         @subject = ${props.type}
                         @default = ${item.url}
                         website = ${String.pregReplace(item.url, '/^https?:\/\//', '')}
-                        write = ${Translation.translate('social.' + item.network, String.firstLetterToUpperCase(item.network), [], null, 'Litespeed.Presentation')}
-                        link = ${Translation.translate('social.' + item.network, String.firstLetterToUpperCase(item.network), [], null, 'Litespeed.Presentation')}
+                        write = ${Translation.translate('social.' + item.network, String.firstLetterToUpperCase(item.network), [], null, 'Litefyr.Presentation')}
+                        link = ${Translation.translate('social.' + item.network, String.firstLetterToUpperCase(item.network), [], null, 'Litefyr.Presentation')}
                     }
-                    renderer = ${Translation.translate(props.selector + props.salutation + props.amount, null, [props.value], null, 'Litespeed.Presentation')}
+                    renderer = ${Translation.translate(props.selector + props.salutation + props.amount, null, [props.value], null, 'Litefyr.Presentation')}
                 }
             }
         }

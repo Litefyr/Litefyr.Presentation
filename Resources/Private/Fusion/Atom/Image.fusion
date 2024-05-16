@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Image) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Image) < prototype(Neos.Fusion:Component) {
     @propTypes {
         integration = ${PropTypes.boolean.isRequired}
         breakout = ${PropTypes.oneOf(['wide', 'full', ''])}

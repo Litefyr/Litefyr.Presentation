@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.Teaser.Textbox) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.Teaser.Textbox) < prototype(Neos.Fusion:Component) {
     @propTypes {
         headline = ${PropTypes.string}
         text = ${PropTypes.string}
@@ -51,8 +51,8 @@ prototype(Litespeed.Presentation:Block.Teaser.Textbox) < prototype(Neos.Fusion:C
                 class={[private.classes.root, "aspect-[15/8] flex items-center justify-center text-theme-front bg-theme-back bg-lightness-offset-5 animate-pulse"]}
                 data-theme={props.theme}
             >
-                <Litespeed.Presentation:Atom.Icon
-                    styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.loadingIndicator')}
+                <Litefyr.Presentation:Atom.Icon
+                    styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.loadingIndicator')}
                     attributes.class="size-5 animate-spin"
                 />
             </div>
@@ -62,7 +62,7 @@ prototype(Litespeed.Presentation:Block.Teaser.Textbox) < prototype(Neos.Fusion:C
                 class={[private.classes.root, "aspect-[15/8] relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-2xl"]}
                 data-theme={props.theme}
             >
-                <Litespeed.Presentation:Block.ImageWithTextOverlay
+                <Litefyr.Presentation:Block.ImageWithTextOverlay
                     imageSource={props.imageSource}
                     image={props.image}
                     alternativeText={props.alternativeText}

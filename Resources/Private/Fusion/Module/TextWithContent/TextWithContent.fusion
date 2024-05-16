@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Module.TextWithContent) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Module.TextWithContent) < prototype(Neos.Fusion:Component) {
     @propTypes {
         label = ${PropTypes.string}
         headline = ${PropTypes.string}
@@ -177,8 +177,8 @@ prototype(Litespeed.Presentation:Module.TextWithContent) < prototype(Neos.Fusion
 }
 
 renderer = afx`
-        <Litespeed.Presentation:Atom.Clippath.Top @if={props.theme} theme={props.theme} />
-        <Litespeed.Presentation:Background
+        <Litefyr.Presentation:Atom.Clippath.Top @if={props.theme} theme={props.theme} />
+        <Litefyr.Presentation:Background
             theme={props.theme}
             style={'--ratio-left:' + private.ratioLeft + ';--ratio-right:' + private.ratioRight + (props.screenHeight ? ';--height:' + props.screenHeight + 'vh' : null)}
             class={private.wrappingBEM}
@@ -190,14 +190,14 @@ renderer = afx`
                 class={[BEM.string(props.bemClass, 'secondbg', props.breakpoint), 'bg-theme-back pointer-events-none']}
                 aria-hidden="true"
             ></div>
-            <Litespeed.Presentation:Spacing class={BEM.string(props.bemClass, 'text')} tailwind={[private.textClass, props.textClass]}>
-                <Litespeed.Presentation:Atom.Headline
+            <Litefyr.Presentation:Spacing class={BEM.string(props.bemClass, 'text')} tailwind={[private.textClass, props.textClass]}>
+                <Litefyr.Presentation:Atom.Headline
                     content={props.headline}
                     isFirstElement={props.isFirstElement}
                     inBackend={props.inBackend}
                     class="text-fl-xl mb-4"
                 />
-                <Litespeed.Presentation:Atom.Label class="order-first" label={props.label} />
+                <Litefyr.Presentation:Atom.Label class="order-first" label={props.label} />
                 <div @if={props.text} class="prose">
                     {props.text}
                 </div>
@@ -206,7 +206,7 @@ renderer = afx`
                     <Neos.Fusion:Augmenter class="mx-1 mt-2" content={props.links} />
                 </div>
                 {props.asideOnEnd}
-                </Litespeed.Presentation:Spacing>
+                </Litefyr.Presentation:Spacing>
             <Neos.Fusion:Augmenter
                 @if={props.content}
                 content={props.content}
@@ -220,7 +220,7 @@ renderer = afx`
                 class={[BEM.string(props.bemClass, 'single', (props.breakout || null)), Tailwind.merge(private.singleContentClass, private.contentClass, props.contentClass)]}
             />
 
-        </Litespeed.Presentation:Background>
-        <Litespeed.Presentation:Atom.Clippath.Bottom @if={props.theme} theme={props.theme} />
+        </Litefyr.Presentation:Background>
+        <Litefyr.Presentation:Atom.Clippath.Bottom @if={props.theme} theme={props.theme} />
     `
 }

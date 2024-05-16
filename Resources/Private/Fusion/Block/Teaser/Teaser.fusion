@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component) {
     @propTypes {
         headline = ${PropTypes.string}
         text = ${PropTypes.string}
@@ -55,8 +55,8 @@ prototype(Litespeed.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component
                 <div class={[private.classes.figure, "animate-pulse"]}></div>
                 <div class={[private.classes.content]}>
                     <div class="flex-1 min-h-48 flex justify-center items-center animate-pulse">
-                        <Litespeed.Presentation:Atom.Icon
-                            styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.loadingIndicator')}
+                        <Litefyr.Presentation:Atom.Icon
+                            styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.loadingIndicator')}
                             attributes.class="size-5 animate-spin"
                         />
                     </div>
@@ -68,7 +68,7 @@ prototype(Litespeed.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component
                 class={[private.classes.root, "relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-2xl"]}
                 data-theme={props.theme}
             >
-                <Litespeed.Presentation:Atom.Image
+                <Litefyr.Presentation:Atom.Image
                     imageSource={props.imageSource}
                     image={props.image}
                     alternativeText={props.alternativeText}
@@ -77,7 +77,7 @@ prototype(Litespeed.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component
                     height={Math.round(props.imageWith / props.ratio)}
                 />
                 <div class={private.classes.content}>
-                    <Litespeed.Presentation:Block.Teaser.Fragment.Content {...props} />
+                    <Litefyr.Presentation:Block.Teaser.Fragment.Content {...props} />
                 </div>
             </div>
         </div>

@@ -1,15 +1,15 @@
-prototype(Litespeed.Presentation:Block.Filter) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.Filter) < prototype(Neos.Fusion:Component) {
     items = null
 
     overview = null
     formal = true
-    label =${Translation.translate('chooseCategory' + (this.formal ? '.formal' : '.informal') , null, [], 'Main', 'Litespeed.Presentation')}
+    label =${Translation.translate('chooseCategory' + (this.formal ? '.formal' : '.informal') , null, [], 'Main', 'Litefyr.Presentation')}
     items.@process.overview = ${this.overview && value ? Array.concat([this.overview], value) : value}
     class = null
 
     @if.hasItems = ${Carbon.Array.check(this.items)}
     renderer = afx`
-        <Litespeed.Presentation:Spacing
+        <Litefyr.Presentation:Spacing
             padding
             class={Tailwind.merge("sm:hidden", props.class)}
             x-data="{current:window.location.pathname.split('~')[0]}"
@@ -27,8 +27,8 @@ prototype(Litespeed.Presentation:Block.Filter) < prototype(Neos.Fusion:Component
                     <option value={item.href} :selected="$el.value==current">{item.label}</option>
                 </Neos.Fusion:Loop>
             </select>
-        </Litespeed.Presentation:Spacing>
-        <Litespeed.Presentation:Spacing
+        </Litefyr.Presentation:Spacing>
+        <Litefyr.Presentation:Spacing
             full padding
             class={Tailwind.merge("hidden border-b border-theme-front/20 font-bold sm:grid", props.class)}
             x-data="{current:window.location.pathname.split('~')[0]}"
@@ -50,6 +50,6 @@ prototype(Litespeed.Presentation:Block.Filter) < prototype(Neos.Fusion:Component
                     </a>
                 </Neos.Fusion:Loop>
             </nav>
-        </Litespeed.Presentation:Spacing>
+        </Litefyr.Presentation:Spacing>
     `
 }

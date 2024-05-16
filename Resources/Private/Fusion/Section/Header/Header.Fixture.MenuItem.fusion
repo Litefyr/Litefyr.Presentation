@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Section.Header.Fixture.MenuItem) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Section.Header.Fixture.MenuItem) < prototype(Neos.Fusion:Component) {
     label = null
     subItems = 0
     subsubItems = 0

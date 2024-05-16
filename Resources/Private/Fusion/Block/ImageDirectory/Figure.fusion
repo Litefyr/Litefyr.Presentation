@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.ImageDirectory.Figure) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.ImageDirectory.Figure) < prototype(Neos.Fusion:Component) {
     @propTypes {
         imageUri = ${PropTypes.string}
         uri = ${PropTypes.string}

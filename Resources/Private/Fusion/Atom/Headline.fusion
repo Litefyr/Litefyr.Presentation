@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Headline) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Headline) < prototype(Neos.Fusion:Component) {
     @propTypes {
         content = ${PropTypes.string}
         isFirstElement = ${PropTypes.boolean}

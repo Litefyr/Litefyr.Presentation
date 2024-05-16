@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.Pager) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.Pager) < prototype(Neos.Fusion:Component) {
     currentLabel = null
 
     previous = Neos.Fusion:DataStructure {
@@ -11,8 +11,8 @@ prototype(Litespeed.Presentation:Block.Pager) < prototype(Neos.Fusion:Component)
         label = null
     }
 
-    prevLabel = ${Translation.translate('page.prev', null, [], 'Main', 'Litespeed.Presentation')}
-    nextLabel = ${Translation.translate('page.next', null, [], 'Main', 'Litespeed.Presentation')}
+    prevLabel = ${Translation.translate('page.prev', null, [], 'Main', 'Litefyr.Presentation')}
+    nextLabel = ${Translation.translate('page.next', null, [], 'Main', 'Litefyr.Presentation')}
 
     @private {
         hasNext = ${props.next && props.next.label && props.next.uri}
@@ -20,7 +20,7 @@ prototype(Litespeed.Presentation:Block.Pager) < prototype(Neos.Fusion:Component)
     }
 
     renderer = afx`
-        <Litespeed.Presentation:Spacing
+        <Litefyr.Presentation:Spacing
             @if={private.hasNext || private.hasPrevious}
             tagName="nav"
             padding
@@ -29,9 +29,9 @@ prototype(Litespeed.Presentation:Block.Pager) < prototype(Neos.Fusion:Component)
             tailwind="border-t border-theme-front/10 text-sm font-bold mb-10"
             x-data
         >
-            <Litespeed.Presentation:Spacing wide class="w-full mx-auto flex items-center justify-between" tagName="ul">
+            <Litefyr.Presentation:Spacing wide class="w-full mx-auto flex items-center justify-between" tagName="ul">
                 <li class="-mt-px w-0 flex-1 flex">
-                    <Litespeed.Presentation:Block.Pager.Fragment.PrevNext
+                    <Litefyr.Presentation:Block.Pager.Fragment.PrevNext
                         @if={private.hasPrevious}
                         type="prev"
                         uri={props.previous.uri}
@@ -40,12 +40,12 @@ prototype(Litespeed.Presentation:Block.Pager) < prototype(Neos.Fusion:Component)
                     />
                 </li>
                 <li class="hidden md:-mt-px md:flex">
-                    <Litespeed.Presentation:Block.Pager.Fragment.Item
+                    <Litefyr.Presentation:Block.Pager.Fragment.Item
                         label={props.currentLabel}
                     />
                 </li>
                 <li class="-mt-px w-0 flex-1 flex justify-end">
-                    <Litespeed.Presentation:Block.Pager.Fragment.PrevNext
+                    <Litefyr.Presentation:Block.Pager.Fragment.PrevNext
                         @if={private.hasNext}
                         type="next"
                         uri={props.next.uri}
@@ -53,7 +53,7 @@ prototype(Litespeed.Presentation:Block.Pager) < prototype(Neos.Fusion:Component)
                         label={props.nextLabel || props.next.label}
                     />
                 </li>
-            </Litespeed.Presentation:Spacing>
-        </Litespeed.Presentation:Spacing>
+            </Litefyr.Presentation:Spacing>
+        </Litefyr.Presentation:Spacing>
     `
 }

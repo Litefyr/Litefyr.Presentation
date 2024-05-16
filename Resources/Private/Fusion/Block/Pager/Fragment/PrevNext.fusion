@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.Pager.Fragment.PrevNext) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.Pager.Fragment.PrevNext) < prototype(Neos.Fusion:Component) {
     @propTypes {
         uri = ${PropTypes.string}
         label = ${PropTypes.string}
@@ -23,7 +23,7 @@ prototype(Litespeed.Presentation:Block.Pager.Fragment.PrevNext) < prototype(Neos
             class={Tailwind.merge("transition border-t-2 pt-4 inline-flex items-center gap-2 px-4 border-transparent text-theme-front !text-opacity-70 hocus:border-theme-accent hocus:!text-opacity-100 group", props.class)}
         >
             {props.type != 'prev' && props.label}
-            <Litespeed.Presentation:Atom.Icon styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.pagination.' + props.type)} attributes.class={Tailwind.merge("w-3 transition-transform", props.iconClass)} />
+            <Litefyr.Presentation:Atom.Icon styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.pagination.' + props.type)} attributes.class={Tailwind.merge("w-3 transition-transform", props.iconClass)} />
             {props.type == 'prev' && props.label}
         </a>
     `

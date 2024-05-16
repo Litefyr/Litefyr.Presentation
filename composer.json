@@ -1,22 +1,29 @@
 {
-    "name": "lspeed/presentation",
-    "description": "Presentational components for Litespeed",
-    "type": "neos-litespeed",
+    "name": "litefyr/presentation",
+    "description": "Presentational components for Litefyr",
+    "type": "neos-litefyr",
     "license": "GPL-3.0-or-later",
     "require" : {
         "carbon/eel" : "^2.15",
         "carbon/fileloader": "^0.1",
         "carbon/image" : "^4.0",
-        "carbon/includeassets" : "^6.2"
+        "carbon/includeassets" : "^6.2",
+        "garagist/fontawesome" : "^0.1.4",
+        "garagist/fontawesome-alpinejs" : "^0.1.0",
+        "sitegeist/chitchat": "^1.2",
+        "sitegeist/monocle-backstopjs": "^1.1",
+        "sitegeist/monocle-proptypes": "^1.0",
+        "sitegeist/monocle": "^7.1",
+        "litefyr/tailwind": "self.version"
     },
     "autoload": {
         "psr-4": {
-            "Litespeed\\Presentation\\": "Classes"
+            "Litefyr\\Presentation\\": "Classes"
         }
     },
     "keywords": [
         "flow",
         "neos",
-        "litespeed"
+        "litefyr"
     ]
 }

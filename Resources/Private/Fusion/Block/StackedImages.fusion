@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.StackedImages) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.StackedImages) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         items = ${PropTypes.arrayOf( PropTypes.any )}

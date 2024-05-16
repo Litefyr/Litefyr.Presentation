@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         left = ${PropTypes.boolean}
@@ -15,7 +15,7 @@ prototype(Litespeed.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fu
     text = Neos.Fusion:Map {
         items = ${['light', 'dark', 'system']}
         keyRenderer = ${item}
-        itemRenderer = ${Translation.translate('colorSchemeSwitchter.' + item, null, [], 'Main', 'Litespeed.Presentation')}
+        itemRenderer = ${Translation.translate('colorSchemeSwitchter.' + item, null, [], 'Main', 'Litefyr.Presentation')}
     }
     @private.buttonContent = afx`
         <Neos.Fusion:Augmenter class="hidden light:block" content={props.icons.light} />
@@ -23,7 +23,7 @@ prototype(Litespeed.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fu
     `
 
     renderer = afx`
-        <Litespeed.Presentation:Block.Popover
+        <Litefyr.Presentation:Block.Popover
             attributes.x-data={AlpineJS.object({theme: AlpineJS.expression("localStorage.theme||'system'"), open: false, text: props.text})}
             attributes.class={[props.left && !props.bottom && "order-first", props.class]}
             buttonAttributes."x-on:set-mode.window"="theme=$event.detail"
@@ -34,13 +34,13 @@ prototype(Litespeed.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fu
             bottom={props.bottom}
         >
             <Neos.Fusion:Loop items={['light', 'dark', 'system']}>
-                <Litespeed.Presentation:Block.Popover.ListItem
+                <Litefyr.Presentation:Block.Popover.ListItem
                     closePopoverOnClick={true}
                     attributes.x-on:click={AlpineJS.function("setMode", item)}
                     attributes.:class={"theme=='" + item + "'&&'font-bold'"}
                     content={props.icons[item] + props.text[item]}
                 />
             </Neos.Fusion:Loop>
-        </Litespeed.Presentation:Block.Popover>
+        </Litefyr.Presentation:Block.Popover>
     `
 }

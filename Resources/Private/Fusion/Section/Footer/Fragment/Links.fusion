@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Section.Footer.Fragment.Links) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Section.Footer.Fragment.Links) < prototype(Neos.Fusion:Component) {
     items = ${[]}
     class = 'text-base opacity-90 hocus:opacity-100 hocus:underline'
     currentClass = 'font-bold'

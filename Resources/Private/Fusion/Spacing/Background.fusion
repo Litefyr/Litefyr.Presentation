@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Background) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Background) < prototype(Neos.Fusion:Component) {
     @propTypes {
         theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'nested', 'footer', 'header', ''])}
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}

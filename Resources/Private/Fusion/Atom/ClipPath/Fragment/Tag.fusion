@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Clippath.Tag) < prototype(Litespeed.Presentation:Atom.Clippath.Component) {
+prototype(Litefyr.Presentation:Atom.Clippath.Tag) < prototype(Litefyr.Presentation:Atom.Clippath.Component) {
     @propTypes {
         content = ${PropTypes.string}
         theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'header', 'footer', ''])}
@@ -10,7 +10,7 @@ prototype(Litespeed.Presentation:Atom.Clippath.Tag) < prototype(Litespeed.Presen
     ariaHidden = true
     bgColor = true
 
-    renderer = Litespeed.Presentation:Spacing {
+    renderer = Litefyr.Presentation:Spacing {
         data-theme = ${props.theme || false}
         full = true
         tailwind = ${[props.bgColor ? 'bg-theme-back' : 'bg-transparent', props.class]}

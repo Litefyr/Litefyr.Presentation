@@ -2,12 +2,12 @@ Neos:
   Neos:
     fusion:
       autoInclude:
-        Litespeed.Presentation: true
+        Litefyr.Presentation: true
     userInterface:
       translation:
         autoInclude:
-          Litespeed.Presentation:
+          Litefyr.Presentation:
             - 'Spacing'
   Fusion:
     defaultContext:
-      Presentation: 'Litespeed\Presentation\EelHelper\PresentationHelper'
+      Presentation: 'Litefyr\Presentation\EelHelper\PresentationHelper'

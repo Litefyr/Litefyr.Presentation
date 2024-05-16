@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Link) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Link) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         appearance = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'ghost', 'link', 'nested'])}
@@ -68,8 +68,8 @@ prototype(Litespeed.Presentation:Atom.Link) < prototype(Neos.Fusion:Component) {
 
     renderer = afx`
         <a>
-            <Litespeed.Presentation:Atom.ButtonAndLink.Fragment.Attributes @path="attributes" {...props} content={null} />
-            <Litespeed.Presentation:Atom.ButtonAndLink.Fragment.Content {...props} />
+            <Litefyr.Presentation:Atom.ButtonAndLink.Fragment.Attributes @path="attributes" {...props} content={null} />
+            <Litefyr.Presentation:Atom.ButtonAndLink.Fragment.Content {...props} />
         </a>
     `
 }

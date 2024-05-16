@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Tooltip) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Tooltip) < prototype(Neos.Fusion:Component) {
     @propTypes {
         id = ${PropTypes.string.isRequired}
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}

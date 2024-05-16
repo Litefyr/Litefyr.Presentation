@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Counter) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Counter) < prototype(Neos.Fusion:Component) {
     @propTypes {
         content = ${PropTypes.anyOf(PropTypes.integer, PropTypes.string)}
         duration = ${PropTypes.integer}

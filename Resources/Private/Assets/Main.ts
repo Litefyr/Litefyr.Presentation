@@ -4,7 +4,7 @@ import "lazysizes/plugins/bgset/ls.bgset";
 import "lazysizes/plugins/parent-fit/ls.parent-fit";
 import "lazysizes/plugins/aspectratio/ls.aspectratio";
 import "lazysizes/plugins/native-loading/ls.native-loading";
-import "DistributionPackages/Litespeed.Distribution/Resources/Private/Fusion/Main";
+import "DistributionPackages/Litefyr.Distribution/Resources/Private/Fusion/Main";
 import initLoader from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/Loader";
 
 initLoader({

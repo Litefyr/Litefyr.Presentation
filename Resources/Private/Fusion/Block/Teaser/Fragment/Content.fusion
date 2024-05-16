@@ -1,9 +1,9 @@
-prototype(Litespeed.Presentation:Block.Teaser.Fragment.Content) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.Teaser.Fragment.Content) < prototype(Neos.Fusion:Component) {
 
     badgeClass = 'py-0.5 px-2.5 rounded-full bg-theme-accent text-bg-contrast border-theme-accent border'
     textLineClamp = 6
     renderer = afx`
-        <Litespeed.Presentation:Block.StackedImages
+        <Litefyr.Presentation:Block.StackedImages
             items={props.images}
             clas="absolute -mt-6 -translate-y-1/2 right-4 @5xl:mt-6 @5xl:-mb-3 @5xl:relative @5xl:right-auto @5xl:order-last @5xl:translate-y-0"
         />
@@ -38,7 +38,7 @@ prototype(Litespeed.Presentation:Block.Teaser.Fragment.Content) < prototype(Neos
                 {props.text}
             </p>
         </div>
-        <Litespeed.Presentation:Atom.DateAndTime date={props.date} time={props.time} class="mt-6" />
+        <Litefyr.Presentation:Atom.DateAndTime date={props.date} time={props.time} class="mt-6" />
         {props.bottomContent}
     `
 }

@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.CloseButton) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.CloseButton) < prototype(Neos.Fusion:Component) {
     class = null
     alpineVariable = null
     theme = null

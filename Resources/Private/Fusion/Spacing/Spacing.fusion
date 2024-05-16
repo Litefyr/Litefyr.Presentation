@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}
         tailwind = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}

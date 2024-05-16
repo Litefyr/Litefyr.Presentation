@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:Component) {
     @propTypes {
         headline = ${PropTypes.string}
         text = ${PropTypes.string}
@@ -25,7 +25,7 @@ prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion
             moreHref = '#'
             jsonPath = ''
             content = Sitegeist.Monocle:Preview.Prototypes {
-                items = 'Litespeed.Presentation:Block.Teaser,Litespeed.Presentation:Block.Teaser,Litespeed.Presentation:Block.Teaser'
+                items = 'Litefyr.Presentation:Block.Teaser,Litefyr.Presentation:Block.Teaser,Litefyr.Presentation:Block.Teaser'
             }
         }
     }
@@ -60,8 +60,8 @@ prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion
     }
 
     renderer = afx`
-        <Litespeed.Presentation:Atom.Clippath.Top @if={props.bottomTheme && !props.showImages} theme={props.bottomTheme} />
-        <Litespeed.Presentation:Background
+        <Litefyr.Presentation:Atom.Clippath.Top @if={props.bottomTheme && !props.showImages} theme={props.bottomTheme} />
+        <Litefyr.Presentation:Background
             @if={!props.showImages}
             theme={props.bottomTheme}
             x-data={private.xData}
@@ -69,12 +69,12 @@ prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion
             style={private.style}
             tagName="section"
         >
-            <Litespeed.Presentation:Spacing width={private.breakout} padding>
+            <Litefyr.Presentation:Spacing width={private.breakout} padding>
                 <div class={props.textWrapperClass} @if={props.headline || props.text || props.label}>
                     <h2 @if={props.headline}>
                         {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
                     </h2>
-                    <Litespeed.Presentation:Atom.Label class="order-first" label={props.label} />
+                    <Litefyr.Presentation:Atom.Label class="order-first" label={props.label} />
                     <p @if={props.text} class={props.textParagraphClass}>
                         {Presentation.typewriter(props.text, !props.inBackend, 'text-theme-accent')}
                     </p>
@@ -89,11 +89,11 @@ prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion
                 <div @if={props.moreHref} class="text-center mt-8">
                     <a href={props.moreHref} class="hocus:underline text-theme-front">{private.moreText}</a>
                 </div>
-            </Litespeed.Presentation:Spacing>
-        </Litespeed.Presentation:Background>
-        <Litespeed.Presentation:Atom.Clippath.Bottom @if={props.bottomTheme && !props.showImages} theme={props.bottomTheme} />
+            </Litefyr.Presentation:Spacing>
+        </Litefyr.Presentation:Background>
+        <Litefyr.Presentation:Atom.Clippath.Bottom @if={props.bottomTheme && !props.showImages} theme={props.bottomTheme} />
 
-        <Litespeed.Presentation:Background
+        <Litefyr.Presentation:Background
             @if={props.showImages}
             theme={props.bottomTheme}
             x-data={private.xData}
@@ -108,7 +108,7 @@ prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion
                 aria-hidden="true"
             >
             </div>
-            <Litespeed.Presentation:Spacing
+            <Litefyr.Presentation:Spacing
                 padding
                 width={private.breakout}
                 tailwind={props.bottomTheme ? "relative z-10" : null}
@@ -121,14 +121,14 @@ prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion
                     >
                         {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
                     </h2>
-                    <Litespeed.Presentation:Atom.Label class="order-first" label={props.label} />
+                    <Litefyr.Presentation:Atom.Label class="order-first" label={props.label} />
                     <p @if={props.text} class={props.textParagraphClass}>
                         {Presentation.typewriter(props.text, !props.inBackend, 'text-theme-front text-lightness-offset-0')}
                     </p>
                 </div>
                 <!-- Content START -->
                 <template @if={props.inBackend && props.jsonPath} x-if="noMarkup">
-                    <Carbon.Notification:Tag content={Translation.translate('noPagesWithImagesFound', null, [], 'Main', 'Litespeed.Presentation')} />
+                    <Carbon.Notification:Tag content={Translation.translate('noPagesWithImagesFound', null, [], 'Main', 'Litefyr.Presentation')} />
                 </template>
                 <div
                     x-ref={props.jsonPath ? "target" : null}
@@ -141,12 +141,12 @@ prototype(Litespeed.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion
                     <a href={props.moreHref} class="hocus:underline text-theme-front">{private.moreText}</a>
                 </div>
                 <!-- Content END -->
-            </Litespeed.Presentation:Spacing>
-            <Litespeed.Presentation:Atom.Clippath.Group
+            </Litefyr.Presentation:Spacing>
+            <Litefyr.Presentation:Atom.Clippath.Group
                 @if={props.bottomTheme}
                 height="h-40"
                 wrapClass="absolute left-0 right-0 bottom-0 z-0"
             />
-        </Litespeed.Presentation:Background>
+        </Litefyr.Presentation:Background>
     `
 }

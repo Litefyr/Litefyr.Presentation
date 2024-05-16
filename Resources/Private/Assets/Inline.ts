@@ -1,4 +1,4 @@
-import "DistributionPackages/Litespeed.Distribution/Resources/Private/Fusion/Inline";
+import "DistributionPackages/Litefyr.Distribution/Resources/Private/Fusion/Inline";
 
 const htmlElement = document.documentElement;
 const computedStyle = getComputedStyle(htmlElement);

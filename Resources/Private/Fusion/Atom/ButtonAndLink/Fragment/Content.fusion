@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.ButtonAndLink.Fragment.Content) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.ButtonAndLink.Fragment.Content) < prototype(Neos.Fusion:Component) {
     @propTypes {
         content = ${PropTypes.string}
         appearance = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'ghost', 'link', 'nested'])}
@@ -38,7 +38,7 @@ prototype(Litespeed.Presentation:Atom.ButtonAndLink.Fragment.Content) < prototyp
         {private.startIcon}
         <Carbon.Eel:Tag
             tagName={private.startIcon || private.endIcon ? "span" : null}
-            content={props.content || Translation.translate('readMore', null, [], 'Main', 'Litespeed.Presentation')}
+            content={props.content || Translation.translate('readMore', null, [], 'Main', 'Litefyr.Presentation')}
         />
         {private.endIcon}
     `

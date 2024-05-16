@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Section.Header) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component) {
     @propTypes {
         logo = ${PropTypes.string}
         logoPositionRight = ${PropTypes.boolean}
@@ -59,7 +59,7 @@ prototype(Litespeed.Presentation:Section.Header) < prototype(Neos.Fusion:Compone
                         :class="mobileMenuOpen&&'backdrop-blur-md'"
                         x-ref="container"
                     >
-                        <Litespeed.Presentation:Section.Header.Fragment.Logo
+                        <Litefyr.Presentation:Section.Header.Fragment.Logo
                             linkAttributes.href={props.homeUri}
                             positionRight={props.logoPositionRight}
                             marginTop={props.logoMarginTop}
@@ -82,19 +82,19 @@ prototype(Litespeed.Presentation:Section.Header) < prototype(Neos.Fusion:Compone
                                     @if={Carbon.Array.check(props.items)}
                                 >
                                     <Neos.Fusion:Loop items={props.items}>
-                                        <Litespeed.Presentation:Section.Header.Fragment.MenuItem {...item}/>
+                                        <Litefyr.Presentation:Section.Header.Fragment.MenuItem {...item}/>
                                     </Neos.Fusion:Loop>
                                 </ul>
                             </nav>
                             <div x-ref="switcher" class="flex items-center gap-x-[--header-gap] empty:hidden" :class={props.logoPositionRight ? "mobile&&'absolute top-0 bottom-0 left-[--content-padding-left]'" : "mobile&&'absolute top-0 bottom-0 right-[--content-padding-right]'"}>
-                                <Litespeed.Presentation:Atom.CloseButton
+                                <Litefyr.Presentation:Atom.CloseButton
                                     @if={Carbon.Array.check(props.items)}
                                     alpineVariable="mobileMenuOpen"
-                                    activeText={Translation.translate('navigation.close', null, [], null, 'Litespeed.Presentation')}
-                                    inactiveText={Translation.translate('navigation.open', null, [], null, 'Litespeed.Presentation')}
+                                    activeText={Translation.translate('navigation.close', null, [], null, 'Litefyr.Presentation')}
+                                    inactiveText={Translation.translate('navigation.open', null, [], null, 'Litefyr.Presentation')}
                                     class="self-center"
                                 />
-                                <Litespeed.Presentation:Block.ColorSchemeSwitchter @if={private.showColorSchemeSwitchter} left={props.logoPositionRight} />
+                                <Litefyr.Presentation:Block.ColorSchemeSwitchter @if={private.showColorSchemeSwitchter} left={props.logoPositionRight} />
                             </div>
                             <!-- Placeholder for color scheme mode switcher -->
                             <div x-show="mobile" @if={private.showColorSchemeSwitchter} class="size-12" aria-hidden="true"></div>
@@ -122,7 +122,7 @@ prototype(Litespeed.Presentation:Section.Header) < prototype(Neos.Fusion:Compone
                                     style={props.logoMarginBottom < 0 ? 'margin-top:' + (props.logoMarginBottom * -1) + 'px' : null}
                                 >
                                     <Neos.Fusion:Loop items={props.items}>
-                                        <Litespeed.Presentation:Section.Header.Fragment.MobileMenuItem {...item}/>
+                                        <Litefyr.Presentation:Section.Header.Fragment.MobileMenuItem {...item}/>
                                     </Neos.Fusion:Loop>
                                 </ul>
                             </nav>
@@ -142,31 +142,31 @@ prototype(Litespeed.Presentation:Section.Header) < prototype(Neos.Fusion:Compone
         props {
             homeUri = '#'
             items = Neos.Fusion:DataStructure {
-                01 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                01 = Litefyr.Presentation:Section.Header.Fixture.MenuItem {
                     label = 'Lorem ipsum'
                 }
-                02 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                02 = Litefyr.Presentation:Section.Header.Fixture.MenuItem {
                     label = 'Dolor sit amet'
                     subItems = 6
                     subsubItems = 4
                 }
-                03 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                03 = Litefyr.Presentation:Section.Header.Fixture.MenuItem {
                     label = 'Lorem'
                     subItems = 3
                     subsubItems = 6
                 }
-                04 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                04 = Litefyr.Presentation:Section.Header.Fixture.MenuItem {
                     label = 'Dolor'
                     subItems = 4
                 }
-                05 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                05 = Litefyr.Presentation:Section.Header.Fixture.MenuItem {
                     label = 'References'
                     subItems = 1
                 }
-                06 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                06 = Litefyr.Presentation:Section.Header.Fixture.MenuItem {
                     label = 'Journal'
                 }
-                07 = Litespeed.Presentation:Section.Header.Fixture.MenuItem {
+                07 = Litefyr.Presentation:Section.Header.Fixture.MenuItem {
                     label = 'Über uns'
                     subItems = 1
                 }

@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neos.Fusion:Component) {
     @propTypes {
         uri = ${PropTypes.string.isRequired}
         label = ${PropTypes.string.isRequired}

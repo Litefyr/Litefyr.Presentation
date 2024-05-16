@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Helper.JoinItems) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Helper.JoinItems) < prototype(Neos.Fusion:Component) {
     items = ${null}
     glue = '<br/>'
     tagName = 'span'

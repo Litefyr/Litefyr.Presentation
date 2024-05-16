@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Module.Dialog) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Module.Dialog) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         content = ${PropTypes.string}
@@ -40,11 +40,11 @@ prototype(Litespeed.Presentation:Module.Dialog) < prototype(Neos.Fusion:Componen
                             x-on:click="$dialog.close()"
                             type="button"
                             class="absolute top-0 right-0 z-10 bg-transparent flex items-center justify-center p-2 opacity-60 transition-opacity hocus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent"
-                            aria-label={Translation.translate('close', null, [], null, 'Litespeed.Presentation')}
+                            aria-label={Translation.translate('close', null, [], null, 'Litefyr.Presentation')}
                             x-tooltip
                         >
-                            <Litespeed.Presentation:Atom.Icon
-                                styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.close')}
+                            <Litefyr.Presentation:Atom.Icon
+                                styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.close')}
                                 attributes.class="size-6"
                             />
                         </button>

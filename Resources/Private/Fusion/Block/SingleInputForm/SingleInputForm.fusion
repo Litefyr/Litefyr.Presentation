@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.SingleInputForm) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.SingleInputForm) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         label = ${PropTypes.string.isRequired}
@@ -36,7 +36,7 @@ prototype(Litespeed.Presentation:Block.SingleInputForm) < prototype(Neos.Fusion:
                     placeholder={props.placeholder || props.label}
                 />
                 <div class="bg-current min-h-px @xs:w-px"></div>
-                <Litespeed.Presentation:Atom.Button
+                <Litefyr.Presentation:Atom.Button
                     content={props.submitLabel}
                     type="submit"
                     ghost

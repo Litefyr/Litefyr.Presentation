@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.ButtonAndLink.Fragment.Attributes) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.ButtonAndLink.Fragment.Attributes) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         groupClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
@@ -23,7 +23,7 @@ prototype(Litespeed.Presentation:Atom.ButtonAndLink.Fragment.Attributes) < proto
             @ignoreProperties={['appearance', 'inline', 'main', 'minor', 'minor2', 'ghost', 'link', 'nested', 'icon', 'enableIcon', 'groupClass', 'bigArea']}
             {...props}
             data-theme={props.appearance == 'ghost' ? false : props.appearance}
-            class={Carbon.String.classNames(BEM.modifier('btn', [private.appearance, props.inline ? 'inline' : 'block', props.bigArea && 'big-area']), Tailwind.merge(props.groupClass, props.class))}
+            class={Carbon.String.classNames(BEM.modifier('btn', [private.appearance, props.inline ? 'inline' : 'block', props.bigArea && 'big-area']), Tailwind.merge("not-prose", props.groupClass, props.class))}
         />
     `
 }

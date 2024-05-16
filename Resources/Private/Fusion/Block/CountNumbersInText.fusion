@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.CountNumbersInText) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.CountNumbersInText) < prototype(Neos.Fusion:Component) {
     content = ${value}
     inBackend = false
 
@@ -7,7 +7,7 @@ prototype(Litespeed.Presentation:Block.CountNumbersInText) < prototype(Neos.Fusi
     renderer = afx`
         {props.inBackend ? props.content : ''}
         <Neos.Fusion:Loop @if={!props.inBackend} items={Carbon.String.splitIntegerAndString(props.content)}>
-            <Litespeed.Presentation:Atom.Counter content={item} />
+            <Litefyr.Presentation:Atom.Counter content={item} />
         </Neos.Fusion:Loop>
     `
 }

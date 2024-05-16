@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Logo) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Logo) < prototype(Neos.Fusion:Component) {
     image = null
     markup = null
     size = null
@@ -16,7 +16,7 @@ prototype(Litespeed.Presentation:Atom.Logo) < prototype(Neos.Fusion:Component) {
     preview = false
     additionalLinkClass = null
     linkAttributes = Neos.Fusion:DataStructure {
-        aria-label = ${Translation.translate('page.goToHome', null, [], 'Main', 'Litespeed.Presentation')}
+        aria-label = ${Translation.translate('page.goToHome', null, [], 'Main', 'Litefyr.Presentation')}
         class = '-print-hidelink flex leading-tight items-center *:fill-current *:w-auto *:h-logo *:max-h-logo *:transition-all hocus:text-theme-front transition duration-200 hocus:scale-110'
     }
 

@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.Pager.Fragment.Item) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.Pager.Fragment.Item) < prototype(Neos.Fusion:Component) {
     @propTypes {
         type = ${PropTypes.oneOf(['current', 'link', 'separator'])}
         uri = ${PropTypes.string}

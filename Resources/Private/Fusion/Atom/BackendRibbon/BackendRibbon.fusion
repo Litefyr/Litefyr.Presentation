@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.BackendRibbon) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.BackendRibbon) < prototype(Neos.Fusion:Component) {
     @propTypes {
         contsnt = ${PropTypes.string}
     }

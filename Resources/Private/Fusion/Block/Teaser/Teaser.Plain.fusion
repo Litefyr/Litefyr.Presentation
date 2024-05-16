@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Component) {
     @propTypes {
         headline = ${PropTypes.string}
         text = ${PropTypes.string}
@@ -46,8 +46,8 @@ prototype(Litespeed.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Com
                 aria-hidden="true"
                 data-theme={props.theme}
             >
-                <Litespeed.Presentation:Atom.Icon
-                    styleAndIcon={Configuration.setting('Litespeed.Presentation.icons.loadingIndicator')}
+                <Litefyr.Presentation:Atom.Icon
+                    styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.loadingIndicator')}
                     attributes.class="size-5 animate-spin"
                 />
             </div>
@@ -56,7 +56,7 @@ prototype(Litespeed.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Com
                 class={Tailwind.merge(private.classes.root, "relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-2xl p-6 flex-col justify-between", props.rootClass)}
                 data-theme={props.theme}
             >
-                <Litespeed.Presentation:Block.Teaser.Fragment.Content {...props} />
+                <Litefyr.Presentation:Block.Teaser.Fragment.Content {...props} />
             </div>
         </div>
     `

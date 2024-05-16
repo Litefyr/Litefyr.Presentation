@@ -1,9 +1,9 @@
-prototype(Litespeed.Presentation:Block.SingleInputForm.Newsletter) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Block.SingleInputForm.Newsletter) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
     }
 
-    renderer = Litespeed.Presentation:Block.SingleInputForm {
+    renderer = Litefyr.Presentation:Block.SingleInputForm {
         class = ${props.class}
         form.x-data = "{email:'',valid:false}"
         form."x-on:submit.prevent" = "$dispatch('opennewslettermodal', {email: email})"
@@ -11,7 +11,7 @@ prototype(Litespeed.Presentation:Block.SingleInputForm.Newsletter) < prototype(N
         input.x-model = 'email'
         input.x-on:input = "valid=$el.validity.valid"
         submit.:disabled = '!valid'
-        label = ${Translation.translate('newsletter.email', null, [], 'Main', 'Litespeed.Presentation')}
-        submitLabel = ${Translation.translate('newsletter.submit', null, [], 'Main', 'Litespeed.Presentation')}
+        label = ${Translation.translate('newsletter.email', null, [], 'Main', 'Litefyr.Presentation')}
+        submitLabel = ${Translation.translate('newsletter.submit', null, [], 'Main', 'Litefyr.Presentation')}
     }
 }

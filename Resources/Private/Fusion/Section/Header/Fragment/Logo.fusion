@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Section.Header.Fragment.Logo) < prototype(Litespeed.Presentation:Atom.Logo) {
+prototype(Litefyr.Presentation:Section.Header.Fragment.Logo) < prototype(Litefyr.Presentation:Atom.Logo) {
     positionRight = false
     marginTop = 16
     marginBottom = 16

@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Label) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Label) < prototype(Neos.Fusion:Component) {
     @propTypes {
         label = ${PropTypes.string}
         currentColor = ${PropTypes.boolean}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Litespeed\Presentation\EelHelper;
+namespace Litefyr\Presentation\EelHelper;
 
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
@@ -16,11 +16,8 @@ class PresentationHelper implements ProtectedContextAwareInterface
      * @param string|null $cssClass
      * @return string|null
      */
-    public function typewriter(
-        ?string $string = null,
-        bool $enable = true,
-        ?string $cssClass = null
-    ): ?string {
+    public function typewriter(?string $string = null, bool $enable = true, ?string $cssClass = null): ?string
+    {
         if (!$enable || !$string) {
             return $string;
         }
@@ -50,10 +47,8 @@ class PresentationHelper implements ProtectedContextAwareInterface
      * @param boolean $enable
      * @return string
      */
-    public function removeTypewriter(
-        string $string,
-        bool $enable = true
-    ): string {
+    public function removeTypewriter(string $string, bool $enable = true): string
+    {
         if (!$enable) {
             return $string;
         }
@@ -66,16 +61,16 @@ class PresentationHelper implements ProtectedContextAwareInterface
             },
             $string
         );
-        return $string;
+        return (string) $string;
     }
 
     /**
      * Returns the smallest number from an array
      *
-     * @param array $array
-     * @return integer
+     * @param array<integer|float> $array
+     * @return integer|float|string
      */
-    public function smallestNumberFromArray(array $array): int
+    public function smallestNumberFromArray(array $array): int|float|string
     {
         return min($this->filterNumberArray($array));
     }
@@ -83,10 +78,10 @@ class PresentationHelper implements ProtectedContextAwareInterface
     /**
      * Returns the biggest number from an array
      *
-     * @param array $array
-     * @return integer
+     * @param array<integer|float> $array
+     * @return integer|float|string
      */
-    public function biggestNumberFromArray(array $array): int
+    public function biggestNumberFromArray(array $array): int|float|string
     {
         return max($this->filterNumberArray($array));
     }
@@ -94,8 +89,8 @@ class PresentationHelper implements ProtectedContextAwareInterface
     /**
      * Filters an array for numeric values
      *
-     * @param array $array
-     * @return array
+     * @param array<mixed> $array
+     * @return array<float|int|string>
      */
     private function filterNumberArray(array $array): array
     {

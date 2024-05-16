@@ -1,4 +1,4 @@
-prototype(Litespeed.Presentation:Atom.Icon) < prototype(Neos.Fusion:Component) {
+prototype(Litefyr.Presentation:Atom.Icon) < prototype(Neos.Fusion:Component) {
     attributes = Neos.Fusion:DataStructure {
         aria-hidden = 'true'
         focusable = 'false'
@@ -23,7 +23,7 @@ prototype(Litespeed.Presentation:Atom.Icon) < prototype(Neos.Fusion:Component) {
                 <Neos.Fusion:Augmenter
                     {...props.attributes}
                     class={Carbon.String.classNames("svg-inline--fa", props.attributes.class)}
-                    content={StaticResource.content('Litespeed.Presentation', 'Private/Fusion/Atom/Icon/Assets/' + props.icon + '.svg')}
+                    content={StaticResource.content('Litefyr.Presentation', 'Private/Fusion/Atom/Icon/Assets/' + props.icon + '.svg')}
                 />
             `
         }
