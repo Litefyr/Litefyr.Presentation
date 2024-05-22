@@ -140,47 +140,107 @@ Carbon:
         'bg-lightness':
           - 'bg-lightness-offset':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'bg-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'bg-max-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'border-lightness':
           - 'border-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'border-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'border-max-lightness':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'text-lightness':
           - 'text-lightness-offset':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'text-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'text-max-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'placeholder-lightness':
           - 'placeholder-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'placeholder-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'placeholder-max-lightness':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'ouline-lightness':
           - 'ouline-lightness-offset':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'ouline-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'ouline-max-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'ring-lightness':
           - 'ring-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'ring-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'ring-max-lightness':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'fill-lightness':
           - 'fill-offset-lightness-offset':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'fill-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'fill-max-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'stroke-lightness':
           - 'stroke-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'stroke-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'stroke-max-lightness':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'accent-lightness':
           - 'accent-lightness-offset':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'accent-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'accent-max-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'shadow-lightness':
           - 'shadow-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'shadow-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'shadow-max-lightness':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'caret-lightness':
           - 'caret-lightness-offset':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'caret-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'caret-max-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'decoration-lightness':
           - 'decoration-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'decoration-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'decoration-max-lightness':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'from-lightness':
           - 'from-lightness-offset':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'from-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'from-max-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'via-lightness':
           - 'via-lightness-offset':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'via-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'via-max-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
         'to-lightness':
           - 'to-lightness-offset':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'to-min-lightness':
+              ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+          - 'to-max-lightness':
               ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
 
   FileLoader:
