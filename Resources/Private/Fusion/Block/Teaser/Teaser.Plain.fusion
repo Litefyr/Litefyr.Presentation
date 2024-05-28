@@ -33,7 +33,7 @@ prototype(Litefyr.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Compo
     @if.hasHrefAndContent = ${this.placeholder || (this.href && (this.headline || this.text))}
 
     @private.classes = Neos.Fusion:DataStructure {
-        root = '-teaser rounded-box flex-1 bg-theme-back flex group/teaser bg-lightness-offset-5'
+        root = '-teaser rounded-box flex-1 text-theme-front bg-theme-back flex group/teaser bg-lightness-offset-5'
     }
 
     theme = 'default'
