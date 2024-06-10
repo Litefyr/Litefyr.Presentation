@@ -14,7 +14,7 @@ prototype(Litefyr.Presentation:Atom.Icon) < prototype(Neos.Fusion:Component) {
     icon = null
     icon.@process.styleAndIcon = ${value || (this.styleAndIcon ? Array.last(this.styleAndIcon) : null)}
 
-    customIcons = ${['matrix', 'element', 'mattermost']}
+    customIcons = ${['matrix', 'element', 'mattermost', 'scheme-light', 'scheme-dark', 'scheme-system']}
 
     renderer = Neos.Fusion:Case {
         customIcon {

@@ -12,6 +12,8 @@ prototype(Sitegeist.Monocle:Preview.Page) {
         location = 'HeadStart'
     }
 
+    head.scheme = '<meta name="color-scheme" content="light dark" />'
+
     carbonIncludeAssetsHead = Carbon.IncludeAssets:MonocleAssets {
         @position = 'before closingHeadTag'
         location = 'Head'
@@ -26,7 +28,27 @@ prototype(Sitegeist.Monocle:Preview.Page) {
         @position = 'before closingBodyTag'
         location = 'Body'
     }
+
+    bodyTag.attributes.style = 'margin-bottom:4rem'
+    additionalMarkup = Neos.Fusion:Join {
+        @position = 'before closingBodyTag'
+        tooltip = Litefyr.Presentation:Atom.Tooltip
+        themeSwitch = afx`
+            <button
+                type="button"
+                class="p-3 bg-theme-back text-bg-contrast rounded-full transition border border-bg-contrast/10 hover:bg-theme-front"
+                style="position:fixed;right:5px;bottom:5px;"
+                x-data="{classList:document.documentElement.classList}"
+                x-on:click="classList.toggle('light');classList.toggle('dark')"
+            >
+                <Litefyr.Presentation:Atom.Icon attributes.class="block light:hidden size-5" icon="scheme-light" />
+                <Litefyr.Presentation:Atom.Icon attributes.class="block dark:hidden size-5" icon="scheme-dark" />
+            </button>
+        `
+    }
 }
+
+
 
 prototype(Sitegeist.Monocle:Preview.Prototypes) < prototype(Neos.Fusion:Component) {
     items = ''

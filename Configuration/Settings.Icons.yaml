@@ -28,6 +28,7 @@ Litefyr:
       print: 'solid:print'
       shareEmail: 'solid:at'
       shareCopy: 'solid:copy'
+      search: 'solid:magnifying-glass'
 
       close: 'solid:xmark'
       chat: 'solid:comments'
