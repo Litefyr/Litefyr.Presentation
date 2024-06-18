@@ -43,14 +43,18 @@
   }
 
   mark {
-    @apply bg-theme-accent text-theme-back;
+    @apply box-decoration-clone bg-theme-accent text-bg-contrast;
+
+    border-radius: 0.2em;
+    padding: 0.2em 0.1em;
+    margin: -0.2em -0.1em;
   }
 
   [x-mark] mark,
   mark[x-mark],
   mark[style],
   mark:has(+ .rough-annotation) {
-    @apply bg-transparent text-theme-front;
+    @apply bg-none text-theme-front;
   }
 
   * {

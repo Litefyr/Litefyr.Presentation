@@ -1,5 +1,5 @@
 import ajax from "@imacrayon/alpine-ajax";
 
-window.addEventListener("presentation:init", () => {
+document.addEventListener("presentation:init", () => {
     Alpine.plugin(ajax);
 });

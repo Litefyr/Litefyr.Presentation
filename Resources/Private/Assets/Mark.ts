@@ -25,7 +25,7 @@ const types: RoughAnnotationType[] = [
 ];
 const multiline = true;
 
-window.addEventListener("alpine:init", () => {
+document.addEventListener("mark:init", () => {
     Alpine.directive("mark", (el, { value, expression, modifiers }) => {
         const selector = expression || "mark";
         // @ts-ignore

@@ -15,7 +15,7 @@ window.addEventListener("Neos.NodeCreated", () => {
     initLoader();
 });
 
-window.addEventListener("loader:markup", ({ detail }: CustomEvent) => {
+document.addEventListener("loader:markup", ({ detail }: CustomEvent) => {
     const { markup, callback } = detail;
     if (markup) {
         // Loads additional components before rendering

@@ -3,7 +3,7 @@ import "DistributionPackages/Litefyr.Distribution/Resources/Private/Fusion/Backe
 // Don't init presentation
 const initEvents = "disturber,slider,iCal,mautic,zammad";
 
-window.addEventListener("alpine:init", () => {
+document.addEventListener("alpine:init", () => {
     initEvents.split(",").forEach((type) => {
         document.dispatchEvent(new Event(`${type}:init`));
     });

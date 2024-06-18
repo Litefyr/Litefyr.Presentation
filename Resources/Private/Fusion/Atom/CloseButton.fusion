@@ -16,7 +16,7 @@ prototype(Litefyr.Presentation:Atom.CloseButton) < prototype(Neos.Fusion:Compone
             x-show="mobile"
             type="button"
             data-theme={props.theme}
-            class={Tailwind.merge("relative flex overflow-clip items-center justify-center rounded-full min-w-12 min-h-12 max-w-12 max-h-12 transform transition-all ring-0 ring-theme-accent hover:ring-8 focus:outline-none focus:ring-4 ring-opacity-30 focus-visible:ring-opacity-100 duration-200", props.class)}
+            class={Tailwind.merge("relative flex overflow-clip items-center justify-center rounded-full min-w-12 min-h-12 max-w-12 max-h-12 transform transition-all ring-0 ring-theme-front hover:ring-8 focus:outline-none focus:ring-4 !ring-opacity-30 focus-visible:!ring-opacity-100 duration-200", props.class)}
             :aria-label={props.alpineVariable + "?'" + props.activeText + "':'" + props.inactiveText + "'"}
             :aria-label.@if={props.activeText && props.inactiveText}
             x-tooltip

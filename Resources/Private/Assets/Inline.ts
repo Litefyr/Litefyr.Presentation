@@ -47,7 +47,7 @@ function enableModeSwitcher() {
             localStorage.theme = mode;
         }
         setClass();
-        window.dispatchEvent(new CustomEvent("set-mode", { detail: mode }));
+        document.dispatchEvent(new CustomEvent("set-mode", { detail: mode }));
         return mode;
     };
 
@@ -60,7 +60,7 @@ if (hasMulipleSchemes) {
 
 if (!computedStyle.getPropertyValue("--clippath-height")) {
     // Remove some clippath classes if heihgt is not set
-    window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
         ["clippath-top", "clippath-bottom", "clippath-inside"].forEach((className) => {
             // @ts-ignore
             [...document.querySelectorAll(`.${className}`)].forEach((element) => {

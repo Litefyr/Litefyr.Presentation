@@ -48,8 +48,6 @@ prototype(Sitegeist.Monocle:Preview.Page) {
     }
 }
 
-
-
 prototype(Sitegeist.Monocle:Preview.Prototypes) < prototype(Neos.Fusion:Component) {
     items = ''
     renderer = Neos.Fusion:Loop {
