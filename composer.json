@@ -5,7 +5,7 @@
     "license": "GPL-3.0-or-later",
     "require" : {
         "carbon/eel" : "^2.15",
-        "carbon/fileloader": "^0.1",
+        "carbon/fileloader": "^0.1.6",
         "carbon/image" : "^4.0",
         "carbon/includeassets" : "^6.2",
         "garagist/fontawesome" : "^0.1.4",

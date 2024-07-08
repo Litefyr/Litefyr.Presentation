@@ -15,6 +15,9 @@ Litefyr:
       pagination:
         prev: 'solid:arrow-left'
         next: 'solid:arrow-right'
+      datepicker:
+        prev: 'solid:chevron-left'
+        next: 'solid:chevron-right'
       socialNetworks:
         appleMusic: 'brands:itunes-note'
         x: 'brands:x-twitter'

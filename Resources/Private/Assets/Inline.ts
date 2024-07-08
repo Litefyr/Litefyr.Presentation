@@ -1,4 +1,5 @@
 import "DistributionPackages/Litefyr.Distribution/Resources/Private/Fusion/Inline";
+import { customEvent } from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventDispatcher";
 
 const htmlElement = document.documentElement;
 const computedStyle = getComputedStyle(htmlElement);
@@ -47,7 +48,7 @@ function enableModeSwitcher() {
             localStorage.theme = mode;
         }
         setClass();
-        document.dispatchEvent(new CustomEvent("set-mode", { detail: mode }));
+        customEvent("set-mode", mode);
         return mode;
     };
 

@@ -1,6 +1,7 @@
 import { annotate, annotationGroup } from "rough-notation";
 import type { RoughAnnotation, RoughAnnotationType } from "rough-notation/lib/model";
 import { rafTimeOut } from "./Global/requestAnimationFrame";
+import eventListener from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventListener";
 
 // This add a x-mark directive to AlpineJS
 // <p x-mark>Text <mark>This gets highlighted</mark></p>
@@ -25,7 +26,7 @@ const types: RoughAnnotationType[] = [
 ];
 const multiline = true;
 
-document.addEventListener("mark:init", () => {
+eventListener("mark:init", () => {
     Alpine.directive("mark", (el, { value, expression, modifiers }) => {
         const selector = expression || "mark";
         // @ts-ignore

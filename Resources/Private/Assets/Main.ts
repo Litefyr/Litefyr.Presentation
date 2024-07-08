@@ -6,22 +6,27 @@ import "lazysizes/plugins/aspectratio/ls.aspectratio";
 import "lazysizes/plugins/native-loading/ls.native-loading";
 import "DistributionPackages/Litefyr.Distribution/Resources/Private/Fusion/Main";
 import initLoader from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/Loader";
+import eventListener from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventListener";
 
 initLoader({
     callback: () => Alpine.start(),
 });
 
-window.addEventListener("Neos.NodeCreated", () => {
+document.addEventListener("Neos.NodeCreated", () => {
     initLoader();
 });
 
-document.addEventListener("loader:markup", ({ detail }: CustomEvent) => {
-    const { markup, callback } = detail;
-    if (markup) {
-        // Loads additional components before rendering
-        initLoader({ markup, callback });
-    }
-});
+eventListener(
+    "loader:markup",
+    ({ detail }: CustomEvent) => {
+        const { markup, callback } = detail;
+        if (markup) {
+            // Loads additional components before rendering
+            initLoader({ markup, callback });
+        }
+    },
+    false,
+);
 
 // Make sure plausible is a function
 // @ts-ignore

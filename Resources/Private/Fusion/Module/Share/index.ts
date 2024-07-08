@@ -1,4 +1,5 @@
 import Alpine from "alpinejs";
+import eventListener from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventListener";
 
 const navigator = window.navigator;
 
@@ -16,11 +17,15 @@ Alpine.data("share", () => ({
 
         if (!this.hasEventListener) {
             this.hasEventListener = true;
-            window.addEventListener("ajax:init", () => {
-                this.$nextTick(() => {
-                    this.init();
-                });
-            });
+            eventListener(
+                "ajax:init",
+                () => {
+                    this.$nextTick(() => {
+                        this.init();
+                    });
+                },
+                false,
+            );
         }
     },
 }));

@@ -1,11 +1,13 @@
 import "DistributionPackages/Litefyr.Distribution/Resources/Private/Fusion/Backend";
+import eventListener from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventListener";
+import { defaultEvent } from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventDispatcher";
 
 // Don't init presentation
 const initEvents = "disturber,slider,iCal,mautic,zammad";
 
-document.addEventListener("alpine:init", () => {
+eventListener("alpine:init", () => {
     initEvents.split(",").forEach((type) => {
-        document.dispatchEvent(new Event(`${type}:init`));
+        defaultEvent(`${type}:init`);
     });
 });
 
