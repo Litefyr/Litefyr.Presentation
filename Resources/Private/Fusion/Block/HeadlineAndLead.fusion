@@ -3,6 +3,7 @@ prototype(Litefyr.Presentation:Block.HeadlineAndLead) < prototype(Neos.Fusion:Co
         headline = ${PropTypes.string}
         label = ${PropTypes.string}
         lead = ${PropTypes.string}
+        headlineLinks = ${PropTypes.string}
         isFirstElement = ${PropTypes.boolean}
         needHeadline = ${PropTypes.boolean}
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
@@ -51,7 +52,7 @@ prototype(Litefyr.Presentation:Block.HeadlineAndLead) < prototype(Neos.Fusion:Co
             <p @if={props.lead} class={props.leadClass}>
                 {Presentation.typewriter(props.lead, !props.inBackend, 'text-theme-accent')}
             </p>
-
+            {props.headlineLinks}
         </Litefyr.Presentation:Spacing>
     `
 }
