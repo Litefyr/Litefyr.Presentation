@@ -44,7 +44,7 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
     renderer = afx`
         <header
             class.base="group/header z-[500] fixed inset-x-0 top-0 transition-transform transform-gpu duration-500 mt-0 pointer-events-none"
-            class.margin={private.clipPath ? '+:mt-[calc(var(--header-height)+var(--clippath-height-half))] xl:+:mt-header' : '+:mt-header'}
+            class.margin={private.clipPath ? '+:mt-[calc(var(--header-height)+var(--clippath-height-half))]' : '+:mt-header'}
             class.print="print:static"
             style={private.style}
             x-bind="header"
