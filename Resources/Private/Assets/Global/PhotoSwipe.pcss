@@ -9,3 +9,16 @@
 .jonnitto-photoswipe-content {
   @apply rounded-box shadow-lg;
 }
+
+.photoswipe-iframe:only-child {
+  --default-height: 90vh;
+  --lightbox-height: 100dvh;
+
+  width: 100%;
+  height: calc(var(--default-height) - var(--header-height));
+}
+
+:where(.jonnitto-photoswipe-content) .photoswipe-iframe:only-child {
+  height: calc(var(--lightbox-height) - 24px);
+  margin: 0 !important;
+}

@@ -4,6 +4,7 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MobileMenuItem) < prototy
         label = ${PropTypes.string.isRequired}
         uriPathSegment = ${PropTypes.string}
         content = ${PropTypes.string}
+        isLightbox = ${PropTypes.boolean}
     }
 
     uri = ${null}
@@ -33,6 +34,7 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MobileMenuItem) < prototy
                     class={props.defaultClass[props.menuLevel]}
                     :class="$isActivePage()&&'font-bold'"
                     :aria-current="$isCurrentPage()&&'page'"
+                    data-pswp-type={props.isLightbox ? "fetch" : null}
                 >
                     {props.label}
                 </a>
