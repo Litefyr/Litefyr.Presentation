@@ -3,6 +3,7 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neo
         uri = ${PropTypes.string.isRequired}
         label = ${PropTypes.string.isRequired}
         isLightbox = ${PropTypes.boolean}
+        lightboxIframeSrc = ${PropTypes.string}
     }
 
     subItems = null
@@ -13,11 +14,12 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neo
     renderer = afx`
         <li class="group relative h-full">
             <a
-                href={props.uri}
+                href={props.lightboxIframeSrc || props.uri}
                 class={[props.defaultLinkClass, 'whitespace-nowrap h-full p-4 flex flex-col items-center justify-center text-center text-theme-front group-hocus-within:text-theme-accent']}
                 :class="$isActivePage()?'font-bold':'font-normal'"
                 :aria-current="$isCurrentPage()&&'page'"
                 data-pswp-type={props.isLightbox ? "fetch" : null}
+                data-pswp-src={props.lightboxIframeSrc ? props.uri : null}
             >
                 {props.label}
             </a>
@@ -28,11 +30,12 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neo
                 <Neos.Fusion:Loop items={props.subItems}>
                     <li>
                         <a
-                            href={item.uri}
+                            href={item.lightboxIframeSrc || item.uri}
                             class={[props.defaultLinkClass, "block py-2 px-4 overflow-clip text-theme-front hocus:bg-theme-accent hocus:text-theme-back"]}
                             :class="$isActivePage()?'font-bold':'font-normal'"
                             :aria-current="$isCurrentPage()&&'page'"
                             data-pswp-type={item.isLightbox ? "fetch" : null}
+                            data-pswp-src={item.lightboxIframeSrc ? item.uri : null}
                         >
                             {item.label}
                         </a>

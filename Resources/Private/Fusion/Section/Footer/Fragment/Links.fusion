@@ -7,11 +7,12 @@ prototype(Litefyr.Presentation:Section.Footer.Fragment.Links) < prototype(Neos.F
         <Neos.Fusion:Loop items={props.items}>
             <li>
                 <a
-                    href={item.href}
+                    href={item.lightboxIframeSrc || item.href}
                     :class={"$isCurrentPage()&&'" + props.currentClass + "'"}
                     :aria-current="$isCurrentPage()&&'page'"
                     class={props.class}
                     data-pswp-type={item.isLightbox ? "fetch" : null}
+                    data-pswp-src={item.lightboxIframeSrc ? item.href : null}
                 >
                     {item.label}
                 </a>

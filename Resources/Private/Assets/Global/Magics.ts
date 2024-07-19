@@ -15,7 +15,7 @@ function getFullUrl(loc: Location | URL) {
 
 function getFullHref(input) {
     if (typeof input != "string") {
-        input = input.getAttribute("href");
+        input = input?.dataset?.pswpSrc || input.getAttribute("href");
     }
     return getFullUrl(new URL(input, location.origin));
 }

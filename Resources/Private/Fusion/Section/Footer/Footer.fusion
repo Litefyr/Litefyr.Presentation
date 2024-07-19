@@ -1,11 +1,11 @@
 prototype(Litefyr.Presentation:Section.Footer) < prototype(Neos.Fusion:Component) {
     @propTypes {
-        items = ${PropTypes.arrayOf(PropTypes.dataStructure({'href': PropTypes.string, 'label': PropTypes.string, 'isLightbox': PropTypes.boolean}))}
+        items = ${PropTypes.arrayOf(PropTypes.dataStructure({'href': PropTypes.string, 'label': PropTypes.string, 'isLightbox': PropTypes.boolean, 'lightboxIframeSrc': PropTypes.string}))}
         itemsMultiColumn = PropTypes:Array {
             type = PropTypes:DataStructure {
                 headline = PropTypes:String
                 content = PropTypes:String
-                items = ${PropTypes.arrayOf(PropTypes.dataStructure({'href': PropTypes.string, 'label': PropTypes.string, 'isLightbox': PropTypes.boolean, 'content': PropTypes.string}))}
+                items = ${PropTypes.arrayOf(PropTypes.dataStructure({'href': PropTypes.string, 'label': PropTypes.string, 'isLightbox': PropTypes.boolean, 'lightboxIframeSrc': PropTypes.string, 'content': PropTypes.string}))}
             }
         }
         email = ${PropTypes.string}

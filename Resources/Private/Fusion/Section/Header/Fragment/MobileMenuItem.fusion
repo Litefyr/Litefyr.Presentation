@@ -5,6 +5,7 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MobileMenuItem) < prototy
         uriPathSegment = ${PropTypes.string}
         content = ${PropTypes.string}
         isLightbox = ${PropTypes.boolean}
+        lightboxIframeSrc = ${PropTypes.string}
     }
 
     uri = ${null}
@@ -30,11 +31,12 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MobileMenuItem) < prototy
         <li x-data={!!(props.collapse && props.subItems)} x-disclosure={!!(props.collapse && props.subItems)} class={Tailwind.merge(props.subItems ? "sm:col-span-2" : null, props.subItems && props.menuLevel > 1 ? "mb-4" : null)}>
             <Carbon.Eel:Tag tagName={props.collapse && props.subItems && 'span'} attributes.class="inline-flex gap-2 items-center justify-between min-w-[30%]">
                 <a
-                    href={props.uri}
+                    href={props.lightboxIframeSrc || props.uri}
                     class={props.defaultClass[props.menuLevel]}
                     :class="$isActivePage()&&'font-bold'"
                     :aria-current="$isCurrentPage()&&'page'"
                     data-pswp-type={props.isLightbox ? "fetch" : null}
+                    data-pswp-src={props.lightboxIframeSrc ? props.uri : null}
                 >
                     {props.label}
                 </a>
