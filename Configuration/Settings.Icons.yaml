@@ -5,6 +5,7 @@ Litefyr:
         folder: 'regular:folder-open'
         articles: 'solid:bullhorn'
         tags: 'solid:tags'
+        authors: 'solid:users'
       accordion:
         open: 'solid:plus'
         close: 'solid:minus'
