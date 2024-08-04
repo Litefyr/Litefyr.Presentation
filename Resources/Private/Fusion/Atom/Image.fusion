@@ -4,6 +4,7 @@ prototype(Litefyr.Presentation:Atom.Image) < prototype(Neos.Fusion:Component) {
         breakout = ${PropTypes.oneOf(['wide', 'full', ''])}
         screenHeightBreakpoint = ${PropTypes.oneOf(['sm', 'md', 'lg', 'xl', ''])}
         screenHeight = ${PropTypes.integer}
+        lightboxCaption = ${PropTypes.string}
     }
     @styleguide {
         props {
@@ -15,6 +16,7 @@ prototype(Litefyr.Presentation:Atom.Image) < prototype(Neos.Fusion:Component) {
     }
 
     breakout = null
+    lightboxCaption = null
     figureAttributes = Neos.Fusion:DataStructure
     linkAdditonalAttributes = Neos.Fusion:DataStructure {
         class = 'block'
@@ -53,7 +55,7 @@ prototype(Litefyr.Presentation:Atom.Image) < prototype(Neos.Fusion:Component) {
 
         content = afx`
             <Carbon.Image:Component.Presentation.Image {...props} minMaxImageSize={private.minMaxImageSize} breakout={null} @if={!props.integration}/>
-            <Carbon.Image:Component.Image {...props}  minMaxImageSize={private.minMaxImageSize} breakout={null} @if={props.integration}/>
+            <Carbon.Image:Component.Image {...props} minMaxImageSize={private.minMaxImageSize} breakout={null} @if={props.integration}/>
         `
     }
 

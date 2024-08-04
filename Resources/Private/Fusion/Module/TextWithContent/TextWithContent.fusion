@@ -6,6 +6,7 @@ prototype(Litefyr.Presentation:Module.TextWithContent) < prototype(Neos.Fusion:C
         textLeft = ${PropTypes.boolean}
         isFirstElement = ${PropTypes.boolean}
         stretchContent = ${PropTypes.boolean}
+        inSlider = ${PropTypes.boolean}
         theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
         themeSecond = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
         text = ${PropTypes.string}

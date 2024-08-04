@@ -1,0 +1,62 @@
+prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:Component) {
+    enableText = false
+    textBoxDirection = null
+    textBoxText = null
+    textBoxMaxWidth = null
+    textBoxBreakpoint = null
+    enableSpacing = null
+    breakout = null
+    screenHeight = null
+
+    @private {
+        textWithContentImage = afx`
+            <Litefyr.Presentation:Atom.Image
+                {...props}
+                screenHeightBreakpoint="md"
+                objectFit="cover"
+                breakout={null}
+                rounded={false}
+            />
+        `
+    }
+
+    renderer = Neos.Fusion:Case {
+        textBox {
+            condition = ${!props.enableText && props.textBoxDirection && props.textBoxText}
+            renderer = afx`
+                <Litefyr.Presentation:Block.ImageWithTextOverlay
+                    {...props}
+                    boxDirection={props.textBoxDirection}
+                    boxMaxWidth={props.textBoxMaxWidth}
+                    boxBreakpoint={props.textBoxBreakpoint}
+                    text={props.textBoxText}
+                />
+            `
+        }
+        enableText {
+            condition = ${props.enableText}
+            renderer = afx`
+                <Litefyr.Presentation:Module.TextWithContent
+                    {...props}
+                    breakpoint="md"
+                    screenHeight={null}
+                    singleContent={private.textWithContentImage}
+                    stretchContent={true}
+                />
+            `
+        }
+        default {
+            condition = true
+            renderer = afx`
+                <Litefyr.Presentation:Spacing
+                    augmenter
+                    width={props.enableSpacing ? props.breakout : false}
+                    padding="auto"
+                    tailwind="mediacontent"
+                >
+                    <Litefyr.Presentation:Atom.Image objectFit={props.screenHeight ? "cover" : null} {...props} />
+                </Litefyr.Presentation:Spacing>
+            `
+        }
+    }
+}
