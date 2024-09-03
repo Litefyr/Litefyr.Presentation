@@ -21,6 +21,7 @@ function setClass() {
     htmlElement.classList.toggle("light", !dark);
     htmlElement.classList.toggle("dark", dark);
     metaTheme.element?.setAttribute("content", metaTheme[dark ? "dark" : "light"]);
+    customEvent("color-scheme", dark ? "dark" : "light");
 }
 
 function enableModeSwitcher() {

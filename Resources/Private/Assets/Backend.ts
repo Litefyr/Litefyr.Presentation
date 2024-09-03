@@ -3,7 +3,7 @@ import eventListener from "Packages/Carbon/Carbon.FileLoader/Resources/Private/A
 import { defaultEvent } from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventDispatcher";
 
 // Don't init presentation
-const initEvents = "disturber,slider,iCal,mautic,zammad";
+const initEvents = "code,disturber,slider,iCal,mautic,zammad";
 
 eventListener("alpine:init", () => {
     initEvents.split(",").forEach((type) => {

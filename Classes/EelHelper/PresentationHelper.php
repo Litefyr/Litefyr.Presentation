@@ -2,6 +2,8 @@
 
 namespace Litefyr\Presentation\EelHelper;
 
+use Carbon\Eel\Service\BEMService;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 
@@ -84,6 +86,41 @@ class PresentationHelper implements ProtectedContextAwareInterface
     public function biggestNumberFromArray(array $array): int|float|string
     {
         return max($this->filterNumberArray($array));
+    }
+
+    /**
+     * Generates a BEM string
+     *
+     * @param string|NodeInterface string or NodeInterface
+     * @return string|null
+     */
+    public function cssClass($input): ?string
+    {
+        if (is_string($input)) {
+            return BEMService::getClassNamesString('litefyr', null, strtolower($input));
+        }
+        if (!$input instanceof NodeInterface) {
+            return null;
+        }
+        $name = strtolower($input->getNodeType()->getName());
+        $array = explode(':', $name);
+
+        $vendorAndPackage = explode('.', $array[0]);
+        $vendor = $vendorAndPackage[0];
+        $package = end($vendorAndPackage);
+
+        $element = explode('.', $array[1]);
+        $element = array_filter($element, function ($value) {
+            return !in_array($value, ['content', 'document']);
+        });
+        $element = implode('-', $element);
+
+        // Site packages
+        if (in_array($package, ['agora', 'alexandria'])) {
+            return BEMService::getClassNamesString($vendor, null, $element);
+        }
+
+        return BEMService::getClassNamesString($vendor, null, sprintf('%s-%s', $package, $element));
     }
 
     /**
