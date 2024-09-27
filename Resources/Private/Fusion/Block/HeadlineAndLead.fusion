@@ -34,6 +34,7 @@ prototype(Litefyr.Presentation:Block.HeadlineAndLead) < prototype(Neos.Fusion:Co
 
     @if.hasHeadline = ${this.needHeadline ? this.headline : (this.headline || this.lead)}
 
+
     renderer = afx`
         <Litefyr.Presentation:Spacing
             waveSpacing
@@ -41,6 +42,7 @@ prototype(Litefyr.Presentation:Block.HeadlineAndLead) < prototype(Neos.Fusion:Co
             width={props.width}
             tagName={private.wrapperTagName}
             class={Tailwind.merge('flex flex-col', props.textCenter && 'text-center', props.class)}
+            animationText={props.animationText}
         >
             <Litefyr.Presentation:Atom.Headline
                 isFirstElement={props.isFirstElement}

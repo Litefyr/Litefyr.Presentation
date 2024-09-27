@@ -49,6 +49,9 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
             }
         }
         marginClass = Neos.Fusion:Case {
+            // We need a minimal height of 4px to make the animation work
+            @process.minHeight = ${[value, props.animationMedia ? 'min-h-1' : null]}
+
             responsiveScale {
                 condition = ${props.useResponsiveScale}
                 // my-fl-3xs my-fl-2xs my-fl-xs my-fl-sm my-fl-md my-fl-lg my-fl-xl my-fl-2xl my-fl-3xl
@@ -56,7 +59,7 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
             }
             height {
                 condition = true
-                renderer = ${String.indexOf(private.style, '--spacing-md:') == -1 ? 'my-[--spacing] transition-[margin]' : 'my-[--spacing] md:my-[--spacing-md] transition-[margin]'}
+                renderer = ${'my-[--spacing] transition-[margin]' + (String.indexOf(private.style, '--spacing-md:') == -1 ? '' : ' md:my-[--spacing-md]')}
             }
         }
 
@@ -87,7 +90,7 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
     renderer = afx`
         <!-- Colored spacer -->
         <Neos.Fusion:Fragment @if={props.theme && !props.hr}>
-            <Litefyr.Presentation:Atom.Clippath.Top theme={props.theme} />
+            <Litefyr.Presentation:Atom.Clippath.Top animationClipPath={props.animationMedia} theme={props.theme} />
             <Neos.Fusion:Fragment @if={props.inBackend}>
                 <div data-theme={props.theme} style={props.useResponsiveScale ? null : private.style} class={Tailwind.merge("border-0 bg-theme-back", private.heightClass, props.class)}>
                     <Litefyr.Presentation:Atom.BackendRibbon content={private.ribbonText} />
@@ -98,14 +101,21 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
                 data-theme={props.theme}
                 style={props.useResponsiveScale ? null : private.style}
                 class={Tailwind.merge("border-0 bg-theme-back", private.heightClass, props.class)}
+                data-animation-media={props.animationMedia}
             />
-            <Litefyr.Presentation:Atom.Clippath.Bottom theme={props.theme} />
+            <Litefyr.Presentation:Atom.Clippath.Bottom animationClipPath={props.animationMedia} theme={props.theme} />
         </Neos.Fusion:Fragment>
 
         <!-- HR Element -->
         <Litefyr.Presentation:Spacing width={props.hrWidth} @if={props.hr} augmenter>
             <Litefyr.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText}  />
-            <hr data-theme={props.theme || null} style={props.useResponsiveScale ? null : private.style} class={Tailwind.merge("theme-hr", private.marginClass, props.class)} />
+            <hr
+                data-animation-media={props.animationMedia}
+                data-animation-media-offset={props.animationMedia ? '100px' : null}
+                data-theme={props.theme || null}
+                style={props.useResponsiveScale ? null : private.style}
+                class={Tailwind.merge("theme-hr", private.marginClass, props.class)}
+            />
         </Litefyr.Presentation:Spacing>
 
         <!-- Empty spacer -->

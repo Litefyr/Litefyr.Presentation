@@ -4,6 +4,7 @@
     "type": "neos-litefyr",
     "license": "GPL-3.0-or-later",
     "require" : {
+        "enshrined/svg-sanitize": "^0.17.0",
         "carbon/eel" : "^2.15",
         "carbon/fileloader": "^0.1.6",
         "carbon/image" : "^4.0",

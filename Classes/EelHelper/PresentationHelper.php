@@ -6,10 +6,31 @@ use Carbon\Eel\Service\BEMService;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
+use enshrined\svgSanitize\Sanitizer;
 
 #[Flow\Proxy(false)]
 class PresentationHelper implements ProtectedContextAwareInterface
 {
+    /**
+     * Sanitize SVG content
+     *
+     * @param string $content
+     * @param boolean $minify
+     * @return string
+     */
+    public function sanitizeSVG(?string $content, $minify = true): string
+    {
+        if (!$content) {
+            return '';
+        }
+        $sanitizer = new Sanitizer();
+        $sanitizer->removeRemoteReferences(true);
+        if ($minify) {
+            $sanitizer->minify(true);
+        }
+        return $sanitizer->sanitize($content);
+    }
+
     /**
      * Insert typewriter syntax into string
      *

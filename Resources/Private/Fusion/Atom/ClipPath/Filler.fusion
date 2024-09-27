@@ -9,12 +9,13 @@ prototype(Litefyr.Presentation:Atom.Clippath.Filler) < prototype(Neos.Fusion:Com
 
     ariaHidden = ${!this.content}
     height = null
-
+    animationClipPath = null
 
     renderer = Litefyr.Presentation:Atom.Clippath.Tag {
         theme = ${props.theme}
         content = ${props.content}
         ariaHidden = ${props.ariaHidden}
+        animationClipPath = ${props.animationClipPath}
         class = ${[props.class, props.height, 'clippath-display -mt-1']}
     }
 }

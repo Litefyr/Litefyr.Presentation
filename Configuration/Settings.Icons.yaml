@@ -33,7 +33,9 @@ Litefyr:
       shareEmail: 'solid:at'
       shareCopy: 'solid:copy'
       search: 'solid:magnifying-glass'
-      clipboard: 'solid:clipboard'
+      clipboard:
+        copy: 'solid:clipboard'
+        copied: 'solid:clipboard-check'
 
       close: 'solid:xmark'
       chat: 'solid:comments'

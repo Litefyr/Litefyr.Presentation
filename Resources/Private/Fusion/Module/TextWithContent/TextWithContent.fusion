@@ -175,9 +175,9 @@ prototype(Litefyr.Presentation:Module.TextWithContent) < prototype(Neos.Fusion:C
             }
             stretchContent = ${props.stretchContent ? 'self-stretch' : null}
         }
-}
+    }
 
-renderer = afx`
+    renderer = afx`
         <Litefyr.Presentation:Atom.Clippath.Top @if={props.theme} theme={props.theme} />
         <Litefyr.Presentation:Background
             theme={props.theme}
@@ -191,7 +191,11 @@ renderer = afx`
                 class={[BEM.string(props.bemClass, 'secondbg', props.breakpoint), 'bg-theme-back pointer-events-none']}
                 aria-hidden="true"
             ></div>
-            <Litefyr.Presentation:Spacing class={BEM.string(props.bemClass, 'text')} tailwind={[private.textClass, props.textClass]}>
+            <Litefyr.Presentation:Spacing
+                class={BEM.string(props.bemClass, 'text')}
+                tailwind={[private.textClass, props.textClass]}
+                animationText={props.animationText}
+            >
                 <Litefyr.Presentation:Atom.Headline
                     content={props.headline}
                     isFirstElement={props.isFirstElement}
@@ -207,17 +211,21 @@ renderer = afx`
                     <Neos.Fusion:Augmenter class="mx-1 mt-2" content={props.links} />
                 </div>
                 {props.asideOnEnd}
-                </Litefyr.Presentation:Spacing>
+            </Litefyr.Presentation:Spacing>
             <Neos.Fusion:Augmenter
                 @if={props.content}
                 content={props.content}
                 data-theme={private.themeSecond}
+                data-animation-media={props.animationMedia}
+                data-animation-elements={props.animationElements}
                 class={[BEM.string(props.bemClass, 'multiple'), Tailwind.merge(private.multipleContentClass, private.contentClass, props.contentClass)]}
             />
             <Neos.Fusion:Augmenter
                 @if={props.singleContent && !props.content}
                 content={props.singleContent}
                 data-theme={private.themeSecond}
+                data-animation-media={props.animationMedia}
+                data-animation-elements={props.animationElements}
                 class={[BEM.string(props.bemClass, 'single', (props.breakout || null)), Tailwind.merge(private.singleContentClass, private.contentClass, props.contentClass)]}
             />
 

@@ -59,6 +59,7 @@ prototype(Litefyr.Presentation:Block.Text) < prototype(Neos.Fusion:Component) {
             augmenter={!props.theme}
             tailwind={[props.theme ? "py-12" : null, props.class]}
             waveSpacing
+            animationText={props.animationText}
         >
             <Litefyr.Presentation:Spacing
                 augmenter={!props.position}

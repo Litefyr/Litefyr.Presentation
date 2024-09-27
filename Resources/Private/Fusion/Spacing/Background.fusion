@@ -21,11 +21,14 @@ prototype(Litefyr.Presentation:Background) < prototype(Neos.Fusion:Component) {
     content = ${value}
 
     @private {
-        theme = ${Array.indexOf(['main', 'minor', 'minor2', 'gray', 'default', 'nested', 'footer', 'header'], props.theme) != -1 ? props.theme : null}
+        theme = ${Array.indexOf(['main', 'minor', 'minor2', 'gray', 'default', 'nested', 'footer', 'header'], props.theme) != -1 ? props.theme : false}
         attributes = afx`
             <Neos.Fusion:DataStructure
-                @ignoreProperties={['tagName', 'theme', 'main', 'minor', 'minor2', 'gray', 'nested', 'augmenter', 'content', 'waveSpacing', 'padding', 'tailwind', 'firstHeaderCollapse']}
+                @ignoreProperties={['tagName', 'theme', 'main', 'minor', 'minor2', 'gray', 'nested', 'augmenter', 'content', 'waveSpacing', 'padding', 'tailwind', 'firstHeaderCollapse',  'animationText', 'animationMedia', 'animationElements']}
                 data-theme={private.theme}
+                data-animation-text={props.animationText ? props.animationText : null}
+                data-animation-media={props.animationMedia ? props.animationMedia : null}
+                data-animation-elements={props.animationElements ? props.animationElements : null}
                 {...props}
                 class={Carbon.String.classNames(
                     private.theme ? '-background bg-theme-back text-theme-front' : null,

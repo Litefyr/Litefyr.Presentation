@@ -38,13 +38,13 @@ prototype(Litefyr.Presentation:Block.Teaser.Textbox) < prototype(Neos.Fusion:Com
     theme = 'default'
 
     @private.classes = Neos.Fusion:DataStructure {
-        root = '-teaser flex-1 flex flex-col @5xl:flex-row shadow-lg overflow-clip rounded-box group/teaser hover:z-10 focus:z-10'
+        root = '-teaser flex-1 flex flex-col @5xl:flex-row shadow-teaser-textbox overflow-clip rounded-box group/teaser hover:z-10 focus:z-10'
         figure = 'flex-shrink-0 aspect-[15/8] @5xl:flex-1 @5xl:basis-1/2 max-w-full'
         content = 'flex-1 bg-white p-6 flex flex-col justify-between @5xl:min-w-80'
     }
 
     renderer = afx`
-        <div class={Tailwind.merge("w-full flex flex-col @container", props.class)}>
+        <div class={Tailwind.merge("animation-elements w-full flex flex-col @container", props.class)}>
             <div
                 @if={props.placeholder}
                 aria-hidden="true"
@@ -59,7 +59,7 @@ prototype(Litefyr.Presentation:Block.Teaser.Textbox) < prototype(Neos.Fusion:Com
             <a
                 @if={!props.placeholder}
                 href={props.href}
-                class={[private.classes.root, "aspect-[15/8] relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-2xl"]}
+                class={[private.classes.root, "aspect-[15/8] relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-teaser-textbox-hover"]}
                 data-theme={props.theme}
             >
                 <Litefyr.Presentation:Block.ImageWithTextOverlay

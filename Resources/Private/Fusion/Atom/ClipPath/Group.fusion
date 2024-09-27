@@ -11,6 +11,7 @@ prototype(Litefyr.Presentation:Atom.Clippath.Group) < prototype(Litefyr.Presenta
     fillerClass = ${this.class}
     bottomClass = ${this.class}
     ariaHidden = ${!this.content}
+    animationClipPath = null
 
     renderer = afx`
         <Carbon.Eel:Tag
@@ -18,11 +19,13 @@ prototype(Litefyr.Presentation:Atom.Clippath.Group) < prototype(Litefyr.Presenta
             attributes.class={props.wrapClass}
             attributes.aria-hidden={props.ariaHidden ? 'true' : null}
             attributes.data-theme={props.theme}
+            attributes.data-animation-media={props.animationClipPath}
         >
             <Litefyr.Presentation:Atom.Clippath.Top
                 theme={props.wrapClass ? null : props.theme}
                 class={props.topClass}
                 ariaHidden={props.wrapClass && props.ariaHidden ? false : true}
+                animationClipPath={props.wrapClass ? null : props.animationClipPath}
             />
             <Litefyr.Presentation:Atom.Clippath.Filler
                 theme={props.wrapClass ? null : props.theme}
@@ -30,11 +33,13 @@ prototype(Litefyr.Presentation:Atom.Clippath.Group) < prototype(Litefyr.Presenta
                 height={props.height}
                 content={props.content}
                 ariaHidden={props.wrapClass ? null : props.ariaHidden}
+                animationClipPath={props.wrapClass ? null : props.animationClipPath}
             />
             <Litefyr.Presentation:Atom.Clippath.Bottom
                 theme={props.wrapClass ? null : props.theme}
                 class={props.bottomClass}
                 ariaHidden={props.wrapClass && props.ariaHidden ? false : true}
+                animationClipPath={props.wrapClass ? null : props.animationClipPath}
             />
         </Carbon.Eel:Tag>
     `

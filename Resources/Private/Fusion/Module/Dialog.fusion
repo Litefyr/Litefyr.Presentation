@@ -32,7 +32,7 @@ prototype(Litefyr.Presentation:Module.Dialog) < prototype(Neos.Fusion:Component)
                     <div
                         x-dialog:panel
                         x-transition
-                        class="relative bg-theme-back text-theme-front w-full shadow-xl sm:max-w-xl overflow-y-auto max-h-full p-4 rounded-box"
+                        class="relative bg-theme-back text-theme-front w-full shadow-dialog sm:max-w-xl overflow-y-auto max-h-full p-4 rounded-box"
                     >
                         {props.content}
                         <!-- Close Button -->

@@ -9,12 +9,14 @@ prototype(Litefyr.Presentation:Atom.Clippath.Bottom) < prototype(Neos.Fusion:Com
 
     ariaHidden = true
     bgColor = true
+    animationClipPath = null
 
     renderer = Litefyr.Presentation:Atom.Clippath.Tag {
         theme = ${props.theme}
         content = ${props.content}
         ariaHidden = ${props.ariaHidden}
         bgColor = ${props.bgColor}
+        animationClipPath = ${props.animationClipPath}
         class = ${[props.class, 'clippath-bottom']}
     }
 }

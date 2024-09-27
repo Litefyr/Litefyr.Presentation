@@ -6,6 +6,7 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
     boxMaxWidth = null
     boxDirection = null
     insideLink = false
+    backgroundOpacity = 100
 
     // sm, md, lg
     boxBreakpoint = null
@@ -15,10 +16,10 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
             default = 'py-2 px-3 leading-tight box-decoration-clone inline rounded-box'
         }
         default {
-            default = 'shadow-xl rounded-box rounded-box p-content my-content sm:max-w-[--size]'
-            sm = 'py-4 sm:rounded-box sm:my-content sm:shadow-xl sm:rounded-box sm:max-w-[--size] sm:p-content'
-            md = 'py-4 md:rounded-box md:my-content md:shadow-xl md:rounded-box md:max-w-[--size] md:p-content'
-            lg = 'py-4 lg:rounded-box lg:my-content lg:shadow-xl lg:rounded-box lg:max-w-[--size] lg:p-content'
+            default = 'shadow-imagetextbox rounded-box rounded-box p-content my-content sm:max-w-[--size]'
+            sm = 'py-4 sm:rounded-box sm:my-content sm:shadow-imagetextbox sm:rounded-box sm:max-w-[--size] sm:p-content'
+            md = 'py-4 md:rounded-box md:my-content md:shadow-imagetextbox md:rounded-box md:max-w-[--size] md:p-content'
+            lg = 'py-4 lg:rounded-box lg:my-content lg:shadow-imagetextbox lg:rounded-box lg:max-w-[--size] lg:p-content'
         }
     }
 
@@ -47,7 +48,13 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
             northEast = 'ml-auto'
             southEast = 'ml-auto'
         }
-        style = ${props.boxDirection == "south" ? '--content-padding-south:calc(var(--content-padding,0) + .3rem)' : ('--size: ' + (props.boxMaxWidth || 75) + '%')}
+        style = Neos.Fusion:Join {
+            @glue = ';'
+            boxDirection = ${props.boxDirection == "south" ? '--content-padding-south:calc(var(--content-padding,0) + .3rem)' : ('--size: ' + (props.boxMaxWidth || 75) + '%')}
+            backgroundOpacity = ${'--opacity:' + (props.backgroundOpacity / 100)}
+            backgroundOpacity.@if.hasTransparency = ${props.backgroundOpacity != 100}
+        }
+
         boxClass = Litefyr.Presentation:Block.ImageWithTextOverlay.MapValue {
             map = ${props.boxClassMap}
             direction = ${props.boxDirection}
@@ -74,18 +81,19 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
             padding="auto"
             tailwind={["mediacontent", private.gridClass]}
             tagName={private.tagName}
+            animationMedia={props.animationMedia}
         >
             <Litefyr.Presentation:Atom.Image objectFit="cover" {...props} linkAdditonalAttributes={null} />
             <Litefyr.Presentation:Spacing
                 style={private.style}
-                tailwind={[private.verticalClass, private.spacingClass]}
+                tailwind={[private.verticalClass, private.spacingClass, "isolate"]}
                 padding={!!(props.boxDirection != "south" && props.breakout)}
                 width={props.boxDirection == "south" || props.breakout == 'full' ? 'wide' : 'default'}
                 tagName={private.tagName}
             >
                 <Neos.Fusion:Tag
                     tagName={props.insideLink ? 'span' : 'p'}
-                    attributes.class={Tailwind.merge('bg-theme-back text-theme-front prose', private.horizontalClass, private.boxClass, props.boxClass)}
+                    attributes.class={Tailwind.merge('bg-theme-back/image-with-text-overlay text-theme-front prose', private.horizontalClass, private.boxClass, props.boxClass)}
                 >
                     <!-- We need to isolate the text to prevent cutting letters because of the padding -->
                     <span class="isolate">{props.text}</span>

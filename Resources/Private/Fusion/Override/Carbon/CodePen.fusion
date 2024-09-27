@@ -20,11 +20,12 @@ prototype(Carbon.CodePen:PreviewFrame) {
         content = Neos.Fusion:Component {
             class = '-collection -collection--main neos-contentcollection'
             custom = null
+            enableColorSchemeSwitchter = true
             renderer = afx`
                 <main @if={!props.custom} id="carbon-codepen-preview" class={props.class}></main>
                 {props.custom}
                 <Litefyr.Presentation:Block.ColorSchemeSwitchter
-                    @if={q(site).property('themeColorScheme') == 'light dark'}
+                    @if={props.enableColorSchemeSwitchter && q(site).property('themeColorScheme') == 'light dark'}
                     class="fixed bottom-4 right-4 z-50"
                 />
                 <Litefyr.Presentation:Atom.Tooltip />

@@ -138,8 +138,6 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
             {private.socialNetworks}
         `
 
-        _mapContentClass = 'relative w-full xl:h-full xl:*:!aspect-auto xl:*:!absolute xl:*:inset-0'
-
          renderer = Neos.Fusion:Case {
             withMap {
                 condition = ${props.map}
@@ -148,12 +146,13 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
                         breakpoint="xl"
                         align={props.screenHeight ? "center" : "start"}
                         {...props}
-                        contentClass="relative w-full xl:h-full xl:*:!aspect-auto xl:*:!absolute xl:*:inset-0"
+                        contentClass="relative w-full xl:h-full xl:*:!aspect-auto xl:*:!absolute xl:*:inset-0 animation-elements-self"
                         textClass="[&_form]:mt-8 first:[&_form]:mt-0"
                         breakout="full"
                         aside={props._content}
                         asideOnEnd={props.form}
                         singleContent={props.map}
+                        animationText={props.animationText}
                     />
                 `
             }
@@ -164,9 +163,11 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
                         breakpoint="xl"
                         align={props.screenHeight ? "center" : "start"}
                         {...props}
-                        contentClass={Tailwind.merge('xl:mt-8')}
+                        contentClass={'xl:mt-8 animation-elements-self'}
                         breakout="full"
                         aside={props._content}
+                        animationText={props.animationText}
+                        animationElements={props.animationElements}
                     >
                         <Litefyr.Presentation:Spacing augmenter content={props.form} />
                     </Litefyr.Presentation:Module.TextWithContent>
@@ -180,6 +181,7 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
                         padding
                         waveSpacing
                         content={props._content}
+                        animationText={props.animationText}
                     />
                 `
             }

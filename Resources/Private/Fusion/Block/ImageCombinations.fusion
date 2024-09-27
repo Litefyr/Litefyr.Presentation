@@ -9,30 +9,35 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
     screenHeight = null
 
     @private {
+        hasTextbox = ${props.textBoxDirection && props.textBoxText}
         textWithContentImage = afx`
             <Litefyr.Presentation:Atom.Image
+                @if={!private.hasTextbox}
                 {...props}
                 screenHeightBreakpoint="md"
                 objectFit="cover"
                 breakout={null}
                 rounded={false}
+                animationMedia={null}
+            />
+            <Litefyr.Presentation:Block.ImageWithTextOverlay
+                @if={private.hasTextbox}
+                {...props}
+                enableSpacing={false}
+                screenHeightBreakpoint="md"
+                objectFit="cover"
+                breakout={null}
+                rounded={false}
+                boxDirection={props.textBoxDirection}
+                boxMaxWidth={props.textBoxMaxWidth}
+                boxBreakpoint={props.textBoxBreakpoint}
+                text={props.textBoxText}
+                animationMedia={null}
             />
         `
     }
 
     renderer = Neos.Fusion:Case {
-        textBox {
-            condition = ${!props.enableText && props.textBoxDirection && props.textBoxText}
-            renderer = afx`
-                <Litefyr.Presentation:Block.ImageWithTextOverlay
-                    {...props}
-                    boxDirection={props.textBoxDirection}
-                    boxMaxWidth={props.textBoxMaxWidth}
-                    boxBreakpoint={props.textBoxBreakpoint}
-                    text={props.textBoxText}
-                />
-            `
-        }
         enableText {
             condition = ${props.enableText}
             renderer = afx`
@@ -45,6 +50,18 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
                 />
             `
         }
+        textBox {
+            condition = ${private.hasTextbox}
+            renderer = afx`
+                <Litefyr.Presentation:Block.ImageWithTextOverlay
+                    {...props}
+                    boxDirection={props.textBoxDirection}
+                    boxMaxWidth={props.textBoxMaxWidth}
+                    boxBreakpoint={props.textBoxBreakpoint}
+                    text={props.textBoxText}
+                />
+            `
+        }
         default {
             condition = true
             renderer = afx`
@@ -53,6 +70,7 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
                     width={props.enableSpacing ? props.breakout : false}
                     padding="auto"
                     tailwind="mediacontent"
+                    animationMedia={props.animationMedia}
                 >
                     <Litefyr.Presentation:Atom.Image objectFit={props.screenHeight ? "cover" : null} {...props} />
                 </Litefyr.Presentation:Spacing>

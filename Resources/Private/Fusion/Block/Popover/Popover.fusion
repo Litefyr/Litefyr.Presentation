@@ -31,7 +31,7 @@ prototype(Litefyr.Presentation:Block.Popover) < prototype(Neos.Fusion:Component)
                 "x-on:keyup.up"="$focus.wrap().previous()"
                 "x-on:keyup.escape"="open=false"
                 "x-on:click.outside"="open=false"
-                class="z-10 bg-theme-back -bg-lightness-offset-5 shadow-lg text-left overflow-clip rounded-box text-base leading-tight whitespace-nowrap"
+                class="z-10 bg-theme-back -bg-lightness-offset-5 shadow-dropdown text-left overflow-clip rounded-box text-base leading-tight whitespace-nowrap"
             >
                 <li @if={props.headline} class="py-2 px-4 uppercase">{props.headline}</li>
                 {props.content}

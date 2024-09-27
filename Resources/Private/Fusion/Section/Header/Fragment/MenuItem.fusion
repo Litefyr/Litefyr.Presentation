@@ -3,7 +3,6 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neo
         uri = ${PropTypes.string.isRequired}
         label = ${PropTypes.string.isRequired}
         isLightbox = ${PropTypes.boolean}
-        lightboxIframeSrc = ${PropTypes.string}
     }
 
     subItems = null
@@ -25,7 +24,7 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neo
             </a>
             <ul
                 @if={Carbon.Array.check(props.subItems)}
-                class={["pointer-events-none absolute bg-theme-back -bg-lightness-offset-5 shadow-lg w-max max-w-sm font-normal rounded-box overflow-clip opacity-0 -translate-y-4 transition duration-300 group-hocus-within:z-10 group-hocus-within:opacity-100 group-hocus-within:translate-y-0 group-hocus-within:pointer-events-auto group-hocus-within:block", iterator.isLast ? "right-0" : "left-0"]}
+                class={["pointer-events-none absolute bg-theme-back -bg-lightness-offset-5 shadow-dropdown w-max max-w-sm font-normal rounded-box overflow-clip opacity-0 -translate-y-4 transition duration-300 group-hocus-within:z-10 group-hocus-within:opacity-100 group-hocus-within:translate-y-0 group-hocus-within:pointer-events-auto group-hocus-within:block", iterator.isLast ? "right-0" : "left-0"]}
             >
                 <Neos.Fusion:Loop items={props.subItems}>
                     <li>

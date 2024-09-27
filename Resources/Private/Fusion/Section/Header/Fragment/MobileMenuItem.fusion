@@ -5,7 +5,6 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MobileMenuItem) < prototy
         uriPathSegment = ${PropTypes.string}
         content = ${PropTypes.string}
         isLightbox = ${PropTypes.boolean}
-        lightboxIframeSrc = ${PropTypes.string}
     }
 
     uri = ${null}

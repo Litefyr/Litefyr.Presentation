@@ -33,13 +33,13 @@ prototype(Litefyr.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Compo
     @if.hasHrefAndContent = ${this.placeholder || (this.href && (this.headline || this.text))}
 
     @private.classes = Neos.Fusion:DataStructure {
-        root = '-teaser rounded-box flex-1 text-theme-front bg-theme-back flex group/teaser bg-lightness-offset-5'
+        root = '-teaser rounded-box flex-1 text-theme-front bg-theme-back shadow-teaser-plain flex group/teaser bg-lightness-offset-5'
     }
 
     theme = 'default'
 
     renderer = afx`
-        <div class={Tailwind.merge("w-full flex flex-col", props.class)}>
+        <div class={Tailwind.merge("animation-elements w-full flex flex-col", props.class)}>
             <div
                 @if={props.placeholder}
                 class={[private.classes.root, "justify-center items-center animate-pulse min-h-24"]}
@@ -53,7 +53,7 @@ prototype(Litefyr.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Compo
             </div>
             <div
                 @if={!props.placeholder}
-                class={Tailwind.merge(private.classes.root, "relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-2xl p-6 flex-col justify-between", props.rootClass)}
+                class={Tailwind.merge(private.classes.root, "relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-teaser-plain-hover p-6 flex-col justify-between", props.rootClass)}
                 data-theme={props.theme}
             >
                 <Litefyr.Presentation:Block.Teaser.Fragment.Content {...props} />

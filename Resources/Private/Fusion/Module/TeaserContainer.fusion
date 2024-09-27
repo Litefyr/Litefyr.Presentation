@@ -70,7 +70,7 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
             tagName="section"
         >
             <Litefyr.Presentation:Spacing width={private.breakout} padding>
-                <div class={props.textWrapperClass} @if={props.headline || props.text || props.label}>
+                <div data-animation-text={props.animationText} class={props.textWrapperClass} @if={props.headline || props.text || props.label}>
                     <h2 @if={props.headline}>
                         {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
                     </h2>
@@ -82,11 +82,13 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
                 <div
                     x-ref={props.jsonPath ? "target" : null}
                     x-show={props.jsonPath ? "!noMarkup" : null}
+                    data-animation-elements={props.animationElements}
+                    data-animation-elements-watch={props.jsonPath && props.animationElements ? "once" : null}
                     class="mt-12 -mx-[--teaser-gap] flex flex-col gap-y-8 [&_.-teaser]:mx-[--teaser-gap] md:flex-wrap md:justify-center md:flex-row md:*:basis-1/2 md:only:*:!basis-full lg:exactly-4:*:basis-1/2 lg:*:basis-1/3"
                 >
                     {props.content}
                 </div>
-                <div @if={props.moreHref} class="text-center mt-8">
+                <div @if={props.moreHref} data-animation-text={props.animationText} class="text-center mt-8">
                     <a href={props.moreHref} class="hocus:underline text-theme-front">{private.moreText}</a>
                 </div>
             </Litefyr.Presentation:Spacing>
@@ -114,7 +116,7 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
                 tailwind={props.bottomTheme ? "relative z-10" : null}
                 data-theme={props.topTheme || null}
             >
-                <div class={props.textWrapperClass} @if={props.headline || props.text || props.label}>
+                <div class={props.textWrapperClass} data-animation-text={props.animationText} @if={props.headline || props.text || props.label}>
                     <h2
                         @if={props.headline}
                         class="text-fl-xl text-theme-front"
@@ -134,10 +136,12 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
                     x-ref={props.jsonPath ? "target" : null}
                     x-show={props.jsonPath ? "!noMarkup" : null}
                     class={[props.featured ? "md:first:at-least-3:*:!basis-full lg:first:*:basis-1/2 *:nth lg:second:*:basis-1/2 lg:third:*:basis-1/2" : "lg:exactly-4:*:basis-1/2", "mt-12 -mx-[--teaser-gap] flex flex-col gap-y-8 [&_.-teaser]:mx-4 md:flex-wrap md:justify-center md:flex-row md:*:basis-1/2 lg:*:basis-1/3 md:only:*:!basis-full"]}
+                    data-animation-elements={props.animationElements}
+                    data-animation-elements-watch={props.jsonPath && props.animationElements ? "once" : null}
                 >
                     {props.content}
                 </div>
-                <div @if={props.moreHref} class="text-center mt-8" data-theme={props.bottomTheme || null}>
+                <div @if={props.moreHref} data-animation-text={props.animationText} class="text-center mt-8" data-theme={props.bottomTheme || null}>
                     <a href={props.moreHref} class="hocus:underline text-theme-front">{private.moreText}</a>
                 </div>
                 <!-- Content END -->

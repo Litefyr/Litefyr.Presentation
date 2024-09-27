@@ -54,7 +54,10 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
         }
         attributes = afx`
             <Neos.Fusion:DataStructure
-                @ignoreProperties={['tagName', 'width', 'default', 'wide', 'full', 'padding', 'augmenter', 'content', 'waveSpacing', 'tailwind']}
+                @ignoreProperties={['tagName', 'width', 'default', 'wide', 'full', 'padding', 'augmenter', 'content', 'waveSpacing', 'tailwind', 'animationText', 'animationMedia', 'animationElements']}
+                data-animation-text={props.animationText ? props.animationText : null}
+                data-animation-media={props.animationMedia ? props.animationMedia : null}
+                data-animation-elements={props.animationElements ? props.animationElements : null}
                 {...props}
                 class={private.class}
             />

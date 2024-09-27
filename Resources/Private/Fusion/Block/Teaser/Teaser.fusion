@@ -39,13 +39,13 @@ prototype(Litefyr.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component) 
     theme = 'default'
 
     @private.classes = Neos.Fusion:DataStructure {
-        root = '-teaser text-theme-front flex-1 flex flex-col @5xl:flex-row shadow-lg overflow-clip rounded-box group/teaser'
+        root = '-teaser text-theme-front flex-1 flex flex-col @5xl:flex-row shadow-teaser overflow-clip rounded-box group/teaser'
         figure = 'flex-shrink-0 aspect-[15/8] @5xl:flex-1 @5xl:basis-1/2 bg-theme-back -bg-lightness-offset-5 dark:bg-lightness-offset-5 max-w-full'
         content = 'flex-1 bg-theme-back bg-lightness-offset-10 p-6 flex flex-col justify-between @5xl:min-w-80'
     }
 
     renderer = afx`
-        <div class={Tailwind.merge("w-full flex flex-col @container", props.class)}>
+        <div class={Tailwind.merge("animation-elements w-full flex flex-col @container", props.class)}>
             <div
                 @if={props.placeholder}
                 aria-hidden="true"
@@ -65,7 +65,7 @@ prototype(Litefyr.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component) 
 
             <div
                 @if={!props.placeholder}
-                class={[private.classes.root, "relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-2xl"]}
+                class={[private.classes.root, "relative transition duration-500 hocus-within:scale-105 hocus-within:shadow-teaser-hover"]}
                 data-theme={props.theme}
             >
                 <Litefyr.Presentation:Atom.Image
