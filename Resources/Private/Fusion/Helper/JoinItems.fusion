@@ -11,13 +11,18 @@ prototype(Litefyr.Presentation:Helper.JoinItems) < prototype(Neos.Fusion:Compone
         <Carbon.Eel:Tag @if.set={props.tagName != 'table'} tagName={props.tagName} attributes.class={props.class}>
             <Neos.Fusion:Loop items={props.items} @glue={props.glue} itemRenderer={item} />
         </Carbon.Eel:Tag>
-        <table @if.set={props.tagName == 'table'} class={props.class}>
-            <Neos.Fusion:Loop items={props.items}>
-                <tr>
-                    <th class='text-left pr-4'>{itemKey}</th>
-                    <td>{item}</td>
-                </tr>
-            </Neos.Fusion:Loop>
-        </table>
+        <figure
+            @if.set={props.tagName == 'table'}
+            class={Carbon.String.classNames('table-responsive', props.class)}
+        >
+            <table>
+                <Neos.Fusion:Loop items={props.items}>
+                    <tr>
+                        <th class='text-left pr-4'>{itemKey}</th>
+                        <td>{item}</td>
+                    </tr>
+                </Neos.Fusion:Loop>
+            </table>
+        </figure>
     `
 }

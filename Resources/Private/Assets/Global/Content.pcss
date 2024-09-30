@@ -186,3 +186,37 @@ a.lightbox {
 .pswp-caption-content {
   display: none;
 }
+
+/* Table from inline editor */
+
+.table-responsive,
+figure.table {
+  display: block;
+  overflow: auto clip;
+  width: 100vw;
+  max-width: 100%;
+}
+
+:where(.-padding) .table-responsive,
+:where(.-padding) figure.table {
+  margin-left: calc(var(--content-padding, 0) * -1);
+  margin-right: calc(var(--content-padding, 0) * -1);
+  padding-left: var(--content-padding, 0);
+  padding-right: var(--content-padding, 0);
+  max-width: calc(100% + var(--content-padding, 0) * 2);
+
+  & :where(table) {
+    width: auto;
+    margin-right: auto;
+  }
+}
+
+:where(.-width--default) .table-responsive,
+:where(.-width--default) figure.table {
+  max-width: calc(var(--content-max-width, 0) + var(--content-padding, 0) * 2);
+}
+
+:where(.-width--wide) .table-responsive,
+:where(.-width--wide) figure.table {
+  max-width: calc(var(--content-max-width-wide, 0) + var(--content-padding, 0) * 2);
+}

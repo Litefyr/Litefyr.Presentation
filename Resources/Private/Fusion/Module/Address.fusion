@@ -68,7 +68,7 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
         `
         legal = Litefyr.Presentation:Helper.JoinItems {
             tagName = 'table'
-            class = 'mt-4 mb-2 w-auto mr-auto'
+            class = 'mt-4 mb-2'
             items = Neos.Fusion:Map {
                 items = ${['registerNumber', 'registerCourt', 'taxIdentificationNumber']}
                 keyRenderer = ${Translation.translate('legal.' + item, null, [], null, 'Litefyr.Presentation')}
