@@ -18,7 +18,7 @@ class PresentationHelper implements ProtectedContextAwareInterface
      * @param boolean $minify
      * @return string
      */
-    public function sanitizeSVG(?string $content, $minify = true): string
+    public function sanitizeSVG(?string $content, bool $removeDoctype = true, bool $minify = true): string
     {
         if (!$content) {
             return '';
@@ -28,7 +28,11 @@ class PresentationHelper implements ProtectedContextAwareInterface
         if ($minify) {
             $sanitizer->minify(true);
         }
-        return $sanitizer->sanitize($content);
+        if ($removeDoctype) {
+            $sanitizer->removeXMLTag(true);
+        }
+
+        return trim($sanitizer->sanitize($content));
     }
 
     /**

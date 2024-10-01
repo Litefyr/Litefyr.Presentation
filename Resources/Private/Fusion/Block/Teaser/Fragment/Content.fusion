@@ -29,7 +29,7 @@ prototype(Litefyr.Presentation:Block.Teaser.Fragment.Content) < prototype(Neos.F
             <a
                 @if={props.headline || props.text}
                 href={props.href}
-                class={["block", props.label && "mt-2", props.headline ? "-teaser-headline text-xl font-bold" : "text-base line-clamp-[--line-clamp]"]}
+                class={["flex items-center", props.label && "mt-2", props.headline ? "-teaser-headline text-xl font-bold" : "text-base line-clamp-[--line-clamp]"]}
             >
                 <span class="absolute inset-0 pointer-events-auto"></span>
                 {props.headline || props.text}
