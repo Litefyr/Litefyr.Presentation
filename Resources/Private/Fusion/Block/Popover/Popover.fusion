@@ -13,9 +13,16 @@ prototype(Litefyr.Presentation:Block.Popover) < prototype(Neos.Fusion:Component)
         class.@process.value = ${Tailwind.merge('text-theme-front flex items-center justify-center', value)}
     }
     buttonContent = null
-    bottom = false
+    headline = null
     content = null
     beside = null
+    listAttributes = Neos.Fusion:DataStructure {
+        class = null
+    }
+
+    /// 'bottom'|'bottomStart'|'bottomEnd'|'top'|'topStart'|'topEnd'|'left'|'leftStart'|'leftEnd'|'right'|'rightStart'|'rightEnd' Position of the dropdown relative to the button
+    position = false
+
 
     renderer = afx`
         <Neos.Fusion:Tag tagName={props.tagName} attributes={props.attributes} @if={props.content}>
@@ -24,14 +31,27 @@ prototype(Litefyr.Presentation:Block.Popover) < prototype(Neos.Fusion:Component)
             <ul
                 x-show="open"
                 x-cloak
-                x-anchor={props.bottom ? null : "$refs.button"}
-                "x-anchor.bottom"={props.bottom ? "$refs.button" : null}
+                x-transition
+                x-anchor={props.position ? null : "$refs.button"}
+                "x-anchor.bottom"={props.position == "bottom" ? "$refs.button" : null}
+                "x-anchor.bottom-start"={props.position == "bottomStart" ? "$refs.button" : null}
+                "x-anchor.bottom-end"={props.position == "bottomEnd" ? "$refs.button" : null}
+                "x-anchor.top"={props.position == "top" ? "$refs.button" : null}
+                "x-anchor.top-start"={props.position == "topStart" ? "$refs.button" : null}
+                "x-anchor.top-end"={props.position == "topEnd" ? "$refs.button" : null}
+                "x-anchor.left"={props.position == "left" ? "$refs.button" : null}
+                "x-anchor.left-start"={props.position == "leftStart" ? "$refs.button" : null}
+                "x-anchor.left-end"={props.position == "leftEnd" ? "$refs.button" : null}
+                "x-anchor.right"={props.position == "right" ? "$refs.button" : null}
+                "x-anchor.right-start"={props.position == "rightStart" ? "$refs.button" : null}
+                "x-anchor.right-end"={props.position == "rightEnd" ? "$refs.button" : null}
                 "x-trap.noscroll.inert"="open"
                 "x-on:keyup.down"="$focus.wrap().next()"
                 "x-on:keyup.up"="$focus.wrap().previous()"
                 "x-on:keyup.escape"="open=false"
                 "x-on:click.outside"="open=false"
-                class="z-10 bg-theme-back -bg-lightness-offset-5 shadow-dropdown text-left overflow-clip rounded-box text-base leading-tight whitespace-nowrap"
+                {...props.listAttributes}
+                class={Tailwind.merge("z-10 bg-theme-back -bg-lightness-offset-5 shadow-dropdown text-left overflow-clip rounded-box text-base leading-tight whitespace-nowrap", props.listAttributes.class)}
             >
                 <li @if={props.headline} class="py-2 px-4 uppercase">{props.headline}</li>
                 {props.content}

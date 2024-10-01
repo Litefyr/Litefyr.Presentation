@@ -37,7 +37,7 @@ prototype(Litefyr.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fusi
             buttonAttributes.:aria-label="text[theme]"
             buttonAttributes.class={[props.bottom ? "-ml-2 lg:-ml-4 min-w-9 min-h-9 max-w-9 max-h-9 hover:ring-4" : "min-w-12 min-h-12 max-w-12 max-h-12 hover:ring-8", "rounded-full transform transition-all ring-0 !ring-opacity-30 duration-200 ring-text focus:outline-none focus:ring-4 focus-visible:!ring-opacity-100"]}
             buttonContent={private.buttonContent}
-            bottom={props.bottom}
+            position={props.bottom ? 'bottom' : null}
         >
             <Neos.Fusion:Loop items={['light', 'dark', 'system']}>
                 <Litefyr.Presentation:Block.Popover.ListItem

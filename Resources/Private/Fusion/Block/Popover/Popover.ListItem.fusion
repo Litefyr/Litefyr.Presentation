@@ -9,7 +9,7 @@ prototype(Litefyr.Presentation:Block.Popover.ListItem) < prototype(Neos.Fusion:C
     @private {
         tagName = ${props.attributes.href || props.attributes[':href'] ? 'a' : 'button'}
         onClick = ${Array.join(Array.filter([props.attributes['x-on:click'] || null, props.closePopoverOnClick ? 'open=false' : null]), ';')}
-        attributes = ${Array.filter(Array.concat({'type': private.tagName == 'button' ? 'button' : null, 'class': 'flex items-center gap-2 w-full transition-colors py-2 px-4 overflow-clip text-bg-contrast hocus:bg-text-contrast hocus:text-theme-back'}, props.attributes, {'x-if': null, 'x-on:click': private.onClick || null}))}
+        attributes = ${Array.filter(Array.concat({'type': private.tagName == 'button' ? 'button' : null, 'class': 'flex items-center gap-2 w-full transition-colors py-2 px-4 overflow-clip text-theme-front text-bg-contrast hocus:bg-text-contrast hocus:text-theme-back'}, props.attributes, {'x-if': null, 'x-on:click': private.onClick || null}))}
     }
 
     renderer = afx`
