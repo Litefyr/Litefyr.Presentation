@@ -12,7 +12,7 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
     boxBreakpoint = null
 
     boxClassMap = Neos.Fusion:DataStructure {
-        south {
+        inline {
             default = 'py-2 px-3 leading-tight box-decoration-clone inline rounded-box'
         }
         default {
@@ -24,8 +24,8 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
     }
 
     spacingClassMap = Neos.Fusion:DataStructure {
-        south {
-            default = 'text-balance p-[--content-padding-south] pl-content'
+        inline {
+            default = 'text-balance p-[--content-padding-inline] pl-content'
         }
         default {
             default = 'px-content'
@@ -36,21 +36,11 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
     }
 
     @private {
-        verticalClass = Neos.Fusion:Match {
-            @subject = ${props.boxDirection}
-            @default = 'self-end'
-            northWest = 'self-start'
-            northEast = 'self-start'
-        }
-        horizontalClass = Neos.Fusion:Match {
-            @subject = ${props.boxDirection}
-            @default = ''
-            northEast = 'ml-auto'
-            southEast = 'ml-auto'
-        }
+        verticalClass = ${String.startsWith(props.boxDirection, 'top') ? 'self-start' : 'self-end'}
+        horizontalClass = ${String.endsWith(props.boxDirection, 'Right') ? 'ml-auto' : null}
         style = Neos.Fusion:Join {
             @glue = ';'
-            boxDirection = ${props.boxDirection == "south" ? '--content-padding-south:calc(var(--content-padding,0) + .3rem)' : ('--size: ' + (props.boxMaxWidth || 75) + '%')}
+            boxDirection = ${props.boxDirection == "inline" ? '--content-padding-inline:calc(var(--content-padding,0) + .3rem)' : ('--size: ' + (props.boxMaxWidth || 75) + '%')}
             backgroundOpacity = ${'--opacity:' + (props.backgroundOpacity / 100)}
             backgroundOpacity.@if.hasTransparency = ${props.backgroundOpacity != 100}
         }
@@ -87,8 +77,8 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
             <Litefyr.Presentation:Spacing
                 style={private.style}
                 tailwind={[private.verticalClass, private.spacingClass, "isolate"]}
-                padding={!!(props.boxDirection != "south" && props.breakout)}
-                width={props.boxDirection == "south" || props.breakout == 'full' ? 'wide' : 'default'}
+                padding={!!(props.boxDirection != "inline" && props.breakout)}
+                width={props.boxDirection == "inline" || props.breakout == 'full' ? 'wide' : 'default'}
                 tagName={private.tagName}
             >
                 <Neos.Fusion:Tag
