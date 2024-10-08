@@ -1,12 +1,14 @@
 prototype(Litefyr.Presentation:Block.CountNumbersInText) < prototype(Neos.Fusion:Component) {
     content = ${value}
+    enabled = true
     inBackend = false
 
     @if.hasContent = ${this.content}
+    @private.enabled = ${props.enabled ? !props.inBackend : false}
 
     renderer = afx`
-        {props.inBackend ? props.content : ''}
-        <Neos.Fusion:Loop @if={!props.inBackend} items={Carbon.String.splitIntegerAndString(props.content)}>
+        {private.enabled ? '' : props.content}
+        <Neos.Fusion:Loop @if={private.enabled} items={Carbon.String.splitIntegerAndString(props.content)}>
             <Litefyr.Presentation:Atom.Counter content={item} />
         </Neos.Fusion:Loop>
     `
