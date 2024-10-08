@@ -4,6 +4,7 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
     textBoxText = null
     textBoxMaxWidth = null
     textBoxBreakpoint = null
+    textBoxOpacity = null
     enableSpacing = null
     breakout = null
     screenHeight = null
@@ -31,6 +32,7 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
                 boxDirection={props.textBoxDirection}
                 boxMaxWidth={props.textBoxMaxWidth}
                 boxBreakpoint={props.textBoxBreakpoint}
+                backgroundOpacity={props.textBoxOpacity}
                 text={props.textBoxText}
                 animationMedia={null}
             />
@@ -58,6 +60,7 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
                     boxDirection={props.textBoxDirection}
                     boxMaxWidth={props.textBoxMaxWidth}
                     boxBreakpoint={props.textBoxBreakpoint}
+                    backgroundOpacity={props.textBoxOpacity}
                     text={props.textBoxText}
                 />
             `

@@ -6,7 +6,7 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
     boxMaxWidth = null
     boxDirection = null
     insideLink = false
-    backgroundOpacity = 100
+    backgroundOpacity = null
 
     // sm, md, lg
     boxBreakpoint = null
@@ -42,7 +42,7 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
             @glue = ';'
             boxDirection = ${props.boxDirection == "inline" ? '--content-padding-inline:calc(var(--content-padding,0) + .3rem)' : ('--size: ' + (props.boxMaxWidth || 75) + '%')}
             backgroundOpacity = ${'--opacity:' + (props.backgroundOpacity / 100)}
-            backgroundOpacity.@if.hasTransparency = ${props.backgroundOpacity != 100}
+            backgroundOpacity.@if.hasTransparency = ${Type.isInteger(props.backgroundOpacity)}
         }
 
         boxClass = Litefyr.Presentation:Block.ImageWithTextOverlay.MapValue {
