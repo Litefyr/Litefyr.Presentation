@@ -9,6 +9,28 @@ This package is available via [packagist]. Run `composer require litefyr/present
 
 > In order to work correctly you'll need a working [Litefyr] instance running. Here you'll find the basis [Distribution]
 
+### Adjust build stack
+
+Make sure following entries are added to your `pipeline.yaml`:
+
+```yaml
+- package: ../Packages/Litefyr/Litefyr.Presentation
+    folder:
+      input: Assets
+  - package: ../Packages/Litefyr/Litefyr.Presentation
+    folder:
+      input: Assets
+    files: Inline.ts
+    inline: true
+```
+
+And add following packages to `packages.json`
+
+```bash
+pnpm add -D alpinejs @alpinejs/focus @alpinejs/intersect @alpinejs/collapse @alpinejs/persist @ryangjchandler/alpine-clipboard @marcreichel/alpine-typewriter alpinejs-textarea-grow @imacrayon/alpine-ajax lazysizes rough-notation lscache
+pnpm add tailwindcss @domchristie/tailwind-utopia @tailwindcss/container-queries @tailwindcss/typography @thedutchcoder/postcss-rem-to-px autoprefixer colorjs.io cssnano postcss postcss-assets postcss-clip-path-polyfill postcss-import postcss-reporter postcss-sort-media-queries ts-deepmerge
+```
+
 [litefyr]: https://litefyr.io
 [distribution]: https://github.com/Litefyr/Distribution
 [packagist]: https://packagist.org/packages/litefyr/presentation

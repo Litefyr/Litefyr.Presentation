@@ -124,7 +124,9 @@ figure.prose img {
 }
 
 ::selection {
-  @apply bg-theme-accent text-bg-contrast;
+  background: theme("colors.theme.accent");
+  color: theme("colors.bg-contrast");
+  -webkit-text-fill-color: theme("colors.bg-contrast");
 }
 
 .-count-entries {

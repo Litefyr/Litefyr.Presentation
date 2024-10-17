@@ -45,6 +45,7 @@ prototype(Litefyr.Presentation:Block.Text) < prototype(Neos.Fusion:Component) {
     }
 
     isFirstElement = false
+    colorGradient = null
 
     textClass = 'has-prose prose w-full -wave-spacing'
     headlineClass = 'has-prose prose text-center -wave-spacing'
@@ -65,6 +66,7 @@ prototype(Litefyr.Presentation:Block.Text) < prototype(Neos.Fusion:Component) {
                 augmenter={!props.position}
                 padding
                 tailwind={props.position ? 'lg:grid lg:grid-cols-2 lg:gap-[--element-gap]' : null}
+                colorGradient={props.colorGradient}
             >
                 <Carbon.Eel:Tag
                     tagName={props.position ? 'div' : null}
@@ -82,8 +84,8 @@ prototype(Litefyr.Presentation:Block.Text) < prototype(Neos.Fusion:Component) {
                         >
                             {props.label}
                         </small>
-                        <span class="block leading-8 opacity-80 theme:opacity-90 text-fl-xl">
-                                {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
+                        <span class="block opacity-80 theme:opacity-90 text-fl-xl">
+                            {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
                         </span>
                     </Litefyr.Presentation:Atom.Headline>
                     <div

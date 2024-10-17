@@ -42,6 +42,7 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
     featured = false
     showImages = true
     inBackend = false
+    colorGradient = null
 
     textWrapperClass = 'text-center -links flex flex-col h2:text-fl-xl h2:text-theme-front'
     textParagraphClass = 'mx-auto mt-3 max-w-3xl text-fl-sm text-theme-front sm:mt-4 text-lightness-offset-30 dark:-text-lightness-offset-20'
@@ -69,7 +70,7 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
             style={private.style}
             tagName="section"
         >
-            <Litefyr.Presentation:Spacing width={private.breakout} padding>
+            <Litefyr.Presentation:Spacing width={private.breakout} padding colorGradient={props.colorGradient}>
                 <div data-animation-text={props.animationText} class={props.textWrapperClass} @if={props.headline || props.text || props.label}>
                     <h2 @if={props.headline}>
                         {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}

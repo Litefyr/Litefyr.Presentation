@@ -20,11 +20,12 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
         // If the next element has a wave, remove negative margin from that element
         waveSpacing = ${PropTypes.boolean}
 
-        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         tagName = ${PropTypes.string}
         content = ${PropTypes.string}
 
         augmenter = ${PropTypes.boolean}
+
+        colorGradient = ${PropTypes.any}
     }
 
     default = true
@@ -50,15 +51,17 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
             waveSpacing = ${props.waveSpacing ? '-wave-spacing' : null}
             customClass = ${props.class}
             tailwindClass = ${Carbon.Tailwind.merge(props.tailwind)}
+            colorGradient = ${props.colorGradient ? props.colorGradient.class : null}
             @process.merge = ${Carbon.String.classNames(value)}
         }
         attributes = afx`
             <Neos.Fusion:DataStructure
-                @ignoreProperties={['tagName', 'width', 'default', 'wide', 'full', 'padding', 'augmenter', 'content', 'waveSpacing', 'tailwind', 'animationText', 'animationMedia', 'animationElements']}
+                @ignoreProperties={['tagName', 'width', 'default', 'wide', 'full', 'padding', 'augmenter', 'content', 'waveSpacing', 'tailwind', 'animationText', 'animationMedia', 'animationElements', 'colorGradient']}
                 data-animation-text={props.animationText ? props.animationText : null}
                 data-animation-media={props.animationMedia ? props.animationMedia : null}
                 data-animation-elements={props.animationElements ? props.animationElements : null}
                 {...props}
+                style={Array.join(Array.filter([props.style, props.colorGradient ? props.colorGradient.style : null]), ';')}
                 class={private.class}
             />
         `
