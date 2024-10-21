@@ -1,0 +1,86 @@
+prototype(Litefyr.Presentation:Block.LoadingIndicator) < prototype(Neos.Fusion:Component) {
+    id = null
+    title = null
+    delayTime = 500
+    timeoutTime = 5000
+    xModel = null
+    tagName = 'div'
+    size = 24
+    dynamicWidth = false
+
+    @private {
+        itemClass = 'row-start-1 row-span-1 col-start-1 col-span-1 transition opacity-0 scale-0'
+        itemClassAlpine = 'opacity-0 scale-0'
+        timeoutTime = ${props.delayTime + props.timeoutTime}
+    }
+
+    theme = null
+
+    renderer = Neos.Fusion:Tag {
+        tagName = ${props.tagName || 'div'}
+        attributes {
+            x-cloak = true
+            title = ${props.title}
+            x-data = ${AlpineJS.object({isLoading: true, showLoading: 0, size: [0, props.size, props.size * 2]})}
+            x-modelable = ${props.xModel ? 'isLoading' : null}
+            x-model = ${props.xModel}
+            x-effect = ${"if(isLoading){showLoading=0;$rafTimeOut(()=>{showLoading=1}," + props.delayTime + ");$rafTimeOut(()=>{showLoading=2}," + private.timeoutTime + ")}"}
+            x-show = 'isLoading'
+            style = ${'min-height:' + props.size + 'px'}
+            :style = ${props.dynamicWidth ? "{width:size[showLoading]+'px'}" : null}
+            class = ${Tailwind.merge('grid text-theme-front', props.dynamicWidth ? 'items-center transition-[width] w-0' : 'place-items-center w-full', props.class)}
+            data-theme = ${props.theme}
+        }
+        content = afx`
+            <svg
+                width={props.size}
+                height={props.size}
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                class={private.itemClass}
+                :class="{'opacity-0':showLoading!=1,'scale-0':showLoading!=1}"
+            >
+                <g>
+                    <circle cx="12" cy="12" r="9.5" fill="none" stroke-width="2" stroke-linecap="round">
+                        <animate attributeName="stroke-dasharray" values="0 150;42 150;42 150;42 150" dur="1.5s"
+                            calcMode="spline" keyTimes="0;0.475;0.95;1" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                            repeatCount="indefinite" />
+                        <animate attributeName="stroke-dashoffset" values="0;-16;-59;-59" dur="1.5s" calcMode="spline"
+                            keyTimes="0;0.475;0.95;1" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                            repeatCount="indefinite" />
+                    </circle>
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        dur="2s"
+                        values="0 12 12;360 12 12"
+                        repeatCount="indefinite"
+                    />
+                </g>
+            </svg>
+            <svg
+                width={props.size * 2}
+                height={props.size}
+                viewBox="0 0 24 12"
+                class={private.itemClass}
+                :class="{'opacity-0':showLoading!=2,'scale-0':showLoading!=2}"
+            >
+                <circle cx="6" cy="6" r="0" fill="currentColor">
+                    <animate attributeName="r" begin="0" calcMode="spline" dur="1.5s"
+                        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0">
+                    </animate>
+                </circle>
+                <circle cx="12" cy="6" r="0" fill="currentColor">
+                    <animate attributeName="r" begin="0.33" calcMode="spline" dur="1.5s"
+                        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0">
+                    </animate>
+                </circle>
+                <circle cx="18" cy="6" r="0" fill="currentColor">
+                    <animate attributeName="r" begin="0.67" calcMode="spline" dur="1.5s"
+                        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0">
+                    </animate>
+                </circle>
+            </svg>
+        `
+    }
+}
