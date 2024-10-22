@@ -21,7 +21,7 @@ prototype(Litefyr.Presentation:Block.LoadingIndicator) < prototype(Neos.Fusion:C
         attributes {
             x-cloak = true
             title = ${props.title}
-            x-data = ${AlpineJS.object({isLoading: true, showLoading: 0, size: [0, props.size, props.size * 2]})}
+            x-data = ${AlpineJS.object({isLoading: false, showLoading: 0, size: [0, props.size, props.size * 2]})}
             x-modelable = ${props.xModel ? 'isLoading' : null}
             x-model = ${props.xModel}
             x-effect = ${"if(isLoading){showLoading=0;$rafTimeOut(()=>{showLoading=1}," + props.delayTime + ");$rafTimeOut(()=>{showLoading=2}," + private.timeoutTime + ")}"}
