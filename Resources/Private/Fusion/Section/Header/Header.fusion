@@ -15,24 +15,22 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
     logoMarginBottom = 16
     logoPreview= false
     headerGap = 16
+    fontSize = 0
+    logoPositionRight = false
 
     scrollAmount = 150
     classNameOnScroll = '-translate-y-[--header-translate]'
     addScrollClassOnlyOnTop = false
+    colorGradient = null
+    fullWidth = false
 
     @private {
-        clipPath = afx`
-            <div
-                @if={props.clipPathBelowNavigation}
-                class="bg-theme-back clippath-bottom"
-                aria-hidden="true"
-            ></div>
-        `
         showColorSchemeSwitchter = ${props.colorSchemeSwitchter == 'top' || props.colorSchemeSwitchter == 'both'}
+        fontSize = ${Presentation.fontSize(props.fontSize, -1)}
         style = Neos.Fusion:Loop {
             @glue = ';'
             items = Neos.Fusion:DataStructure {
-                --header-translate = ${props.logoMarginBottom < 0 ? 'calc(101% + ' + (props.logoMarginBottom * -1)  + 'px)' : '101%'}
+                --header-translate = ${'calc(101% + var(--clippath-height-bottom, 0px)' + (props.logoMarginBottom < 0 ? ' + ' + (props.logoMarginBottom * -1)  + 'px' : '') + ')'}
                 --header-gap = ${Carbon.Number.pxToRem(props.headerGap)}
                 --logo-mt = ${String.toString(props.logoMarginTop) + 'px'}
                 --logo-mb = ${String.toString(props.logoMarginBottom) + 'px'}
@@ -43,20 +41,27 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
 
     renderer = afx`
         <header
-            class.base="group/header z-[500] fixed inset-x-0 top-0 transition-transform transform-gpu duration-500 mt-0 pointer-events-none"
-            class.margin={private.clipPath ? '+:mt-[calc(var(--header-height)+var(--clippath-height-half))]' : '+:mt-header'}
+            class.base="group/header font-header z-[500] fixed inset-x-0 top-0 transition-transform transform-gpu duration-500 mt-0 pointer-events-none"
+            class.margin={props.clipPathBelowNavigation ? '+:mt-[--clippath-header-height]' : '+:mt-header'}
             class.print="print:static"
-            style={private.style}
+            style={(props.colorGradient ? props.colorGradient.style : '') + private.style}
             x-bind="header"
             x-data={AlpineJS.function("header", props.scrollAmount, props.classNameOnScroll, props.addScrollClassOnlyOnTop)}
             data-theme="header"
             x-trap="mobileMenuOpen"
         >
             <div class="relative">
-                <div aria-hidden="true" class="absolute inset-0 bg-theme-back"></div>
+                <div
+                    aria-hidden="true"
+                    class.base="absolute inset-0"
+                    class.clippath={props.clipPathBelowNavigation ? Presentation.clippathClass('header', 'min-h') : null}
+                    class.bg={props.colorGradient ? props.colorGradient.class : "bg-theme-back"}
+                    style={props.colorGradient ? props.colorGradient.style : null}
+                ></div>
                 <div class="pointer-events-auto" x-ref="header">
                     <div
-                        class="max-w-7xl mx-auto flex gap-x-6 items-stretch px-safe-offset-4 sm:px-safe-offset-6 lg:px-safe-offset-8 lg:space-x-10 z-30 relative"
+                        class.base="mx-auto flex gap-x-6 items-stretch lg:space-x-10 z-30 relative"
+                        class.width={props.fullWidth ? 'safe-full-width' : 'safe-wide-width'}
                         :class="mobileMenuOpen&&'backdrop-blur-md'"
                         x-ref="container"
                     >
@@ -83,7 +88,7 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
                                     @if={Carbon.Array.check(props.items)}
                                 >
                                     <Neos.Fusion:Loop items={props.items}>
-                                        <Litefyr.Presentation:Section.Header.Fragment.MenuItem {...item}/>
+                                        <Litefyr.Presentation:Section.Header.Fragment.MenuItem {...item} fontSize={private.fontSize} />
                                     </Neos.Fusion:Loop>
                                 </ul>
                             </nav>
@@ -116,7 +121,8 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
                     >
                         <div class="overscroll-contain overflow-auto max-h-svh">
                             <nav
-                                class="bg-theme-back px-safe"
+                                class.base="bg-theme-back px-safe"
+                                class.clippath={props.clipPathBelowNavigation ? Presentation.clippathClass('header') : null}
                                 style="padding-top:min(var(--header-height),5rem)"
                             >
                                 <ul
@@ -128,7 +134,6 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
                                     </Neos.Fusion:Loop>
                                 </ul>
                             </nav>
-                            {private.clipPath}
                         </div>
                     </div>
                 </div>
@@ -136,7 +141,6 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
                     <div x-show="mobileMenuOpen" "x-transition.opacity" x-on:click="mobileMenuOpen=false" aria-hidden="true" class="fixed inset-0 bg-theme-back/60 backdrop-blur z-[499]"></div>
                 </template>
             </div>
-            {private.clipPath}
         </header>
     `
 

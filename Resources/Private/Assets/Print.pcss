@@ -12,9 +12,6 @@
   --clippath-margin: 0;
   --content-max-width: 100%;
   --content-max-width-wide: 100%;
-  --clippath-display-top: none;
-  --clippath-display-bottom: none;
-  --clippath-display: none;
 }
 
 html {
@@ -56,8 +53,16 @@ body {
   min-height: 0 !important;
 }
 
-.clippath-bottom,
-.clippath-top,
+.clippath-header,
+.clippath-footer,
+.clippath-content {
+  --clippath-height-top: 0;
+  --clippath-height-bottom: 0;
+  --clippath-quote: 0;
+
+  clip-path: none !important;
+}
+
 .jonnitto-prettyembed,
 .btn,
 .swiper-pagination,

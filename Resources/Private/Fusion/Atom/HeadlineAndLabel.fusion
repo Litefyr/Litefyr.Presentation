@@ -1,0 +1,60 @@
+prototype(Litefyr.Presentation:Atom.HeadlineAndLabel) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        content = ${PropTypes.string}
+        isFirstElement = ${PropTypes.boolean}
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        label = ${PropTypes.string}
+        labelClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        headlineClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+    }
+
+    @styleguide.props.content = Sitegeist.ChitChat:Line {
+        length = 20
+    }
+
+    isFirstElement = false
+
+    tagName = ${this.isFirstElement ? 'h1' : 'h2'}
+    inBackend = false
+    enableTypewriter = true
+    marginBottom = false
+    class = null
+
+    labelClass = null
+    label = null
+    fontSize = 0
+    fontSizeShift = 2
+    labelTheme = null
+
+    attributes = Neos.Fusion:DataStructure
+
+    @private {
+        content = ${Presentation.typewriter(props.content, !props.inBackend && props.enableTypewriter, 'text-theme-accent')}
+        labelClass = ${Tailwind.merge('text-theme-accent font-main text-base block font-bold tracking-wide uppercase', props.labelClass)}
+        attributes = Neos.Fusion:DataStructure {
+            @apply {
+                attributes = ${props.attributes}
+                overwrite = Neos.Fusion:DataStructure {
+                        class = ${['-links', Presentation.fontSize(props.fontSize, props.fontSizeShift), Tailwind.merge(props.marginBottom && 'mb-[0.5em]', props.class)]}
+                    }
+                }
+            }
+    }
+
+    renderer = afx`
+        <Neos.Fusion:Tag
+            @if={props.content}
+            tagName={props.tagName}
+            attributes={private.attributes}
+        >
+            <span @if={props.label} class={private.labelClass} data-theme={props.labelTheme}>{props.label}</span>
+            <Carbon.Eel:Tag
+                tagName={props.headlineClass ? 'span' : null}
+                attributes.class={props.headlineClass}
+            >
+                {private.content}
+            </Carbon.Eel:Tag>
+        </Neos.Fusion:Tag>
+        <p @if={props.label && !props.content} class={private.labelClass} data-theme={props.labelTheme}>{props.label}</p>
+    `
+}

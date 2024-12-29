@@ -1,0 +1,22 @@
+:root {
+  --element-gap: var(--content-padding);
+}
+
+:where(.-two-cols-grid, .-two-cols-float) {
+  --element-image-rounded: 0;
+  --element-media-rounded: 0;
+  --element-spacing: var(--content-space-half);
+  --element-spacing-mobile: 0;
+
+  &[data-theme] {
+    --element-spacing-mobile: var(--element-spacing);
+  }
+
+  & :where(img) {
+    border-radius: var(--element-image-rounded);
+  }
+
+  & :where(iframe, video, .jonnitto-prettyembed--vimeo, .jonnitto-prettyembed--youtube, .jonnitto-prettyembed--video) {
+    border-radius: var(--element-media-rounded);
+  }
+}

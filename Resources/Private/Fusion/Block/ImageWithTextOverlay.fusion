@@ -11,9 +11,12 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
     // sm, md, lg
     boxBreakpoint = null
 
+    clippath = null
+    clippathMargin = ${!!this.clippath}
+
     boxClassMap = Neos.Fusion:DataStructure {
         inline {
-            default = 'py-2 px-3 leading-tight box-decoration-clone inline rounded-box'
+            default = 'py-[.1em] px-3 leading-normal box-decoration-clone inline'
         }
         default {
             default = 'shadow-imagetextbox rounded-box rounded-box p-content my-content sm:max-w-[--size]'
@@ -70,6 +73,7 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
             width={props.enableSpacing ? props.breakout : false}
             padding="auto"
             tailwind={["mediacontent", private.gridClass]}
+            class={props.clippath ? Presentation.clippathClass("content", props.clippath) : null}
             tagName={private.tagName}
             animationMedia={props.animationMedia}
         >
@@ -80,6 +84,7 @@ prototype(Litefyr.Presentation:Block.ImageWithTextOverlay) < prototype(Neos.Fusi
                 padding={!!(props.boxDirection != "inline" && props.breakout)}
                 width={props.boxDirection == "inline" || props.breakout == 'full' ? 'wide' : 'default'}
                 tagName={private.tagName}
+                class={props.clippathMargin ? "clippath-margin" : null}
             >
                 <Neos.Fusion:Tag
                     tagName={props.insideLink ? 'span' : 'p'}

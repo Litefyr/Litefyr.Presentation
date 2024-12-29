@@ -99,6 +99,14 @@
                 <source>X</source>
                 <target>X</target>
             </trans-unit>
+            <trans-unit id="social.bluesky" xml:space="preserve">
+                <target>Bluesky</target>
+                <source>Bluesky</source>
+            </trans-unit>
+            <trans-unit id="social.threads" xml:space="preserve">
+                <target>Threads</target>
+                <source>Threads</source>
+            </trans-unit>
             <trans-unit id="social.linkedin" xml:space="preserve">
                 <target>LinkedIn</target>
                 <source>LinkedIn</source>

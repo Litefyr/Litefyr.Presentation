@@ -1,0 +1,67 @@
+prototype(Litefyr.Presentation:Helper.SocialNetwork) < prototype(Neos.Fusion:Component) {
+    plural = true
+    formal = true
+    network = null
+    url = null
+    plainLabel = false
+
+    @if.set = ${this.network && this.url}
+
+    @private {
+        type = Neos.Fusion:Match {
+            @subject = ${props.network}
+            @default = 'link'
+            email = 'email'
+            phone = 'tel'
+            mobile = 'tel'
+            website = 'website'
+            discord = 'write'
+            element = 'write'
+            matrix = 'write'
+            mattermost = 'write'
+            slack = 'write'
+            snapchat = 'write'
+            telegram = 'write'
+            whatsapp = 'write'
+        }
+        salutation = ${props.formal ? '.formal' : '.informal'}
+        amount = ${props.plural ? '.group' : '.single'}
+        selector = Neos.Fusion:Match {
+            @subject = ${private.type}
+            @default = 'social.visit'
+            write = 'social.write'
+            email = 'writeAnEmail'
+            tel = 'callWithNumber'
+            website = 'visiWebsite'
+        }
+        plainLabel = Neos.Fusion:Match {
+            @subject = ${private.type}
+            @default = ${props.url}
+            website = ${String.pregReplace(props.url, '/^https?:\/\//', '')}
+            write = ${Translation.translate('social.' + props.network, String.firstLetterToUpperCase(props.network), [], null, 'Litefyr.Presentation')}
+            link = ${Translation.translate('social.' + props.network, String.firstLetterToUpperCase(props.network), [], null, 'Litefyr.Presentation')}
+        }
+        label = ${props.plainLabel ? private.plainLabel : Translation.translate(private.selector + private.salutation + private.amount, null, [private.plainLabel], null, 'Litefyr.Presentation')}
+    }
+
+    renderer = Neos.Fusion:DataStructure {
+        type = ${private.type}
+        network = ${props.network}
+        href = Neos.Fusion:Match {
+            @subject = ${private.type}
+            @default = ${(String.pregMatch(props.url, '/^https?:\/\//') ? '' : 'https://') + props.url}
+            email = ${'mailto:' + props.url}
+            tel = Litefyr.Presentation:Helper.Phone {
+                value = ${props.url}
+            }
+        }
+        content = Neos.Fusion:Match {
+            @subject = ${private.type}
+            @default = ${props.url}
+            link = ${Translation.translate('social.' + props.network, props.network, [], null, 'Litefyr.Presentation')}
+            website = ${String.pregReplace(props.url, '/^https?:\/\//', '')}
+        }
+        description = ${Translation.translate('social.' + props.network, String.firstLetterToUpperCase(props.network), [], null, 'Litefyr.Presentation')}
+        label = ${private.label}
+    }
+}

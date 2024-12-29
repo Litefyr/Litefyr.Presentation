@@ -1,0 +1,248 @@
+.-two-cols-grid {
+  --element-min-h: 0;
+  --element-left-gap: 0px;
+  --element-right-gap: 0px;
+  --element-max-width: var(--content-max-width);
+  --element-left: minmax(0, calc(var(--element-max-width) * var(--ratio-left, 0.5)));
+  --element-right: minmax(0, calc(var(--element-max-width) * var(--ratio-right, 0.5)));
+  --element-rows: [text-start] auto [text-end content-start full-start] auto [content-end full-end];
+  --element-columns: [full-start] var(--content-padding-left) [text-start content-start] 1fr [text-end content-end] var(--content-padding-right) [full-end];
+  --element-rows-desktop: [text-start content-start full-start] auto [text-end content-end full-end];
+  --element-columns-left: minmax(var(--content-padding-left), 1fr) [text-start] var(--element-left) [text-end content-start full-start] var(--element-right) [content-end] minmax(var(--content-padding-right), 1fr) [full-end];
+  --element-columns-right: [full-start] minmax(var(--content-padding-left), 1fr) [content-start] var(--element-left) [content-end full-end text-start] var(--element-right) [text-end] minmax(var(--content-padding-right), 1fr);
+  --element-spacing-desktop: 0;
+  --element-padding-left: 0;
+  --element-padding-right: 0;
+  --element-clippath-content-height-top: 0;
+
+  display: grid;
+  grid-template-rows: var(--element-rows);
+  grid-template-columns: var(--element-columns);
+  row-gap: var(--element-spacing);
+}
+
+.-two-cols-grid--text-mobile-bottom {
+  --element-rows: [content-start full-start] auto [content-end full-end text-start] auto [text-end];
+}
+
+.-two-cols-grid__text {
+  grid-area: text;
+  padding-left: var(--element-right-gap);
+  padding-right: var(--element-left-gap);
+  margin-bottom: var(--element-spacing-desktop);
+  margin-top: var(--element-spacing-mobile);
+}
+
+.-two-cols-grid__content {
+  grid-area: content;
+  min-width: 0;
+}
+
+.-two-cols-grid__content--full {
+  grid-area: full;
+}
+
+.-two-cols-grid--rounded-narrow,
+.-two-cols-grid--rounded-wide {
+  --element-image-rounded: var(--rounded-image);
+  --element-media-rounded: var(--rounded-box);
+}
+
+/* Variants if content clip is enabled */
+:where(.content-clip) .-two-cols-grid--full[data-theme] :where(.-two-cols-grid__content--single) {
+  margin-top: calc(var(--element-clippath-content-height-top) * -1);
+  margin-bottom: calc(var(--clippath-content-height-bottom) * -1);
+}
+
+:where(.-collection--top, .-collection--main) > .-two-cols-grid--full[data-theme]:first-child :where(.-two-cols-grid__content--single) {
+  margin-top: calc((var(--element-clippath-content-height-top, 0px) + var(--clippath-header-height, var(--header-height))) * -1);
+}
+
+.-two-cols-grid__content--min-h {
+  min-height: var(--element-min-h);
+}
+
+:is(.content-clip .-two-cols-grid__content--min-h) {
+  min-height: calc(var(--element-min-h) + var(--clippath-content-height));
+}
+
+.-two-cols-grid--wide,
+.-two-cols-grid--full {
+  --element-max-width: var(--content-max-width-wide);
+}
+
+.-two-cols-grid__content--stretch {
+  align-self: stretch;
+
+  & video {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.-two-cols-grid__content--padding-horizontal {
+  margin-left: var(--element-padding-left);
+  margin-right: var(--element-padding-right);
+}
+
+.-two-cols-grid__content--padding-vertical {
+  margin-top: var(--element-spacing-desktop);
+  margin-bottom: var(--element-spacing-mobile);
+}
+
+@screen sm {
+  .-two-cols-grid--sm {
+    --element-rows: var(--element-rows-desktop);
+    --element-clippath-content-height-top: var(--clippath-content-height-top);
+
+    &[data-theme] {
+      --element-spacing-desktop: var(--element-spacing);
+    }
+
+    &:where(.-two-cols-grid--left) {
+      --element-left-gap: var(--element-gap);
+      --element-columns: var(--element-columns-left);
+      --element-padding-right: var(--content-padding-right);
+
+      &:where(.-two-cols-grid--rounded-full) {
+        --element-image-rounded: var(--rounded-image);
+        --element-media-rounded: var(--rounded-box);
+
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &:where(.-two-cols-grid--right) {
+      --element-right-gap: var(--element-gap);
+      --element-columns: var(--element-columns-right);
+      --element-padding-left: var(--content-padding-left);
+
+      &:where(.-two-cols-grid--rounded-full) {
+        --element-image-rounded: var(--rounded-image);
+        --element-media-rounded: var(--rounded-box);
+
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+}
+
+@screen md {
+  .-two-cols-grid--md {
+    --element-rows: var(--element-rows-desktop);
+    --element-clippath-content-height-top: var(--clippath-content-height-top);
+
+    &[data-theme] {
+      --element-spacing-desktop: var(--element-spacing);
+    }
+
+    &:where(.-two-cols-grid--left) {
+      --element-left-gap: var(--element-gap);
+      --element-columns: var(--element-columns-left);
+      --element-padding-right: var(--content-padding-right);
+
+      &:where(.-two-cols-grid--rounded-full) {
+        --element-image-rounded: var(--rounded-image);
+        --element-media-rounded: var(--rounded-box);
+
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &:where(.-two-cols-grid--right) {
+      --element-right-gap: var(--element-gap);
+      --element-columns: var(--element-columns-right);
+      --element-padding-left: var(--content-padding-left);
+
+      &:where(.-two-cols-grid--rounded-full) {
+        --element-image-rounded: var(--rounded-image);
+        --element-media-rounded: var(--rounded-box);
+
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+}
+
+@screen lg {
+  .-two-cols-grid--lg {
+    --element-rows: var(--element-rows-desktop);
+    --element-clippath-content-height-top: var(--clippath-content-height-top);
+
+    &[data-theme] {
+      --element-spacing-desktop: var(--element-spacing);
+    }
+
+    &:where(.-two-cols-grid--left) {
+      --element-left-gap: var(--element-gap);
+      --element-columns: var(--element-columns-left);
+      --element-padding-right: var(--content-padding-right);
+
+      &:where(.-two-cols-grid--rounded-full) {
+        --element-image-rounded: var(--rounded-image);
+        --element-media-rounded: var(--rounded-box);
+
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &:where(.-two-cols-grid--right) {
+      --element-right-gap: var(--element-gap);
+      --element-columns: var(--element-columns-right);
+      --element-padding-left: var(--content-padding-left);
+
+      &:where(.-two-cols-grid--rounded-full) {
+        --element-image-rounded: var(--rounded-image);
+        --element-media-rounded: var(--rounded-box);
+
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+}
+
+@screen xl {
+  .-two-cols-grid--xl {
+    --element-rows: var(--element-rows-desktop);
+    --element-clippath-content-height-top: var(--clippath-content-height-top);
+
+    &[data-theme] {
+      --element-spacing-desktop: var(--element-spacing);
+      --element-padding-right: var(--content-padding-right);
+    }
+
+    &:where(.-two-cols-grid--left) {
+      --element-left-gap: var(--element-gap);
+      --element-columns: var(--element-columns-left);
+      --element-padding-right: var(--content-padding-right);
+
+      &:where(.-two-cols-grid--rounded-full) {
+        --element-image-rounded: var(--rounded-image);
+        --element-media-rounded: var(--rounded-box);
+
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &:where(.-two-cols-grid--right) {
+      --element-right-gap: var(--element-gap);
+      --element-columns: var(--element-columns-right);
+      --element-padding-left: var(--content-padding-left);
+
+      &:where(.-two-cols-grid--rounded-full) {
+        --element-image-rounded: var(--rounded-image);
+        --element-media-rounded: var(--rounded-box);
+
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+}

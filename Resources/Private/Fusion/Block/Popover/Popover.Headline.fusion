@@ -1,0 +1,9 @@
+prototype(Litefyr.Presentation:Block.Popover.Headline) < prototype(Neos.Fusion:Component) {
+    content = null
+    class = 'uppercase'
+
+    @if.hasContent = ${this.content}
+    renderer = afx`
+        <li class={Tailwind.merge("p-4 pb-2 first:pt-2", props.class)}>{props.content}</li>
+    `
+}

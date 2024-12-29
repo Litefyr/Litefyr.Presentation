@@ -5,8 +5,11 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
         inBackend = ${PropTypes.boolean}
         theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
     }
+
+    theme = null
     height = null
     hr = true
+    removeSpacing = false
     inBackend = false
     useResponsiveScale = false
     scale = 0
@@ -15,7 +18,7 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
 
     @private {
         scale = Neos.Fusion:Match {
-            @subject = ${String.toString(props.scale || 0)}
+            @subject = ${String.toString(props.hr ? Math.max(-2, props.scale || 0) : props.scale || 0)}
             @default = 'md'
             -4 = '3xs'
             -3 = '2xs'
@@ -25,22 +28,27 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
             2 = 'xl'
             3 = '2xl'
             4 = '3xl'
+            5 = '4xl'
         }
-        height = ${props.height == 'px' ? 'px' : String.toFloat(props.height)}
+        height = ${props.hr ? Math.max(2.5, String.toFloat(props.height)) : props.height == 'px' ? 'px' : String.toFloat(props.height)}
         ribbonText = Neos.Fusion:Case {
+            removeSpacing {
+                condition = ${props.removeSpacing}
+                renderer = ${Carbon.Backend.translate('removeSpacing' , 'Remove spacing', [], 'Spacing', 'Litefyr.Presentation')}
+            }
             responsiveScale {
                 condition = ${props.useResponsiveScale}
-                renderer = ${Translation.translate('spacing.' + private.scale , private.scale, [], 'Spacing', 'Litefyr.Presentation')}
+                renderer = ${Carbon.Backend.translate('spacing.' + private.scale , private.scale, [], 'Spacing', 'Litefyr.Presentation')}
             }
             height {
                 condition = true
-                renderer = ${Translation.translate('spacingWithPixel', '{0} pixel spacing', [(private.height == 'px' ? 1 : private.height * 4)], 'Main', 'Litefyr.Presentation')}
+                renderer = ${Carbon.Backend.translate('spacingWithPixel', '{0} pixel spacing', [(private.height == 'px' ? 1 : private.height * 4)], 'Main', 'Litefyr.Presentation')}
             }
         }
         heightClass = Neos.Fusion:Case {
             responsiveScale {
                 condition = ${props.useResponsiveScale}
-                // h-fl-3xs h-fl-2xs h-fl-xs h-fl-sm h-fl-md h-fl-lg h-fl-xl h-fl-2xl h-fl-3xl
+                // h-fl-3xs h-fl-2xs h-fl-xs h-fl-sm h-fl-md h-fl-lg h-fl-xl h-fl-2xl h-fl-3xl h-fl-4xl
                 renderer = ${'h-fl-' + private.scale}
             }
             height {
@@ -50,16 +58,16 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
         }
         marginClass = Neos.Fusion:Case {
             // We need a minimal height of 4px to make the animation work
-            @process.minHeight = ${[value, props.animationMedia ? 'min-h-1' : null]}
+            @process.minHeight = ${[value, props.animationMedia ? 'min-h-[hr-min-h]' : null]}
 
             responsiveScale {
                 condition = ${props.useResponsiveScale}
-                // my-fl-3xs my-fl-2xs my-fl-xs my-fl-sm my-fl-md my-fl-lg my-fl-xl my-fl-2xl my-fl-3xl
-                renderer = ${'my-fl-' + private.scale}
+                // py-fl-3xs py-fl-2xs py-fl-xs py-fl-sm py-fl-md py-fl-lg py-fl-xl py-fl-2xl py-fl-3xl py-fl-4xl
+                renderer = ${'py-fl-' + private.scale}
             }
             height {
                 condition = true
-                renderer = ${'my-[--spacing] transition-[margin]' + (String.indexOf(private.style, '--spacing-md:') == -1 ? '' : ' md:my-[--spacing-md]')}
+                renderer = ${'py-[--spacing] transition-[margin]' + (String.indexOf(private.style, '--spacing-md:') == -1 ? '' : ' md:py-[--spacing-md]')}
             }
         }
 
@@ -85,47 +93,48 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
                 }
             }
         }
+        elementClass = ${Presentation.cssClass("spacer")}
+        backendRibbon = afx`<Litefyr.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText} />`
     }
 
     renderer = afx`
+        <div @if={props.removeSpacing} class={[Presentation.cssClass("no-space"), props.inBackend ? 'relative' : null]} aria-hidden="true">{private.backendRibbon}</div>
         <!-- Colored spacer -->
-        <Neos.Fusion:Fragment @if={props.theme && !props.hr}>
-            <Litefyr.Presentation:Atom.Clippath.Top animationClipPath={props.animationMedia} theme={props.theme} />
-            <Neos.Fusion:Fragment @if={props.inBackend}>
-                <div data-theme={props.theme} style={props.useResponsiveScale ? null : private.style} class={Tailwind.merge("border-0 bg-theme-back", private.heightClass, props.class)}>
-                    <Litefyr.Presentation:Atom.BackendRibbon content={private.ribbonText} />
-                </div>
-            </Neos.Fusion:Fragment>
+        <Carbon.Eel:Tag
+            @if={props.theme && !props.hr && !props.removeSpacing}
+            tagName={props.inBackend ? 'div' : null}
+            attributes.class={[private.elementClass, 'relative clippath-nesting']}
+
+        >
+            {private.backendRibbon}
             <hr
-                @if={!props.inBackend}
                 data-theme={props.theme}
                 style={props.useResponsiveScale ? null : private.style}
-                class={Tailwind.merge("border-0 bg-theme-back", private.heightClass, props.class)}
+                class={[private.elementClass, Presentation.clippathClass("content", "contentbox"), Tailwind.merge("border-0 bg-theme-back", private.heightClass, props.class)]}
                 data-animation-media={props.animationMedia}
             />
-            <Litefyr.Presentation:Atom.Clippath.Bottom animationClipPath={props.animationMedia} theme={props.theme} />
-        </Neos.Fusion:Fragment>
+        </Carbon.Eel:Tag>
 
         <!-- HR Element -->
-        <Litefyr.Presentation:Spacing width={props.hrWidth} @if={props.hr} augmenter>
-            <Litefyr.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText}  />
+        <Litefyr.Presentation:Spacing @if={props.hr && !props.removeSpacing} class={private.elementClass} width={props.hrWidth} augmenter>
+            {private.backendRibbon}
             <hr
                 data-animation-media={props.animationMedia}
                 data-animation-media-offset={props.animationMedia ? '100px' : null}
                 data-theme={props.theme || null}
                 style={props.useResponsiveScale ? null : private.style}
-                class={Tailwind.merge("theme-hr", private.marginClass, props.class)}
+                class={["theme-hr", Tailwind.merge(private.marginClass, props.class)]}
             />
         </Litefyr.Presentation:Spacing>
 
         <!-- Empty spacer -->
         <div
-            @if={!props.theme && !props.hr}
-            class={Tailwind.merge(private.heightClass, props.class)}
+            @if={!props.theme && !props.hr && !props.removeSpacing}
+            class={[private.elementClass, Tailwind.merge(private.heightClass, props.class)]}
             style={props.useResponsiveScale ? null : private.style}
             aria-hidden="true"
         >
-            <Litefyr.Presentation:Atom.BackendRibbon @if={props.inBackend} content={private.ribbonText} />
+            {private.backendRibbon}
         </div>
     `
 }

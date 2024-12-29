@@ -14,12 +14,12 @@ prototype(Litefyr.Presentation:Block.Pager.Fragment.Item) < prototype(Neos.Fusio
     @if.set = ${this.label || this.content || this.type == 'separator'}
 
     @private {
-        baseClass = 'border-t-2 pt-4 px-4 text-theme-front'
+        baseClass = 'border-t-2 pt-4 px-4'
         typeClass = Neos.Fusion:Match {
             @subject = ${props.type}
-            @default = 'border-theme-accent'
-            separator = 'border-transparent !text-opacity-70'
-            link = 'transition border-transparent !text-opacity-70 hocus:border-theme-accent hocus:!text-opacity-100'
+            @default = 'border-theme-accent text-theme-front'
+            separator = 'border-transparent text-theme-front/70'
+            link = 'transition border-transparent text-theme-front/70 hocus:border-theme-accent hocus:text-theme-front'
         }
     }
 

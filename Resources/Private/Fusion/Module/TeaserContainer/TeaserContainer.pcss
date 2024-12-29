@@ -1,0 +1,19 @@
+.teaser-container {
+  --padding-bottom: 2rem;
+  --padding-link: 0rem;
+
+  padding-bottom: calc(var(--clippath-content-height-bottom) - var(--padding-bottom) + var(--padding-link));
+}
+
+.teaser-container--link {
+  --padding-link: 3rem;
+}
+
+.teaser-container__bottom {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--content-space) * -1);
+  min-height: calc(var(--padding-link) + 1rem + var(--content-space) * 2);
+}

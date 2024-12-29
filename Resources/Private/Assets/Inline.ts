@@ -1,5 +1,6 @@
 import "DistributionPackages/Litefyr.Distribution/Resources/Private/Fusion/Inline";
 import { customEvent } from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventDispatcher";
+import setZIndex from "./Global/zIndex";
 
 const htmlElement = document.documentElement;
 const computedStyle = getComputedStyle(htmlElement);
@@ -60,14 +61,6 @@ if (hasMulipleSchemes) {
     enableModeSwitcher();
 }
 
-if (!computedStyle.getPropertyValue("--clippath-height")) {
-    // Remove some clippath classes if heihgt is not set
-    document.addEventListener("DOMContentLoaded", () => {
-        ["clippath-top", "clippath-bottom", "clippath-inside"].forEach((className) => {
-            // @ts-ignore
-            [...document.querySelectorAll(`.${className}`)].forEach((element) => {
-                element.classList.remove(className);
-            });
-        });
-    });
+if (htmlElement.classList.contains("content-clip--reverse")) {
+    document.addEventListener("DOMContentLoaded", setZIndex);
 }

@@ -4,7 +4,7 @@ prototype(Litefyr.Presentation:Module.Share) < prototype(Neos.Fusion:Component) 
         headline = ${PropTypes.string}
         showText = ${PropTypes.boolean}
         listIcons = ${PropTypes.boolean}
-        socialShare = ${PropTypes.arrayOf(PropTypes.oneOf(['native', 'print', 'email', 'copy', 'linkedin', 'facebook', 'instagram', 'x', 'mastodon', 'xing', 'pinterest']))}
+        socialShare = ${PropTypes.arrayOf(PropTypes.oneOf(['native', 'print', 'email', 'copy', 'bluesky', 'threads', 'linkedin', 'facebook', 'instagram', 'x', 'mastodon', 'xing', 'pinterest']))}
     }
 
     headline = ${Translation.translate('page.share', null, [], 'Main', 'Litefyr.Presentation')}
@@ -12,7 +12,7 @@ prototype(Litefyr.Presentation:Module.Share) < prototype(Neos.Fusion:Component) 
     listIcons = false
     showText = false
 
-    tooltip = ${!props.showText}
+    tooltip = ${!this.showText}
     itemWrapper = null
 
     itemClass = null
@@ -50,6 +50,30 @@ prototype(Litefyr.Presentation:Module.Share) < prototype(Neos.Fusion:Component) 
                         attributes {
                             x-on:click = 'navigator.share({url})'
                             x-if = 'native'
+                        }
+                    }
+                }
+                bluesky {
+                    condition = ${item == 'bluesky'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = 'Bluesky'
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.socialNetworks.bluesky') || 'brands:bluesky'}
+                        attributes {
+                            target = '_blank'
+                            rel = 'noopener external'
+                            :href = "'https://bsky.app/intent/compose?text='+encodedUrl"
+                        }
+                    }
+                }
+                threads {
+                    condition = ${item == 'threads'}
+                    renderer = Neos.Fusion:DataStructure {
+                        content = 'Threads'
+                        styleAndIcon = ${Configuration.setting('Litefyr.Presentation.icons.socialNetworks.threads') || 'brands:threads'}
+                        attributes {
+                            target = '_blank'
+                            rel = 'noopener external'
+                            :href = "'https://threads.net/intent/post?text='+encodedUrl"
                         }
                     }
                 }

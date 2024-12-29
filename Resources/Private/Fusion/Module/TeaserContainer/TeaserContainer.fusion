@@ -2,8 +2,7 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
     @propTypes {
         headline = ${PropTypes.string}
         text = ${PropTypes.string}
-        moreHref = ${PropTypes.string}
-        moreText = ${PropTypes.string}
+        links = ${PropTypes.string}
         inBackend = ${PropTypes.boolean}
         jsonPath = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         content = ${PropTypes.string}
@@ -12,7 +11,6 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
             image = ${PropTypes.string}
             plain = ${PropTypes.string}
         }
-        topTheme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
         bottomTheme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
         breakout = ${PropTypes.oneOf(['wide', 'full', ''])}
         limit = ${PropTypes.integer}
@@ -22,7 +20,6 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
         props {
             headline = Sitegeist.ChitChat:Line
             text = Sitegeist.ChitChat:Line
-            moreHref = '#'
             jsonPath = ''
             content = Sitegeist.Monocle:Preview.Prototypes {
                 items = 'Litefyr.Presentation:Block.Teaser,Litefyr.Presentation:Block.Teaser,Litefyr.Presentation:Block.Teaser'
@@ -32,21 +29,17 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
 
     jsonPath = null
     jsonPath.@process.convertToArray = ${Carbon.Array.check(value) ? Array.join(value,'||') : value}
-    moreHref = null
-    moreText = 'Mehr Beiträge'
-    topTheme = 'default'
+    links = null
     bottomTheme = 'main'
     count = ''
     limit = 0
-    contentMargin = true
     featured = false
     showImages = true
     inBackend = false
     colorGradient = null
 
-    textWrapperClass = 'text-center -links flex flex-col h2:text-fl-xl h2:text-theme-front'
-    textParagraphClass = 'mx-auto mt-3 max-w-3xl text-fl-sm text-theme-front sm:mt-4 text-lightness-offset-30 dark:-text-lightness-offset-20'
-    noImageWrapperClass = 'py-24 print:hidden'
+    textWrapperClass = 'headline-alignment -links'
+    textParagraphClass = 'headline-alignment-margin mt-3 max-w-3xl text-fl-sm text-theme-front sm:mt-4 text-lightness-offset-30 dark:-text-lightness-offset-20'
 
     gap = Neos.Fusion:DataStructure {
         image = '1rem'
@@ -58,24 +51,32 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
         moreText = ${String.replace(props.moreText, '{0}', props.count)}
         style = ${'--content-padding:1rem;--teaser-gap:' + ((props.showImages ? props.gap.image : props.gap.plain) || '1rem')}
         breakout = ${props.breakout == 'full' ? 'full' : 'wide'}
+        links = Neos.Fusion:Augmenter {
+            @if.set = ${props.links}
+            data-animation-text = ${props.animationText}
+            class = 'mt-[--content-space-half] headline-alignment-justify'
+            content = ${props.links}
+        }
     }
 
     renderer = afx`
-        <Litefyr.Presentation:Atom.Clippath.Top @if={props.bottomTheme && !props.showImages} theme={props.bottomTheme} />
         <Litefyr.Presentation:Background
             @if={!props.showImages}
-            theme={props.bottomTheme}
             x-data={private.xData}
-            tailwind={props.noImageWrapperClass}
+            tailwind={[props.bottomTheme ? "bg-theme-back" : null, "print:hidden"]}
             style={private.style}
             tagName="section"
+            class={props.bottomTheme && Presentation.clippathClass("content", "padding")}
+            data-theme={props.bottomTheme}
         >
-            <Litefyr.Presentation:Spacing width={private.breakout} padding colorGradient={props.colorGradient}>
+            <Litefyr.Presentation:Spacing width={private.breakout} tailwind={props.bottomTheme && "py-[--content-space-half]"} padding colorGradient={props.colorGradient}>
                 <div data-animation-text={props.animationText} class={props.textWrapperClass} @if={props.headline || props.text || props.label}>
-                    <h2 @if={props.headline}>
-                        {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
-                    </h2>
-                    <Litefyr.Presentation:Atom.Label class="order-first" label={props.label} />
+                    <Litefyr.Presentation:Atom.HeadlineAndLabel
+                        content={props.headline}
+                        label={props.label}
+                        fontSize={props.headlineFontSize}
+                        isFirstElement={props.isFirstElement}
+                    />
                     <p @if={props.text} class={props.textParagraphClass}>
                         {Presentation.typewriter(props.text, !props.inBackend, 'text-theme-accent')}
                     </p>
@@ -85,46 +86,33 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
                     x-show={props.jsonPath ? "!noMarkup" : null}
                     data-animation-elements={props.animationElements}
                     data-animation-elements-watch={props.jsonPath && props.animationElements ? "once" : null}
-                    class="mt-12 -mx-[--teaser-gap] flex flex-col gap-y-8 [&_.-teaser]:mx-[--teaser-gap] md:flex-wrap md:justify-center md:flex-row md:*:basis-1/2 md:only:*:!basis-full lg:exactly-4:*:basis-1/2 lg:*:basis-1/3"
+                    class="mt-[--content-space-half] -mx-[--teaser-gap] flex flex-col gap-y-8 [&_.-teaser]:mx-[--teaser-gap] md:flex-wrap md:justify-center md:flex-row md:*:basis-1/2 md:only:*:!basis-full lg:exactly-4:*:basis-1/2 lg:*:basis-1/3"
                 >
                     {props.content}
                 </div>
-                <div @if={props.moreHref} data-animation-text={props.animationText} class="text-center mt-8">
-                    <a href={props.moreHref} class="hocus:underline text-theme-front">{private.moreText}</a>
-                </div>
+                {private.links}
             </Litefyr.Presentation:Spacing>
         </Litefyr.Presentation:Background>
-        <Litefyr.Presentation:Atom.Clippath.Bottom @if={props.bottomTheme && !props.showImages} theme={props.bottomTheme} />
 
         <Litefyr.Presentation:Background
             @if={props.showImages}
-            theme={props.bottomTheme}
             x-data={private.xData}
-            tailwind={["print:hidden", props.contentMargin ? "!mt-content-gap" : null, props.bottomTheme ? "relative pb-20 bg-theme-back clippath:!bg-transparent clippath-on-top" : "pt-12 sm:pt-16"]}
+            tailwind={["print:hidden", props.bottomTheme && "relative clippath-preserve"]}
+            class={props.bottomTheme && BEM.modifier("teaser-container", props.moreHref && "link")}
             style={private.style}
             tagName="section"
         >
-            <div
-                @if={props.bottomTheme}
-                data-theme={props.topTheme || null}
-                class="absolute top-0 left-0 right-0 pointer-events-none h-1/3 sm:h-2/3 bg-theme-back"
-                aria-hidden="true"
-            >
-            </div>
             <Litefyr.Presentation:Spacing
                 padding
                 width={private.breakout}
-                tailwind={props.bottomTheme ? "relative z-10" : null}
-                data-theme={props.topTheme || null}
             >
                 <div class={props.textWrapperClass} data-animation-text={props.animationText} @if={props.headline || props.text || props.label}>
-                    <h2
-                        @if={props.headline}
-                        class="text-fl-xl text-theme-front"
-                    >
-                        {Presentation.typewriter(props.headline, !props.inBackend, 'text-theme-accent')}
-                    </h2>
-                    <Litefyr.Presentation:Atom.Label class="order-first" label={props.label} />
+                    <Litefyr.Presentation:Atom.HeadlineAndLabel
+                        content={props.headline}
+                        label={props.label}
+                        fontSize={props.headlineFontSize}
+                        isFirstElement={props.isFirstElement}
+                    />
                     <p @if={props.text} class={props.textParagraphClass}>
                         {Presentation.typewriter(props.text, !props.inBackend, 'text-theme-front text-lightness-offset-0')}
                     </p>
@@ -136,22 +124,21 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
                 <div
                     x-ref={props.jsonPath ? "target" : null}
                     x-show={props.jsonPath ? "!noMarkup" : null}
-                    class={[props.featured ? "md:first:at-least-3:*:!basis-full lg:first:*:basis-1/2 *:nth lg:second:*:basis-1/2 lg:third:*:basis-1/2" : "lg:exactly-4:*:basis-1/2", "mt-12 -mx-[--teaser-gap] flex flex-col gap-y-8 [&_.-teaser]:mx-4 md:flex-wrap md:justify-center md:flex-row md:*:basis-1/2 lg:*:basis-1/3 md:only:*:!basis-full"]}
+                    class={[props.featured ? "md:first:at-least-3:*:!basis-full lg:first:*:basis-1/2 *:nth lg:second:*:basis-1/2 lg:third:*:basis-1/2" : "lg:exactly-4:*:basis-1/2", "mt-[--content-space-half] -mx-[--teaser-gap] flex flex-col gap-y-8 [&_.-teaser]:mx-4 md:flex-wrap md:justify-center md:flex-row md:*:basis-1/2 lg:*:basis-1/3 md:only:*:!basis-full"]}
                     data-animation-elements={props.animationElements}
                     data-animation-elements-watch={props.jsonPath && props.animationElements ? "once" : null}
                 >
                     {props.content}
                 </div>
-                <div @if={props.moreHref} data-animation-text={props.animationText} class="text-center mt-8" data-theme={props.bottomTheme || null}>
-                    <a href={props.moreHref} class="hocus:underline text-theme-front">{private.moreText}</a>
-                </div>
+                {private.links}
                 <!-- Content END -->
             </Litefyr.Presentation:Spacing>
-            <Litefyr.Presentation:Atom.Clippath.Group
+            <div
                 @if={props.bottomTheme}
-                height="h-40"
-                wrapClass="absolute left-0 right-0 bottom-0 z-0"
-            />
+                data-theme={props.bottomTheme}
+                class={[Presentation.clippathClass("content", "contentbox"), "teaser-container__bottom bg-theme-back"]}
+                aria-hidden="true"
+            ></div>
         </Litefyr.Presentation:Background>
     `
 }

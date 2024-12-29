@@ -21,11 +21,12 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
         plural = ${PropTypes.boolean}
         map = ${PropTypes.string}
         form = ${PropTypes.string}
-        themeSecond = ${PropTypes.string}
     }
 
     formal = true
     plural = true
+    theme = null
+    setSpacing = true
 
     iconBesideAddress = false
     socialSettings = Neos.Fusion:DataStructure {
@@ -144,9 +145,8 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
                 renderer = afx`
                     <Litefyr.Presentation:Module.TextWithContent
                         breakpoint="xl"
-                        align={props.screenHeight ? "center" : "start"}
                         {...props}
-                        contentClass="relative w-full xl:h-full xl:*:!aspect-auto xl:*:!absolute xl:*:inset-0 animation-elements-self"
+                        contentClass={["relative w-full xl:h-full xl:*:!aspect-auto xl:*:!absolute xl:*:inset-0 animation-elements-self", props.theme && "xl:content-clip:h-[calc(100%+var(--clippath-content-height))]"]}
                         textClass="[&_form]:mt-8 first:[&_form]:mt-0"
                         breakout="full"
                         aside={props._content}
@@ -161,7 +161,6 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
                 renderer = afx`
                     <Litefyr.Presentation:Module.TextWithContent
                         breakpoint="xl"
-                        align={props.screenHeight ? "center" : "start"}
                         {...props}
                         contentClass={'xl:mt-8 animation-elements-self'}
                         breakout="full"
@@ -177,12 +176,13 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
                 condition = ${props.private.renderAddress || props.private.phoneAndMail || props.private.legal || props.private.socialNetworks}
                 renderer = afx`
                     <Litefyr.Presentation:Spacing
+                        @if={props.setSpacing}
                         tailwind="has-prose prose"
                         padding
-                        waveSpacing
                         content={props._content}
                         animationText={props.animationText}
                     />
+                    {props.setSpacing ? '' : props._content}
                 `
             }
         }

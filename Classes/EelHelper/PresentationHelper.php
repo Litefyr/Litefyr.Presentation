@@ -12,6 +12,79 @@ use enshrined\svgSanitize\Sanitizer;
 class PresentationHelper implements ProtectedContextAwareInterface
 {
     /**
+     * Returns the font size class
+     *
+     * @param integer|null $size
+     * @param integer|null $shift
+     * @param integer|null $min
+     * @param integer|null $max
+     * @return string
+     */
+    public function fontSize(?int $size = null, ?int $shift = null, ?int $min = null, int $max = null): string
+    {
+        $min = $min ?? -2;
+        $max = $max ?? 5;
+        $shift = $shift ?? 0;
+
+        if (!$size) {
+            $size = 0;
+        }
+        $size = $size + $shift;
+
+        if ($size < $min) {
+            $size = $min;
+        }
+
+        if ($size > $max) {
+            $size = $max;
+        }
+
+        if ($size <= -2) {
+            return 'text-fl-xs';
+        }
+        if ($size == -1) {
+            return 'text-fl-sm';
+        }
+        if ($size == 1) {
+            return 'text-fl-lg';
+        }
+        if ($size == 2) {
+            return 'text-fl-xl';
+        }
+        if ($size == 3) {
+            return 'text-fl-2xl';
+        }
+        if ($size == 4) {
+            return 'text-fl-3xl';
+        }
+        if ($size >= 5) {
+            return 'text-fl-4xl';
+        }
+        return 'text-fl-base';
+    }
+
+    /**
+     * Return the class and style for rounded images
+     *
+     * @param string|null $rounded
+     * @return array
+     */
+    public function rounded(?string $rounded = null): array
+    {
+        if ($rounded == null || $rounded == '') {
+            return [
+                'class' => null,
+                'style' => null,
+            ];
+        }
+
+        return [
+            'class' => $rounded == '9999px' || str_contains($rounded, ' / ') ? 'images-round' : 'images-default',
+            'style' => sprintf('--rounded-image:%s;', $rounded),
+        ];
+    }
+
+    /**
      * Sanitize SVG content
      *
      * @param string $content
@@ -114,18 +187,37 @@ class PresentationHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Generates a BEM string
+     * Returns the clipPath class
      *
-     * @param string|NodeInterface string or NodeInterface
+     * @param string|null $name
+     * @param array|string|null $modifier
      * @return string|null
      */
-    public function cssClass($input): ?string
+    public function clippathClass(?string $name = null, $modifier = null): ?string
     {
+        if (!$name || !in_array($name, ['header', 'content', 'footer'])) {
+            return null;
+        }
+        $name = sprintf('clippath-%s', $name);
+        return BEMService::getClassNamesString($name, null, $modifier);
+    }
+
+    /**
+     * Generates a BEM string and the clipPath class
+     *
+     * @param string|NodeInterface string or NodeInterface
+     * @param string|null $clippath
+     * @return string|null
+     */
+    public function cssClass($input, ?string $clippath = null): ?string
+    {
+        $clippathClass = $this->clippathClass($clippath);
+        $additionalClass = $clippathClass ? ' ' . $clippathClass : '';
         if (is_string($input)) {
-            return BEMService::getClassNamesString('litefyr', null, strtolower($input));
+            return BEMService::getClassNamesString('litefyr', null, strtolower($input)) . $additionalClass;
         }
         if (!$input instanceof NodeInterface) {
-            return null;
+            return $clippathClass;
         }
         $name = strtolower($input->getNodeType()->getName());
         $array = explode(':', $name);
@@ -142,10 +234,10 @@ class PresentationHelper implements ProtectedContextAwareInterface
 
         // Site packages
         if (in_array($package, ['agora', 'alexandria'])) {
-            return BEMService::getClassNamesString($vendor, null, $element);
+            return BEMService::getClassNamesString($vendor, null, $element) . $additionalClass;
         }
 
-        return BEMService::getClassNamesString($vendor, null, sprintf('%s-%s', $package, $element));
+        return BEMService::getClassNamesString($vendor, null, sprintf('%s-%s', $package, $element)) . $additionalClass;
     }
 
     /**

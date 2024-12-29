@@ -67,7 +67,7 @@ prototype(Litefyr.Presentation:Block.Teaser.Textbox) < prototype(Neos.Fusion:Com
                     width={props.imageWith}
                     height={Math.round(props.imageWith / props.ratio)}
                     text={props.headline}
-                    boxDirection="south"
+                    boxDirection="inline"
                     insideLink={true}
                     enableSpacing={false}
                 />

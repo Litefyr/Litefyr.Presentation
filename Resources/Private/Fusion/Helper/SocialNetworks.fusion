@@ -35,64 +35,12 @@ prototype(Litefyr.Presentation:Helper.SocialNetworks) < prototype(Neos.Fusion:Co
         @process.filter = ${Array.filter(value)}
         @if.hasNetworks = ${Carbon.Array.check(private.networks)}
         items = ${private.networks}
-        itemRenderer = Neos.Fusion:Component {
-            _plural = ${props.plural}
-            _formal = ${props.formal}
-            type = Neos.Fusion:Match {
-                @subject = ${item.network}
-                @default = 'link'
-                email = 'email'
-                phone = 'tel'
-                mobile = 'tel'
-                website = 'website'
-                discord = 'write'
-                element = 'write'
-                matrix = 'write'
-                mattermost = 'write'
-                slack = 'write'
-                snapchat = 'write'
-                telegram = 'write'
-                whatsapp = 'write'
-            }
-            renderer = Neos.Fusion:DataStructure {
-                type = ${props.type}
-                network = ${item.network}
-                href = Neos.Fusion:Match {
-                    @subject = ${props.type}
-                    @default = ${(String.pregMatch(item.url, '/^https?:\/\//') ? '' : 'https://') + item.url}
-                    email = ${'mailto:' + item.url}
-                    tel = Litefyr.Presentation:Helper.Phone {
-                        value = ${item.url}
-                    }
-                }
-                content = Neos.Fusion:Match {
-                    @subject = ${props.type}
-                    @default = ${item.url}
-                    link = ${Translation.translate('social.' + item.network, item.network, [], null, 'Litefyr.Presentation')}
-                    website = ${String.pregReplace(item.url, '/^https?:\/\//', '')}
-                }
-                description = ${Translation.translate('social.' + item.network, String.firstLetterToUpperCase(item.network), [], null, 'Litefyr.Presentation')}
-                label = Neos.Fusion:Component {
-                    salutation = ${props._formal ? '.formal' : '.informal'}
-                    amount = ${props._plural ? '.group' : '.single'}
-                    selector = Neos.Fusion:Match {
-                        @subject = ${props.type}
-                        @default = 'social.visit'
-                        write = 'social.write'
-                        email = 'writeAnEmail'
-                        tel = 'callWithNumber'
-                        website = 'visiWebsite'
-                    }
-                    value = Neos.Fusion:Match {
-                        @subject = ${props.type}
-                        @default = ${item.url}
-                        website = ${String.pregReplace(item.url, '/^https?:\/\//', '')}
-                        write = ${Translation.translate('social.' + item.network, String.firstLetterToUpperCase(item.network), [], null, 'Litefyr.Presentation')}
-                        link = ${Translation.translate('social.' + item.network, String.firstLetterToUpperCase(item.network), [], null, 'Litefyr.Presentation')}
-                    }
-                    renderer = ${Translation.translate(props.selector + props.salutation + props.amount, null, [props.value], null, 'Litefyr.Presentation')}
-                }
-            }
+        itemRenderer = Litefyr.Presentation:Helper.SocialNetwork {
+            plural = ${props.plural}
+            formal = ${props.formal}
+            network = ${item.network}
+            url = ${item.url}
+            plainLabel = false
         }
     }
 }

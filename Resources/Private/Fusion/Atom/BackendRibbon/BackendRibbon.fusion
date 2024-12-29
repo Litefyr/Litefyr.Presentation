@@ -8,7 +8,7 @@ prototype(Litefyr.Presentation:Atom.BackendRibbon) < prototype(Neos.Fusion:Compo
     renderer = afx`
         <span
             style="transform: translate(-18px, calc(-100% - 1px))"
-            class="ribbon absolute z-50 transition opacity-0 pointer-events-none drop-shadow-lg text-xs flex"
+            class="ribbon absolute z-50 transition cursor-pointer drop-shadow-lg text-xs flex"
         >
             <span
                 class="absolute w-0 h-0 left-0 border-transparent border-r-current brightness-50 border-[6px] bottom-0 -z-10 translate-y-1/2 border-l-0"

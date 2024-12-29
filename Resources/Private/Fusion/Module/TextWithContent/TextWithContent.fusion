@@ -8,20 +8,22 @@ prototype(Litefyr.Presentation:Module.TextWithContent) < prototype(Neos.Fusion:C
         stretchContent = ${PropTypes.boolean}
         inSlider = ${PropTypes.boolean}
         theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
-        themeSecond = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
         text = ${PropTypes.string}
         links = ${PropTypes.string}
-        content = ${PropTypes.string}
-        singleContent = ${PropTypes.string}
+        content = ${PropTypes.anyOf( PropTypes.string, PropTypes.oneOf([false]))}
+        singleContent = ${PropTypes.anyOf( PropTypes.string, PropTypes.oneOf([false]))}
         aside = ${PropTypes.string}
         asideOnEnd = ${PropTypes.string}
         variant = ${PropTypes.string}
-        align = ${PropTypes.oneOf(['stretch', 'start', 'center', 'end', 'baseline']).isRequired}
+        align = ${PropTypes.oneOf(['stretch', 'start', 'center', 'end', 'baseline'])}
         leftColSize = ${PropTypes.integer}
         breakpoint = ${PropTypes.oneOf(['sm', 'md', 'lg', 'xl'])}
         contentClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         wrapperClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         textClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        fullArea = ${PropTypes.oneOf([true, false, 'padding', 'padding-x', 'padding-y'])}
+        float = ${PropTypes.boolean}
+        textMobileBottom = ${PropTypes.boolean}
     }
 
     @styleguide {
@@ -45,40 +47,76 @@ prototype(Litefyr.Presentation:Module.TextWithContent) < prototype(Neos.Fusion:C
         }
     }
 
+    float = false
+    circleShapeOutside = false
+    textMobileBottom = false
     breakout = null
+    headline = null
     variant = null
     aside = null
+    singleContent = null
+    wrapperClass = null
+    leftColSize = null
+    textClass = null
+    theme = null
+    contentClass = null
+    text = null
+    links = null
+    asideOnEnd = null
+    label = null
+    animationText = null
+    animationMedia = null
+    animationElements = null
+    isFirstElement = false
     textLeft = false
+    enableHeadline = true
+    headlineFontSize = 0
     align = 'center'
     breakpoint = 'md'
 
-    bemClass = '-text-with-content'
     inBackend = false
     stretchContent = false
     screenHeight = 0
-
-
-    _hasTheme = ${this.theme && this.theme != 'default'}
+    fullArea = ${!this.content && this.singleContent && this.breakout == 'full'}
 
     @private {
+        bemClass = ${!!props.float ? '-two-cols-float' : '-two-cols-grid'}
+        fullBreakout = ${props.breakout == 'full'}
+        hasTheme = ${props.theme && props.theme != 'default'}
+        isMultipleContent = ${props.content && !props.singleContent}
+        contentType = ${private.isMultipleContent ? 'multiple' : 'single'}
+
+        // Col size
         leftColSize = ${props.leftColSize ||  50}
-        themeSecond = ${props.theme && props.themeSecond ? props.themeSecond : null}
         ratioLeft = ${private.leftColSize / 100}
         ratioRight = ${(100 - private.leftColSize) / 100}
-        wrappingBEM = ${BEM.modifier(props.bemClass, [props.breakpoint, props.breakout, props.textLeft ? 'left' : 'right', !props.content && props.singleContent ? 'single' : 'multiple', props.variant])}
+
+        // Wrapper classes
+        wrappingBem = Carbon.Eel:BEM {
+            block = ${private.bemClass}
+            modifier = Neos.Fusion:DataStructure {
+                text-mobile-bottom = ${props.textMobileBottom}
+                breakpoint = ${props.breakpoint}
+                textleft = ${props.textLeft ? 'left' : 'right'}
+                variant = ${props.variant}
+                min-h = ${!!props.float && !!props.screenHeight}
+                gridOnly = Neos.Fusion:DataStructure {
+                    @if.set = ${!props.float}
+                    rounded = ${'rounded-' + (props.breakout || 'narrow')}
+                    rounded.@if.set = ${private.isMultipleContent || !private.fullBreakout || !private.hasTheme}
+                    breakout = ${props.breakout || 'narrow'}
+                    type = ${private.contentType}
+                }
+            }
+        }
+
         wrappingClass = Neos.Fusion:DataStructure {
             wrapperClass = ${props.wrapperClass}
             base = 'px-safe overflow-x-clip'
-            screenHeight = ${props.screenHeight ? 'min-h-[--height]' : null}
-
-            hasTheme = ${['first:!header-collapse-12 bg-theme-back', props.breakout == 'full' ? 'is-flat:first:!header-collapse' : null]}
-            hasTheme.@if.hasTheme = ${!!props._hasTheme}
-
-            noTheme = 'margin-on-top'
-            noTheme.@if.noTheme = ${!props._hasTheme}
-
+            background = ${private.hasTheme ? 'bg-theme-back' : null}
             align = Neos.Fusion:Match {
-                @subject = ${props.align}
+                @if.noFloat = ${!props.float}
+                @subject = ${props.align || 'center'}
                 @default = ''
                 stretch = 'items-stretch'
                 start = 'items-start'
@@ -88,148 +126,82 @@ prototype(Litefyr.Presentation:Module.TextWithContent) < prototype(Neos.Fusion:C
             }
         }
 
-        textClass = 'flex flex-col text-theme-front'
+        // Text classes
+        textClass = ${['text-theme-front first:*:mt-0 last:*:mb-0', props.textClass]}
 
-        contentClass = 'isolate'
-
-        singleContentClass = Neos.Fusion:Case {
-            fullAndTheme {
-                condition = ${props.breakout == 'full' && !!props._hasTheme}
-                renderer = Neos.Fusion:DataStructure {
-                    marginBottom = 'has-wave:mb-8'
-                    stretchContent = ${props.stretchContent && 'self-stretch'}
-                    margin = Neos.Fusion:Match {
-                        @subject = ${props.breakpoint}
-                        @default = 'sm::has-wave:my-12'
-                        md = 'md:has-wave:my-12'
-                        lg = 'lg:has-wave:my-12'
-                        xl = 'xl:has-wave:my-12'
-                    }
-                    left = Neos.Fusion:Match {
-                        @if.isSet = ${props.textLeft}
-                        @subject = ${props.breakpoint}
-                        @default = 'sm:has-wave:imagecontent:rounded-l-image sm:has-wave:mediacontent:rounded-l-box'
-                        md = 'md:has-wave:imagecontent:rounded-l-image md:has-wave:mediacontent:rounded-l-box'
-                        lg = 'lg:has-wave:imagecontent:rounded-l-image lg:has-wave:mediacontent:rounded-l-box'
-                        xl = 'xl:has-wave:imagecontent:rounded-l-image xl:has-wave:mediacontent:rounded-l-box'
-                    }
-                    right = Neos.Fusion:Match {
-                        @if.isSet = ${!props.textLeft}
-                        @subject = ${props.breakpoint}
-                        @default = 'sm:has-wave:imagecontent:rounded-r-image sm:has-wave:mediacontent:rounded-r-box'
-                        md = 'md:has-wave:imagecontent:rounded-r-image md:has-wave:mediacontent:rounded-r-box'
-                        lg = 'lg:has-wave:imagecontent:rounded-r-image lg:has-wave:mediacontent:rounded-r-box'
-                        xl = 'xl:has-wave:imagecontent:rounded-r-image xl:has-wave:mediacontent:rounded-r-box'
-                    }
-                }
-            }
-            full {
-                condition = ${props.breakout == 'full'}
-                renderer = Neos.Fusion:DataStructure {
-                    left = Neos.Fusion:Match {
-                        @if.isSet = ${props.textLeft}
-                        @subject = ${props.breakpoint}
-                        @default = 'sm:imagecontent:rounded-l-image sm:mediacontent:rounded-l-box'
-                        md = 'md:imagecontent:rounded-l-image md:mediacontent:rounded-l-box'
-                        lg = 'lg:imagecontent:rounded-l-image lg:mediacontent:rounded-l-box'
-                        xl = 'xl:imagecontent:rounded-l-image xl:mediacontent:rounded-l-box'
-                    }
-                    right = Neos.Fusion:Match {
-                        @if.isSet = ${!props.textLeft}
-                        @subject = ${props.breakpoint}
-                        @default = 'sm:imagecontent:rounded-r-image sm:mediacontent:rounded-r-box'
-                        md = 'md:imagecontent:rounded-r-image md:mediacontent:rounded-r-box'
-                        lg = 'lg:imagecontent:rounded-r-image lg:mediacontent:rounded-r-box'
-                        xl = 'xl:imagecontent:rounded-r-image xl:mediacontent:rounded-r-box'
-                    }
-                    stretchContent = ${props.stretchContent ? 'self-stretch' : null}
-                }
-            }
-            default {
-                condition = true
-                renderer = Neos.Fusion:DataStructure {
-                    base = 'imagecontent:rounded-image mediacontent:rounded-box'
-                    marginBottom = ${props._hasTheme && 'mb-8'}
-                    marginY = Neos.Fusion:Match {
-                        @if.isSet = ${props._hasTheme}
-                        @subject = ${props.breakpoint}
-                        @default = 'sm:my-12'
-                        md = 'md:my-12'
-                        lg = 'lg:my-12'
-                        xl = 'xl:my-12'
-                    }
+        // Content BEM class
+        contentBem = Carbon.Eel:BEM {
+            block = ${private.bemClass}
+            element = 'content'
+            modifier = Neos.Fusion:DataStructure {
+                circle-shape-outside = ${!!props.float && !!props.circleShapeOutside}
+                gridOnly = Neos.Fusion:DataStructure {
+                    @if.set = ${!props.float}
+                    type = ${private.contentType}
+                    full = ${!!props.fullArea}
+                    min-h = ${!!props.screenHeight}
+                    padding-horizontal = ${props.fullArea == 'padding' || props.fullArea == 'padding-x'}
+                    padding-vertical = ${!!(props.fullArea == 'padding' || props.fullArea == 'padding-y') || !private.fullBreakout && !!private.hasTheme}
+                    stretch = ${private.isMultipleContent ? true : !!(private.fullBreakout && !!private.hasTheme)}
+                    stretch.@if.set = ${!props.float && (props.stretchContent || props.align == 'stretch')}
                 }
             }
         }
 
-        multipleContentClass = Neos.Fusion:DataStructure {
-            base = 'imagecontent:rounded-image mediacontent:rounded-box'
-            marginBottom = ${props._hasTheme && 'mb-8'}
-            marginY = Neos.Fusion:Match {
-                @if.isSet = ${props._hasTheme}
-                @subject = ${props.breakpoint}
-                @default = 'sm:my-12'
-                md = 'md:my-12'
-                lg = 'lg:my-12'
-                xl = 'xl:my-12'
-            }
-            stretchContent = ${props.stretchContent ? 'self-stretch' : null}
-        }
-    }
-
-    renderer = afx`
-        <Litefyr.Presentation:Atom.Clippath.Top @if={props.theme} theme={props.theme} />
-        <Litefyr.Presentation:Background
-            theme={props.theme}
-            style={'--ratio-left:' + private.ratioLeft + ';--ratio-right:' + private.ratioRight + (props.screenHeight ? ';--height:' + props.screenHeight + 'vh' : null)}
-            class={private.wrappingBEM}
-            tailwind={private.wrappingClass}
-        >
-            <div
-                @if={private.themeSecond}
-                data-theme={private.themeSecond}
-                class={[BEM.string(props.bemClass, 'secondbg', props.breakpoint), 'bg-theme-back pointer-events-none']}
-                aria-hidden="true"
-            ></div>
+        content = afx`
+            <Neos.Fusion:Augmenter
+                content={props.content ? props.content : props.singleContent}
+                data-animation-media={props.animationMedia}
+                data-animation-elements={props.animationElements}
+                class={[private.contentBem, 'roundimage', Tailwind.merge('isolate', props.contentClass)]}
+            />
             <Litefyr.Presentation:Spacing
-                class={BEM.string(props.bemClass, 'text')}
-                tailwind={[private.textClass, props.textClass]}
+                class={BEM.string(private.bemClass, 'text')}
+                tailwind={private.textClass}
+                width={private.fullBreakout ? 'wide' : props.breakout}
                 animationText={props.animationText}
             >
-                <Litefyr.Presentation:Atom.Headline
-                    content={props.headline}
+                <Litefyr.Presentation:Atom.HeadlineAndLabel
+                    @if={props.enableHeadline}
                     isFirstElement={props.isFirstElement}
                     inBackend={props.inBackend}
-                    class="text-fl-xl mb-4"
+                    content={props.headline}
+                    fontSize={props.headlineFontSize}
+                    label={props.label}
+                    marginBottom={props.text || props.aside || props.links || props.asideOnEnd}
                 />
-                <Litefyr.Presentation:Atom.Label class="order-first" label={props.label} />
                 <div @if={props.text} class="prose">
                     {props.text}
                 </div>
                 {props.aside}
-                <div @if={props.links} class="-mx-1 mt-4 flex">
-                    <Neos.Fusion:Augmenter class="mx-1 mt-2" content={props.links} />
-                </div>
+                <Neos.Fusion:Augmenter @if={props.links} class="mt-4" content={props.links} />
                 {props.asideOnEnd}
             </Litefyr.Presentation:Spacing>
-            <Neos.Fusion:Augmenter
-                @if={props.content}
-                content={props.content}
-                data-theme={private.themeSecond}
-                data-animation-media={props.animationMedia}
-                data-animation-elements={props.animationElements}
-                class={[BEM.string(props.bemClass, 'multiple'), Tailwind.merge(private.multipleContentClass, private.contentClass, props.contentClass)]}
-            />
-            <Neos.Fusion:Augmenter
-                @if={props.singleContent && !props.content}
-                content={props.singleContent}
-                data-theme={private.themeSecond}
-                data-animation-media={props.animationMedia}
-                data-animation-elements={props.animationElements}
-                class={[BEM.string(props.bemClass, 'single', (props.breakout || null)), Tailwind.merge(private.singleContentClass, private.contentClass, props.contentClass)]}
-            />
+        `
+        screenHeightStyle = ${props.screenHeight ? '--element-min-h:' + props.screenHeight + 'vh;' : ''}
+    }
 
+    renderer = afx`
+        <Litefyr.Presentation:Background
+            @if={props.float}
+            theme={props.theme}
+            style={private.screenHeightStyle + '--width:' + (props.textLeft ? private.ratioRight : private.ratioLeft) * 100 + '%'}
+            tailwind={private.wrappingClass}
+            class={private.wrappingBem}
+        >
+            <Litefyr.Presentation:Spacing
+                width={props.breakout}
+                content={private.content}
+                padding
+            />
         </Litefyr.Presentation:Background>
-        <Litefyr.Presentation:Atom.Clippath.Bottom @if={props.theme} theme={props.theme} />
+        <Litefyr.Presentation:Background
+            @if={!props.float}
+            theme={props.theme}
+            style={private.screenHeightStyle + '--ratio-left:' + private.ratioLeft + ';--ratio-right:' + private.ratioRight}
+            class={private.wrappingBem}
+            tailwind={private.wrappingClass}
+            content={private.content}
+        />
     `
 }

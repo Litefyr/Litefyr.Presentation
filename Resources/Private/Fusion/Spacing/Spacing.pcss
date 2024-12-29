@@ -33,6 +33,7 @@
   .-padding-clear {
     --content-padding-left: 0;
     --content-padding-right: 0;
+    --content-space: 0;
   }
 
   .-padding :where(.-padding) {
@@ -51,10 +52,6 @@
 
   .-padding:where(.-width--wide) {
     --spacing-width: calc(var(--content-max-width-wide) + var(--content-padding-left) + var(--content-padding-right));
-  }
-
-  .-wave-spacing {
-    @apply clippath-next:mt-0 clippath-next-inside:mt-clippath-half lg:clippath-next-inside:mt-clippath;
   }
 }
 

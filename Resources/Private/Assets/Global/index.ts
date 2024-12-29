@@ -5,13 +5,13 @@ import collapse from "@alpinejs/collapse";
 import persist from "@alpinejs/persist";
 import grow from "alpinejs-textarea-grow";
 import clipboard from "@ryangjchandler/alpine-clipboard";
-import typewriter from "@marcreichel/alpine-typewriter";
 import anchor from "Packages/Carbon/Carbon.Alpine/Resources/Private/Assets/Custom/Source/Anchor";
 import dialog from "Packages/Carbon/Carbon.Alpine/Resources/Private/Assets/UI/Source/Dialog";
 import disclosure from "Packages/Carbon/Carbon.Alpine/Resources/Private/Assets/UI/Source/Disclosure";
 import fetch from "Packages/Carbon/Carbon.Alpine/Resources/Private/Assets/Custom/Source/Fetch";
 import counter from "Packages/Carbon/Carbon.Alpine/Resources/Private/Assets/Custom/Source/Counter";
 import tooltip from "Packages/Carbon/Carbon.Alpine/Resources/Private/Assets/Custom/Source/Tooltip";
+import typewriter from "./TypeWriter";
 import "Packages/Plugins/Garagist.Fontawesome.AlpineJS/Resources/Private/Main";
 import "./Magics";
 import "../../Fusion/Atom/ScrollIndicator";
@@ -39,5 +39,13 @@ Alpine.plugin([
     tooltip,
     typewriter,
 ]);
+
+Alpine.data("height", (selector, baseValue = 0) => ({
+    height: baseValue,
+    init() {
+        const elements = [...this.$root.querySelectorAll(selector)];
+        this.height = elements.reduce((acc, cur) => acc + cur.offsetHeight, baseValue);
+    },
+}));
 
 export default Alpine;

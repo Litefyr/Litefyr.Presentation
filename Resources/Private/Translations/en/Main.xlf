@@ -75,6 +75,12 @@
             <trans-unit id="social.twitter" xml:space="preserve">
                 <source>X</source>
             </trans-unit>
+            <trans-unit id="social.bluesky" xml:space="preserve">
+                <target>Bluesky</target>
+            </trans-unit>
+            <trans-unit id="social.threads" xml:space="preserve">
+                <target>Threads</target>
+            </trans-unit>
             <trans-unit id="social.linkedin" xml:space="preserve">
                 <source>LinkedIn</source>
             </trans-unit>

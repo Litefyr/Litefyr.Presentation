@@ -75,8 +75,8 @@ prototype(Litefyr.Presentation:Atom.Image) < prototype(Neos.Fusion:Component) {
             rounded = Neos.Fusion:Match {
                 @if.set = ${props.rounded}
                 @subject = ${props.breakout}
-                @default = 'imagecontent:rounded-image'
-                wide = 'xl:imagecontent:rounded-image'
+                @default = 'roundimage imagecontent:rounded-image'
+                wide = 'roundimage wide:imagecontent:rounded-image'
                 full = ''
             }
            @process.merge = ${Tailwind.merge(value)}

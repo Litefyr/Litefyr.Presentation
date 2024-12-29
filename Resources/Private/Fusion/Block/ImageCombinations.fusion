@@ -8,14 +8,21 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
     enableSpacing = null
     breakout = null
     screenHeight = null
+    enableHeadline = null
+    headlineFontSize = 0
+    customRounded = null
+    float = false
+    animationMedia = null
 
     @private {
         hasTextbox = ${props.textBoxDirection && props.textBoxText}
+        screenHeight = ${props.enableText && props.float ? null : props.screenHeight}
         textWithContentImage = afx`
             <Litefyr.Presentation:Atom.Image
                 @if={!private.hasTextbox}
                 {...props}
                 screenHeightBreakpoint="md"
+                screenHeight={private.screenHeight}
                 objectFit="cover"
                 breakout={null}
                 rounded={false}
@@ -26,6 +33,7 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
                 {...props}
                 enableSpacing={false}
                 screenHeightBreakpoint="md"
+                screenHeight={private.screenHeight}
                 objectFit="cover"
                 breakout={null}
                 rounded={false}
@@ -35,18 +43,25 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
                 backgroundOpacity={props.textBoxOpacity}
                 text={props.textBoxText}
                 animationMedia={null}
+                clippathMargin={props.breakout == "full"}
             />
         `
+        customRounded = ${Presentation.rounded(props.customRounded)}
     }
 
     renderer = Neos.Fusion:Case {
+        @process.customRounded = Neos.Fusion:Augmenter {
+            @if.set = ${private.customRounded.style}
+            class = ${private.customRounded.class}
+            style = ${private.customRounded.style}
+        }
         enableText {
             condition = ${props.enableText}
             renderer = afx`
                 <Litefyr.Presentation:Module.TextWithContent
                     {...props}
                     breakpoint="md"
-                    screenHeight={null}
+                    screenHeight={private.screenHeight ? null : props.screenHeight}
                     singleContent={private.textWithContentImage}
                     stretchContent={true}
                 />
@@ -62,6 +77,7 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
                     boxBreakpoint={props.textBoxBreakpoint}
                     backgroundOpacity={props.textBoxOpacity}
                     text={props.textBoxText}
+                    clippath={props.breakout == "full" ? "media" : null}
                 />
             `
         }
@@ -74,6 +90,7 @@ prototype(Litefyr.Presentation:Block.ImageCombinations) < prototype(Neos.Fusion:
                     padding="auto"
                     tailwind="mediacontent"
                     animationMedia={props.animationMedia}
+                    class={props.breakout == "full" ? Presentation.clippathClass("content", "media") : null}
                 >
                     <Litefyr.Presentation:Atom.Image objectFit={props.screenHeight ? "cover" : null} {...props} />
                 </Litefyr.Presentation:Spacing>

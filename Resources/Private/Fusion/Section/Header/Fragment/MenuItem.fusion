@@ -3,18 +3,19 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neo
         uri = ${PropTypes.string.isRequired}
         label = ${PropTypes.string.isRequired}
         isLightbox = ${PropTypes.boolean}
+        fontSize = ${PropTypes.string}
     }
 
     subItems = null
 
     @if.hasLabelAndUri = ${this.uri && this.label}
-    defaultLinkClass = 'leading-tight text-base transition-colors'
+    defaultLinkClass = 'leading-tight transition-colors'
 
     renderer = afx`
         <li class="group relative h-full">
             <a
                 href={props.lightboxIframeSrc || props.uri}
-                class={[props.defaultLinkClass, 'whitespace-nowrap h-full p-4 flex flex-col items-center justify-center text-center text-theme-front group-hocus-within:text-theme-accent']}
+                class={[props.defaultLinkClass, props.fontSize, 'whitespace-nowrap h-full p-4 flex flex-col items-center justify-center text-center text-theme-front group-hocus-within:text-theme-accent']}
                 :class="$isActivePage()?'font-bold':'font-normal'"
                 :aria-current="$isCurrentPage()&&'page'"
                 data-pswp-type={props.isLightbox ? "fetch" : null}

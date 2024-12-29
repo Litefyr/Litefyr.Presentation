@@ -20,7 +20,7 @@ prototype(Litefyr.Presentation:Block.Pager.Fragment.PrevNext) < prototype(Neos.F
             aria-label={props.tooltip}
             x-tooltip={!!props.tooltip || null}
             rel={props.type}
-            class={Tailwind.merge("transition border-t-2 pt-4 inline-flex items-center gap-2 px-4 border-transparent text-theme-front !text-opacity-70 hocus:border-theme-accent hocus:!text-opacity-100 group", props.class)}
+            class={Tailwind.merge("transition border-t-2 pt-4 inline-flex items-center gap-2 px-4 border-transparent text-theme-front/70 hocus:border-theme-accent hocus:text-theme-front group", props.class)}
         >
             {props.type != 'prev' && props.label}
             <Litefyr.Presentation:Atom.Icon styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.pagination.' + props.type)} attributes.class={Tailwind.merge("w-3 transition-transform", props.iconClass)} />

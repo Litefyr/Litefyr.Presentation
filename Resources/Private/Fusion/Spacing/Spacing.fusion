@@ -17,9 +17,6 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
 
         width = ${PropTypes.oneOf(['full', 'wide', 'default', '', true, false])}
 
-        // If the next element has a wave, remove negative margin from that element
-        waveSpacing = ${PropTypes.boolean}
-
         tagName = ${PropTypes.string}
         content = ${PropTypes.string}
 
@@ -27,7 +24,7 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
 
         colorGradient = ${PropTypes.any}
     }
-
+    onlyClass = false
     default = true
     wide = false
     full = false
@@ -35,9 +32,14 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
     augmenter = false
 
     padding = false
-    waveSpacing = false
 
     class = null
+    tailwind = null
+    colorGradient = null
+    animationText = null
+    animationMedia = null
+    animationElements = null
+    style = null
     tagName = 'div'
 
     content = ${this.onlyClass ? null : value}
@@ -45,10 +47,10 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
     @private {
         width = ${Array.indexOf(['wide', 'full', false], props.width) != -1 ? props.width : 'default'}
         class = Neos.Fusion:DataStructure {
+            @if.hasTagName = ${props.tagName}
             width = ${private.width ? BEM.modifier('-width', private.width) : null}
             padding = ${props.padding == true || (props.padding == 'auto' && private.width == 'default') ? '-padding' : null}
             paddingForce = ${props.padding == 'force' || (props.padding == 'autoForce' && private.width == 'default') ? '-padding-force' : null}
-            waveSpacing = ${props.waveSpacing ? '-wave-spacing' : null}
             customClass = ${props.class}
             tailwindClass = ${Carbon.Tailwind.merge(props.tailwind)}
             colorGradient = ${props.colorGradient ? props.colorGradient.class : null}
@@ -56,12 +58,14 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
         }
         attributes = afx`
             <Neos.Fusion:DataStructure
-                @ignoreProperties={['tagName', 'width', 'default', 'wide', 'full', 'padding', 'augmenter', 'content', 'waveSpacing', 'tailwind', 'animationText', 'animationMedia', 'animationElements', 'colorGradient']}
+                @if={props.tagName}
+                @ignoreProperties={['tagName', 'width', 'default', 'wide', 'full', 'padding', 'augmenter', 'content', 'tailwind', 'animationText', 'animationMedia', 'animationElements', 'colorGradient']}
                 data-animation-text={props.animationText ? props.animationText : null}
                 data-animation-media={props.animationMedia ? props.animationMedia : null}
                 data-animation-elements={props.animationElements ? props.animationElements : null}
                 {...props}
                 style={Array.join(Array.filter([props.style, props.colorGradient ? props.colorGradient.style : null]), ';')}
+                style.@process={value || null}
                 class={private.class}
             />
         `
@@ -72,8 +76,12 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
             condition = ${props.onlyClass}
             renderer = ${private.class}
         }
+        justTheContent {
+            condition = ${!props.tagName}
+            renderer = ${props.content}
+        }
         isAugmenter {
-            condition = ${props.augmenter && props.tagName}
+            condition = ${props.augmenter}
             renderer = Neos.Fusion:Augmenter {
                 @apply.attributes = ${private.attributes}
                 fallbackTagName = ${props.tagName}
@@ -81,16 +89,12 @@ prototype(Litefyr.Presentation:Spacing) < prototype(Neos.Fusion:Component) {
             }
         }
         hasTagName {
-            condition = ${props.tagName}
+            condition = true
             renderer = Neos.Fusion:Tag {
                 tagName = ${props.tagName}
                 attributes = ${private.attributes}
                 content = ${props.content}
             }
-        }
-        justTheContent {
-            condition = true
-            content = ${props.content}
         }
     }
 

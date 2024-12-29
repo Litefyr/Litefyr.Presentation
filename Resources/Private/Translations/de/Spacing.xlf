@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file original="" product-name="Litefyr.Presentation" source-language="en" target-language="de" datatype="plaintext">
         <body>
+            <trans-unit id="removeSpacing" xml:space="preserve">
+                <source>Remove spacing</source>
+                <target>Abstand entfernen</target>
+            </trans-unit>
             <trans-unit id="-4" xml:space="preserve">
                 <source>Tiny</source>
                 <target>Winzig</target>
@@ -38,6 +42,10 @@
                 <source>Huge</source>
                 <target>Riesig</target>
             </trans-unit>
+            <trans-unit id="5" xml:space="preserve">
+                <source>Gigantic</source>
+                <target>Gigantisch</target>
+            </trans-unit>
             <trans-unit id="spacing.3xs" xml:space="preserve">
                 <source>Tiny spacing</source>
                 <target>Winziger Abstand</target>
@@ -73,6 +81,10 @@
             <trans-unit id="spacing.3xl" xml:space="preserve">
                 <source>Huge spacing</source>
                 <target>Riesiger Abstand</target>
+            </trans-unit>
+            <trans-unit id="spacing.4xl" xml:space="preserve">
+                <source>Gigantic spacing</source>
+                <target>Gigantischer Abstand</target>
             </trans-unit>
         </body>
     </file>

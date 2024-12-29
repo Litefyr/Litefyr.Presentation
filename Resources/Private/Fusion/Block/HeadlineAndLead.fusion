@@ -26,9 +26,11 @@ prototype(Litefyr.Presentation:Block.HeadlineAndLead) < prototype(Neos.Fusion:Co
     isFirstElement = true
     needHeadline = true
     inBackend = false
-    textCenter = true
-    leadClass = ${[this.textCenter ? 'mx-auto' : null, '-links max-w-content mt-5 text-fl-base opacity-70 text-balance']}
+    padding = true
+    leadClass = ${[this.textCenter ? 'mx-auto' : null, '-links max-w-content my-5 text-fl-base opacity-70 text-balance last:mb-0']}
     width = 'default'
+    fontSize = 0
+    fontSizeShift = 2
 
     @private.wrapperTagName = ${this.isFirstElement ? 'header' : 'div'}
 
@@ -37,20 +39,20 @@ prototype(Litefyr.Presentation:Block.HeadlineAndLead) < prototype(Neos.Fusion:Co
 
     renderer = afx`
         <Litefyr.Presentation:Spacing
-            waveSpacing
-            padding
+            padding={props.padding}
             width={props.width}
             tagName={private.wrapperTagName}
-            class={Tailwind.merge('flex flex-col', props.textCenter && 'text-center', props.class)}
+            class={Tailwind.merge('headline-alignment', props.class)}
             animationText={props.animationText}
         >
-            <Litefyr.Presentation:Atom.Headline
+            <Litefyr.Presentation:Atom.HeadlineAndLabel
                 isFirstElement={props.isFirstElement}
                 inBackend={props.inBackend}
-                class="text-fl-3xl"
+                fontSize={props.fontSize}
+                fontSizeShift={props.fontSizeShift}
                 content={props.headline}
+                label={props.label}
             />
-            <Litefyr.Presentation:Atom.Label class="order-first" label={props.label} />
             <p @if={props.lead} class={props.leadClass}>
                 {Presentation.typewriter(props.lead, !props.inBackend, 'text-theme-accent')}
             </p>

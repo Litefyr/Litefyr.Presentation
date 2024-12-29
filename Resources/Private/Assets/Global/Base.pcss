@@ -1,6 +1,8 @@
 @layer base {
   :root {
     --header-height: 84px;
+    --font-weight-bold: var(--font-weight-main-bold, 700);
+    --font-weight-normal: var(--font-weight-main, 400);
   }
 
   .dark {
@@ -32,7 +34,7 @@
 
   b,
   strong {
-    @apply font-bold;
+    font-weight: var(--font-weight-bold);
   }
 
   img {
@@ -60,6 +62,7 @@
   * {
     outline-color: theme("colors.theme.accent");
     accent-color: theme("colors.theme.accent");
+    caret-color: theme("colors.theme.accent");
   }
 
   [x-cloak] {

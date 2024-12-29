@@ -1,14 +1,10 @@
-[data-__neos-node-contextpath] {
+[data-__neos-node-contextpath]:not(.-collection) {
   & .ribbon {
     color: #ccc;
   }
 
-  &[class*="markHoveredNodeAsHovered"] .ribbon {
-    opacity: 1;
-  }
-
-  &[class*="markActiveNodeAsFocused"] .ribbon {
-    opacity: 1;
+  &[class*="markActiveNodeAsFocused"] > .ribbon,
+  &.ribbon[class*="markActiveNodeAsFocused"] {
     color: #00adee;
   }
 }

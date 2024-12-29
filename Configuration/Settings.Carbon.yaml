@@ -2,6 +2,17 @@ Carbon:
   Eel:
     tailwindMergeConfig:
       classGroups:
+        'text-alignment':
+          - 'headline': ['alignment']
+        'font-weight':
+          - 'font':
+              [
+                'main-bold',
+                'headline-bold',
+                'quote-bold',
+                'header-bold',
+                'footer-bold',
+              ]
         # Fluid font size
         'font-size':
           - 'text-fl': ['base', 'TEXT_SIZE_VALIDATOR']
@@ -10,6 +21,7 @@ Carbon:
           - 'm-fl': ['TEXT_SIZE_VALIDATOR']
         'mx':
           - 'mx-fl': ['TEXT_SIZE_VALIDATOR']
+          - 'headline-alignment': ['margin']
         'my':
           - 'my-fl': ['TEXT_SIZE_VALIDATOR']
         'ms':
@@ -20,10 +32,12 @@ Carbon:
           - 'mt-fl': ['TEXT_SIZE_VALIDATOR']
         'mr':
           - 'mr-fl': ['TEXT_SIZE_VALIDATOR']
+          - 'headline-alignment': ['margin']
         'mb':
           - 'mb-fl': ['TEXT_SIZE_VALIDATOR']
         'ml':
           - 'ml-fl': ['TEXT_SIZE_VALIDATOR']
+          - 'headline-alignment': ['margin']
         # Fluid padding
         'p':
           - 'p-fl': ['TEXT_SIZE_VALIDATOR']

@@ -23,6 +23,7 @@ prototype(Litefyr.Presentation:Block.Popover) < prototype(Neos.Fusion:Component)
     /// 'bottom'|'bottomStart'|'bottomEnd'|'top'|'topStart'|'topEnd'|'left'|'leftStart'|'leftEnd'|'right'|'rightStart'|'rightEnd' Position of the dropdown relative to the button
     position = false
 
+    trap = true
 
     renderer = afx`
         <Neos.Fusion:Tag tagName={props.tagName} attributes={props.attributes} @if={props.content}>
@@ -45,7 +46,7 @@ prototype(Litefyr.Presentation:Block.Popover) < prototype(Neos.Fusion:Component)
                 "x-anchor.right"={props.position == "right" ? "$refs.button" : null}
                 "x-anchor.right-start"={props.position == "rightStart" ? "$refs.button" : null}
                 "x-anchor.right-end"={props.position == "rightEnd" ? "$refs.button" : null}
-                "x-trap.noscroll.inert"="open"
+                "x-trap.noscroll.inert"={props.trap ? "open" : null}
                 "x-on:keyup.down"="$focus.wrap().next()"
                 "x-on:keyup.up"="$focus.wrap().previous()"
                 "x-on:keyup.escape"="open=false"
@@ -53,7 +54,7 @@ prototype(Litefyr.Presentation:Block.Popover) < prototype(Neos.Fusion:Component)
                 {...props.listAttributes}
                 class={Tailwind.merge("z-10 bg-theme-back -bg-lightness-offset-5 shadow-dropdown text-left overflow-clip rounded-box text-base leading-tight whitespace-nowrap", props.listAttributes.class)}
             >
-                <li @if={props.headline} class="py-2 px-4 uppercase">{props.headline}</li>
+                <Litefyr.Presentation:Block.Popover.Headline content={props.headline} />
                 {props.content}
             </ul>
         </Neos.Fusion:Tag>

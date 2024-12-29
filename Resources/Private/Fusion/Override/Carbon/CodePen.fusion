@@ -2,7 +2,7 @@ prototype(Carbon.CodePen:PreviewFrame) {
     htmlTag.attributes {
         class.@process {
             colorScheme = ${Array.push(value, q(site).property('themeColorScheme') == 'dark' ? 'dark' : 'light')}
-            clipPath = ${Array.push(value, q(site).property('themeClipPathEnabled') ? 'has-wave' : 'is-flat')}
+            clipPath = ${Array.push(value, q(site).property('themeClipPathEnabled') ? 'content-clip' : 'content-flat')}
         }
     }
     head {

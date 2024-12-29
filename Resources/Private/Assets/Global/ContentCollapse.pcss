@@ -1,0 +1,108 @@
+/* Set margin custom propertis */
+:where(.-collection > *) {
+  --mt: var(--content-space);
+  --mb: var(--content-space-half);
+}
+
+:where(.-collection > :first-child) {
+  --mt: var(--content-space-half);
+}
+
+.litefyr.litefyr--no-space,
+.litefyr.litefyr--no-space + * {
+  margin-top: 0;
+}
+
+/* Set margin to 0 for spacer and for images in a row */
+:where(.jonnitto-imagesinarow) + .jonnitto-imagesinarow {
+  --mt: 0;
+  --content-space-half: 0;
+}
+
+:where(.jonnitto-imagesinarow) + .mediacontent,
+:where(.mediacontent) + .jonnitto-imagesinarow {
+  --mt: 5px;
+  --content-space-half: 5px;
+}
+
+:where(.-collection > .mediacontent, .-content-spacing > .mediacontent) + .mediacontent {
+  --mt: 10px;
+  --content-space-half: 10px;
+}
+
+:where(.content-flat .-collection > [data-theme] + [data-theme]) {
+  /* The -1px prevent a line to appear */
+  --mt: -1px;
+}
+
+/* Content spacing (used in nestetd content e.g. Accordion) */
+.-content-spacing > *:not(:first-child) {
+  margin-top: var(--content-space-half);
+}
+
+/* Set margin top */
+.content-flat :where(.-collection--main, .collection--top) > :where(:not([hidden])),
+.content-clip :where(.-collection--main, .collection--top) > :where(:not([hidden], .clippath-content, .-width--full:first-child), .clippath-preserve),
+.content-clip :where(.-collection--main, .collection--top) > :where(:not(.clippath-content)) + .clippath-content {
+  margin-top: var(--mt);
+}
+
+.content-flat :where(.-collection--main, .collection--bottom) > :where(:last-child:not([data-theme], :first-child)),
+.content-clip :where(.-collection--main, .collection--bottom) > :where(:last-child:not([data-theme], .clippath-content, :first-child)) {
+  margin-bottom: var(--mb);
+}
+
+/* First entry */
+:where(.-collection--top, .-collection--main) > .clippath-content:first-child {
+  padding-top: var(--clippath-header-height, var(--header-height));
+  margin-top: calc(var(--clippath-header-height, var(--header-height)) * -1);
+}
+
+:where(.content-clip) :where(.-collection--top, .-collection--main) > :first-child {
+  &.clippath-content--media {
+    padding-top: initial;
+
+    & :where(.clippath-margin) {
+      padding-top: var(--clippath-header-height, var(--header-height));
+    }
+  }
+
+  &:not(.clippath-preserve) {
+    --clippath-content-height-top: 0px;
+    --clippath-content-path: polygon(0 0, 100% 0, var(--clippath-raw-bottom));
+  }
+}
+
+/* Last entry */
+:where(.content-clip.footer-flat) :is(.-collection--bottom, .-collection--main) > :last-child:not(.clippath-preserve, :first-child) {
+  --clippath-content-path: polygon(var(--clippath-raw-top), 100% 100%, 0 100%);
+  --clippath-content-height-bottom: 0px;
+}
+
+.footer-clip :where(.-collection--bottom, .-collection--main) > :where(.clippath-content:last-child:not(.clippath-preserve, :first-child)) {
+  margin-bottom: var(--clippath-nesting, initial);
+}
+
+:where(.content-flat.footer-clip) :where(.-collection--bottom, .-collection--main) > :where(.clippath-content:last-child:not(.clippath-preserve, :first-child)) {
+  padding-bottom: var(--clippath-height-top);
+}
+
+:where(main.-collection:last-child) {
+  margin-bottom: var(--content-space-half);
+}
+
+/* Special case for map controls */
+:where(.content-clip) :where(.clippath-content .clippath-map, .clippath-content--map) :where(.maplibregl-control-container, .leaflet-control-container) > * {
+  margin-top: var(--clippath-content-height-top);
+  margin-bottom: var(--clippath-content-height-bottom);
+}
+
+/* Reverse stack */
+:where(.content-clip--reverse) :where(.-collection--top, .-collection--main, .-collection--bottom) {
+  z-index: 1;
+
+  & > :where(.clippath-content) {
+    position: relative;
+    z-index: var(--clippath-z-index, initial);
+  }
+}

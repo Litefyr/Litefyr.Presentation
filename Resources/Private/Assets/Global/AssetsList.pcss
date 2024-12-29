@@ -34,6 +34,17 @@
   @apply text-theme-front text-lightness-offset-5;
 }
 
+.assets-list__figure {
+  @apply order-first -m-2 mb-2 flex-1;
+}
+
+.assets-list__img {
+  max-height: 250px;
+  width: 100%;
+  object-fit: cover;
+  max-width: none;
+}
+
 /* Thumnail view */
 
 .assets-list__list--thumbnail {
@@ -57,7 +68,31 @@
 }
 
 .assets-list__link--thumbnail {
-  @apply shadow-assets-list-thumbnail hover:shadow-assets-list-thumbnail-hover focus:shadow-assets-list-thumbnail-hover flex h-full flex-col overflow-clip rounded-box p-2 shadow transition bg-theme-back;
+  @apply shadow-assets-list-thumbnail hocus:shadow-assets-list-thumbnail-hover flex h-full flex-col overflow-clip rounded-box p-2 transition bg-theme-back;
+}
+
+.images-round {
+  & .assets-list__img {
+    @apply shadow-assets-list-thumbnail transition;
+
+    border-radius: 50%;
+    max-height: none;
+    aspect-ratio: 1;
+  }
+
+  & .assets-list__link--thumbnail {
+    box-shadow: none;
+    border-radius: 0;
+    text-align: center;
+
+    &:where(:hover, :focus) {
+      box-shadow: none;
+
+      & .assets-list__img {
+        @apply shadow-assets-list-thumbnail-hover;
+      }
+    }
+  }
 }
 
 /* Text view */
@@ -75,12 +110,4 @@
       @apply underline;
     }
   }
-}
-
-.assets-list__figure {
-  @apply order-first -m-2 mb-2 flex-1;
-}
-
-.assets-list__img {
-  max-height: 250px;
 }

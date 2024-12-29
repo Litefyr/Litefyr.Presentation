@@ -41,6 +41,8 @@ prototype(Litefyr.Presentation:Section.Footer) < prototype(Neos.Fusion:Component
     logo = null
     spacing = null
     additionalSocialMarkup = ''
+    colorGradient = null
+    fullWidth = false
 
     @private {
         plural = ${props.typeOfContact != 'single'}
@@ -53,128 +55,142 @@ prototype(Litefyr.Presentation:Section.Footer) < prototype(Neos.Fusion:Component
     }
 
     renderer = afx`
-        <footer class="text-theme-front -mt-px" data-theme="footer" aria-labelledby="footer-heading" style={'--spacing:' + private.spacing} x-data>
-            <div @if={props.clipPathAboveFooter} class={Tailwind.merge(props.backgroundClass, "clippath-top !-mb-0.5 -mt-clippath-half")} aria-hidden="true"></div>
+        <footer
+            class.base="text-theme-front font-footer space-y-8 pb-4 -mt-px"
+            class.bg={props.colorGradient ? props.colorGradient.class : props.backgroundClass}
+            class.clippath={props.clipPathAboveFooter ? Presentation.clippathClass('footer') : 'pt-[--footer-spacing]'}
+            data-theme="footer"
+            aria-labelledby="footer-heading"
+            style={props.colorGradient ? props.colorGradient.style : null}
+            x-data
+        >
             <h2 id="footer-heading" class="sr-only">{Translation.translate('footer.heading', null, [], 'Main', 'Litefyr.Presentation')}</h2>
-            <div class={Tailwind.merge(props.backgroundClass, "space-y-8 pt-[--spacing] pb-4")}>
-                <!-- No Navigation -->
-                <Neos.Fusion:Fragment @if={props.multiColumnEnabled ? !private.itemsMultiColumn : !private.itemsSingleColumn}>
-                    <!-- Show only the Logo -->
-                    <Litefyr.Presentation:Spacing
-                        @if={props.logo && !props.search}
-                        wide padding
-                        content={props.logo}
-                        tailwind="mb-[--spacing]"
-                    />
 
-                    <!-- Logo & Search -->
-                    <Litefyr.Presentation:Spacing
-                        @if={props.logo && props.search}
-                        tailwind="flex flex-col items-start flex-wrap md:flex-row gap-12 justify-between mb-[--spacing]"
-                        wide padding
-                    >
-                        {props.logo}
-                        <Neos.Fusion:Augmenter class="w-full md:max-w-xs" content={props.search} />
-                    </Litefyr.Presentation:Spacing>
-
-                    <!-- Search only -->
-                    <Litefyr.Presentation:Spacing
-                        @if={!props.logo && props.search}
-                        class="max-w-xl"
-                        padding
-                        content={props.search}
-                    />
-                </Neos.Fusion:Fragment>
-
-                <!-- Show MultiColumn -->
+            <!-- No Navigation -->
+            <Neos.Fusion:Fragment @if={props.multiColumnEnabled ? !private.itemsMultiColumn : !private.itemsSingleColumn}>
+                <!-- Show only the Logo -->
                 <Litefyr.Presentation:Spacing
-                    @if={props.multiColumnEnabled && private.itemsMultiColumn}
+                    @if={props.logo && !props.search}
+                    width={props.fullWidth ? "full" : "wide"}
+                    padding
+                    content={props.logo}
+                    tailwind="mb-[--spacing]"
+                />
+
+                <!-- Logo & Search -->
+                <Litefyr.Presentation:Spacing
+                    @if={props.logo && props.search}
                     tailwind="flex flex-col items-start flex-wrap md:flex-row gap-12 justify-between mb-[--spacing]"
-                    wide padding
+                    width={props.fullWidth ? "full" : "wide"}
+                    padding
                 >
-                    {props.logo || ''}
-                    <Neos.Fusion:Loop items={private.itemsMultiColumn}>
-                        <div class="mt-2">
-                            <h3 @if={item.headline} class="text-sm font-bold opacity-80 tracking-wider uppercase mb-4">{item.headline}</h3>
-                            <ul class="space-y-4">
-                                <Litefyr.Presentation:Section.Footer.Fragment.Links items={item.items} />
-                            </ul>
-                            {item.content}
-                        </div>
-                    </Neos.Fusion:Loop>
-                    <Neos.Fusion:Augmenter @if={props.search} class="w-full md:max-w-xs" content={props.search} />
+                    {props.logo}
+                    <Neos.Fusion:Augmenter class="w-full md:max-w-xs" content={props.search} />
                 </Litefyr.Presentation:Spacing>
 
-                <!-- Has Singlecol -->
-                <Neos.Fusion:Fragment @if={!props.multiColumnEnabled && private.itemsSingleColumn}>
-                    <!-- Show SingleColumn width logo -->
-                    <Litefyr.Presentation:Spacing
-                        @if={props.logo}
-                        wide padding
-                        tailwind="flex justify-between items-start gap-4 flex-wrap mb-[--spacing]"
-                    >
-                        {props.logo}
-                        <ul class="flex justify-start gap-4 flex-wrap mt-4">
-                            <Litefyr.Presentation:Section.Footer.Fragment.Links items={private.itemsSingleColumn} />
-                            <li @if={props.search} class="-mt-3">
-                                {props.search}
-                            </li>
-                        </ul>
-                    </Litefyr.Presentation:Spacing>
-
-                    <!-- Show SingleColumn without logo -->
-                    <Litefyr.Presentation:Spacing
-                        @if={!props.logo}
-                        tagName="ul"
-                        tailwind="flex justify-center gap-4 flex-wrap text-sm mb-[--spacing]"
-                        wide padding
-                    >
-                        <Litefyr.Presentation:Section.Footer.Fragment.Links items={private.itemsSingleColumn} />
-                    </Litefyr.Presentation:Spacing>
-                    <!-- Search -->
-                    <Litefyr.Presentation:Spacing
-                        @if={props.search && !props.logo}
-                        class="max-w-xl"
-                        padding
-                        content={props.search}
-                    />
-                </Neos.Fusion:Fragment>
-
+                <!-- Search only -->
                 <Litefyr.Presentation:Spacing
-                    @if={props.newsletterForm}
-                    tailwind="lg:grid lg:grid-cols-5 lg:gap-8 lg:mt-0 lg:items-end"
-                    wide padding
-                >
-                    <div class="lg:col-span-3">
-                        <h3 class="text-sm font-bold tracking-wider uppercase">
-                            {Translation.translate('newsletter.headline' + private.formalModifier + private.pluralModifier, null, [], 'Main', 'Litefyr.Presentation')}
-                        </h3>
-                        <p class="mt-2 text-base opacity-90">
-                            {Translation.translate('newsletter.text' + private.formalModifier, null, [], 'Main', 'Litefyr.Presentation')}
-                        </p>
+                    @if={!props.logo && props.search}
+                    class="max-w-xl"
+                    padding
+                    content={props.search}
+                    width={props.fullWidth ? "full" : "wide"}
+                />
+            </Neos.Fusion:Fragment>
+
+            <!-- Show MultiColumn -->
+            <Litefyr.Presentation:Spacing
+                @if={props.multiColumnEnabled && private.itemsMultiColumn}
+                tailwind="flex flex-col items-start flex-wrap md:flex-row gap-12 justify-between mb-[--spacing]"
+                width={props.fullWidth ? "full" : "wide"}
+                padding
+            >
+                {props.logo || ''}
+                <Neos.Fusion:Loop items={private.itemsMultiColumn}>
+                    <div class="mt-2">
+                        <h3 @if={item.headline} class="text-sm font-bold opacity-80 tracking-wider uppercase mb-4">{item.headline}</h3>
+                        <ul class="space-y-4">
+                            <Litefyr.Presentation:Section.Footer.Fragment.Links items={item.items} />
+                        </ul>
+                        {item.content}
                     </div>
-                    <Litefyr.Presentation:Block.SingleInputForm.Newsletter
-                        class="mt-4 mb-0 max-w-md lg:max-w-none lg:mt-0 lg:col-span-2"
-                    />
+                </Neos.Fusion:Loop>
+                <Neos.Fusion:Augmenter @if={props.search} class="w-full md:max-w-xs" content={props.search} />
+            </Litefyr.Presentation:Spacing>
+
+            <!-- Has Singlecol -->
+            <Neos.Fusion:Fragment @if={!props.multiColumnEnabled && private.itemsSingleColumn}>
+                <!-- Show SingleColumn width logo -->
+                <Litefyr.Presentation:Spacing
+                    @if={props.logo}
+                    width={props.fullWidth ? "full" : "wide"}
+                    padding
+                    tailwind="flex justify-between items-start gap-4 flex-wrap mb-[--spacing]"
+                >
+                    {props.logo}
+                    <ul class="flex justify-start gap-4 flex-wrap mt-4">
+                        <Litefyr.Presentation:Section.Footer.Fragment.Links items={private.itemsSingleColumn} />
+                        <li @if={props.search} class="-mt-3">
+                            {props.search}
+                        </li>
+                    </ul>
                 </Litefyr.Presentation:Spacing>
-                <Litefyr.Presentation:Spacing tailwind="md:flex md:items-end md:justify-between" wide padding>
-                    <Litefyr.Presentation:Block.SocialNetworks
-                        {...props}
-                        plural={private.plural}
-                        formal={private.formal}
-                        wrapper={[!props.logo && !private.itemsMultiColumn ? 'justify-center' : null, "flex gap-x-3 text-xl items-center md:order-2"]}
-                        itemClass="flex p-2 text-theme-front opacity-80 transition-opacity hocus:opacity-100"
-                        additionalMarkup={props.additionalSocialMarkup}
-                    />
-                    <Neos.Fusion:Augmenter class="flex flex-wrap gap-4 items-center mt-8 md:mt-0">
-                        <Litefyr.Presentation:Block.Breadcrumb @if={props.enableBreadcrumb}  />
-                        <Litefyr.Presentation:Block.ColorSchemeSwitchter @if={props.colorSchemeSwitchter == 'bottom' || props.colorSchemeSwitchter == 'both'} left={true} bottom={true} />
-                        <p class="text-xs opacity-90 leading-none">
-                            {Translation.translate('copyright', null, {year: Date.format(Date.now(), 'Y'), legalName: Carbon.String.nl2br(props.legalName, ', ')}, 'Main', 'Litefyr.Presentation')}
-                        </p>
-                    </Neos.Fusion:Augmenter>
+
+                <!-- Show SingleColumn without logo -->
+                <Litefyr.Presentation:Spacing
+                    @if={!props.logo}
+                    tagName="ul"
+                    tailwind="flex justify-center gap-4 flex-wrap text-sm mb-[--spacing]"
+                    width={props.fullWidth ? "full" : "wide"}
+                    padding
+                >
+                    <Litefyr.Presentation:Section.Footer.Fragment.Links items={private.itemsSingleColumn} />
                 </Litefyr.Presentation:Spacing>
-            </div>
+                <!-- Search -->
+                <Litefyr.Presentation:Spacing
+                    @if={props.search && !props.logo}
+                    class="max-w-xl"
+                    padding
+                    width={props.fullWidth ? "full" : "wide"}
+                    content={props.search}
+                />
+            </Neos.Fusion:Fragment>
+
+            <Litefyr.Presentation:Spacing
+                @if={props.newsletterForm}
+                tailwind="lg:grid lg:grid-cols-5 lg:gap-8 lg:mt-0 lg:items-end"
+                width={props.fullWidth ? "full" : "wide"}
+                padding
+            >
+                <div class="lg:col-span-3">
+                    <h3 class="text-sm font-bold tracking-wider uppercase">
+                        {Translation.translate('newsletter.headline' + private.formalModifier + private.pluralModifier, null, [], 'Main', 'Litefyr.Presentation')}
+                    </h3>
+                    <p class="mt-2 text-base opacity-90">
+                        {Translation.translate('newsletter.text' + private.formalModifier, null, [], 'Main', 'Litefyr.Presentation')}
+                    </p>
+                </div>
+                <Litefyr.Presentation:Block.SingleInputForm.Newsletter
+                    class="mt-4 mb-0 max-w-md lg:max-w-none lg:mt-0 lg:col-span-2"
+                />
+            </Litefyr.Presentation:Spacing>
+            <Litefyr.Presentation:Spacing tailwind="md:flex md:items-end md:justify-between" width={props.fullWidth ? "full" : "wide"} padding>
+                <Litefyr.Presentation:Block.SocialNetworks
+                    {...props}
+                    plural={private.plural}
+                    formal={private.formal}
+                    wrapper={[!props.logo && !private.itemsMultiColumn ? 'justify-center' : null, "flex gap-x-3 text-xl items-center md:order-2"]}
+                    itemClass="flex p-2 text-theme-front opacity-80 transition-opacity hocus:opacity-100"
+                    additionalMarkup={props.additionalSocialMarkup}
+                />
+                <Neos.Fusion:Augmenter class="flex flex-wrap gap-4 items-center mt-8 md:mt-0">
+                    <Litefyr.Presentation:Block.Breadcrumb @if={props.enableBreadcrumb}  />
+                    <Litefyr.Presentation:Block.ColorSchemeSwitchter @if={props.colorSchemeSwitchter == 'bottom' || props.colorSchemeSwitchter == 'both'} left={true} bottom={true} />
+                    <p class="text-xs opacity-90 leading-none">
+                        {Translation.translate('copyright', null, {year: Date.format(Date.now(), 'Y'), legalName: Carbon.String.nl2br(props.legalName, ', ')}, 'Main', 'Litefyr.Presentation')}
+                    </p>
+                </Neos.Fusion:Augmenter>
+            </Litefyr.Presentation:Spacing>
         </footer>
         {props.newsletterForm}
         {props.searchOverlay}
