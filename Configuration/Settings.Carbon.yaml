@@ -261,7 +261,8 @@ Carbon:
     strategy: attributes
   IncludeAssets:
     Packages:
-      'zzz_Presentation':
+      'Presentation':
+        position: 'end 999'
         Package: 'Litefyr.Presentation'
         General:
           HeadStart:

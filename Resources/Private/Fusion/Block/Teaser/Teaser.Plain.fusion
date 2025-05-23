@@ -44,9 +44,11 @@ prototype(Litefyr.Presentation:Block.Teaser.Plain) < prototype(Neos.Fusion:Compo
                 aria-hidden="true"
                 data-theme={props.theme}
             >
-                <Litefyr.Presentation:Atom.Icon
-                    styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.loadingIndicator')}
-                    attributes.class="size-5 animate-spin"
+                <Litefyr.Presentation:Block.LoadingIndicator
+                    showLoading={true}
+                    delayTime={false}
+                    size={20}
+                    dynamicWidth={true}
                 />
             </div>
             <div

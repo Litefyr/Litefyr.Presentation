@@ -1,5 +1,11 @@
 prototype(Neos.Seo:LangAttribute) {
-    value = 'de'
+    value = ${Configuration.setting('Neos.Flow.i18n.defaultLocale')}
+    value.@process {
+        contentDimensions = ${documentNode.context.dimensions.language[0]}
+        contentDimensions.@if.languageDimensionExists = ${Configuration.setting('Neos.ContentRepository.contentDimensions.language') != null}
+        replace = ${String.replace(value, '_', '-')}
+    }
+
     @if {
         languageDimensionExists = true
         onlyRenderWhenInLiveWorkspace = true

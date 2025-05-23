@@ -28,7 +28,11 @@ prototype(Litefyr.Presentation:Module.TeaserContainer) < prototype(Neos.Fusion:C
     }
 
     jsonPath = null
-    jsonPath.@process.convertToArray = ${Carbon.Array.check(value) ? Array.join(value,'||') : value}
+    jsonPath.@process {
+        convertFromArray = ${Carbon.Array.check(value) ? Array.join(value,'||') : value}
+        makeSafeForHomepageWithParamter = ${String.replace(value, '/.json?', '/?json=1&')}
+        makeSafeForHomepageNoParamter = ${String.replace(value, '/.json', '/?json=1')}
+    }
     links = null
     bottomTheme = 'main'
     count = ''

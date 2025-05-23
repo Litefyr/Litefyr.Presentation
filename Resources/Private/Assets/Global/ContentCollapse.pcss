@@ -41,14 +41,14 @@
 }
 
 /* Set margin top */
-.content-flat :where(.-collection--main, .collection--top) > :where(:not([hidden])),
-.content-clip :where(.-collection--main, .collection--top) > :where(:not([hidden], .clippath-content, .-width--full:first-child), .clippath-preserve),
-.content-clip :where(.-collection--main, .collection--top) > :where(:not(.clippath-content)) + .clippath-content {
+.content-flat :where(.-collection--main, .-collection--top) > :where(:not([hidden])),
+.content-clip :where(.-collection--main, .-collection--top) > :where(:not([hidden], .clippath-content, .-width--full:first-child), .clippath-preserve),
+.content-clip :where(.-collection--main, .-collection--top) > :where(:not(.clippath-content)) + .clippath-content {
   margin-top: var(--mt);
 }
 
-.content-flat :where(.-collection--main, .collection--bottom) > :where(:last-child:not([data-theme], :first-child)),
-.content-clip :where(.-collection--main, .collection--bottom) > :where(:last-child:not([data-theme], .clippath-content, :first-child)) {
+.content-flat :where(.-collection--main, .-collection--bottom) > :where(:last-child:not([data-theme], :first-child)),
+.content-clip :where(.-collection--main, .-collection--bottom) > :where(:last-child:not([data-theme], .clippath-content, :first-child)) {
   margin-bottom: var(--mb);
 }
 
@@ -71,6 +71,11 @@
     --clippath-content-height-top: 0px;
     --clippath-content-path: polygon(0 0, 100% 0, var(--clippath-raw-bottom));
   }
+}
+
+:where(html.transparent-header.content-flat) :is(.-collection--top, .-collection--main) > :first-child {
+  padding-top: 0;
+  margin-top: calc(var(--header-height) * -1);
 }
 
 /* Last entry */

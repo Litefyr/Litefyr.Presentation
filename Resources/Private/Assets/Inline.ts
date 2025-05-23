@@ -32,8 +32,8 @@ function enableModeSwitcher() {
     });
 
     window.darkMode = () => {
-        if ("theme" in localStorage) {
-            return localStorage.theme === "dark";
+        if ("scheme" in localStorage) {
+            return localStorage.scheme === "dark";
         }
         if (defaultModeIsDark || darkModePreference.matches) {
             return true;
@@ -45,9 +45,9 @@ function enableModeSwitcher() {
         const system = mode === "system";
         if (system) {
             // Whenever the user explicitly chooses to respect the OS preference
-            localStorage.removeItem("theme");
+            localStorage.removeItem("scheme");
         } else {
-            localStorage.theme = mode;
+            localStorage.scheme = mode;
         }
         setClass();
         customEvent("set-mode", mode);

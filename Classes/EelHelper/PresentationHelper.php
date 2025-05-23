@@ -237,7 +237,13 @@ class PresentationHelper implements ProtectedContextAwareInterface
             return BEMService::getClassNamesString($vendor, null, $element) . $additionalClass;
         }
 
-        return BEMService::getClassNamesString($vendor, null, sprintf('%s-%s', $package, $element)) . $additionalClass;
+        if ($element) {
+            $modifier = sprintf('%s-%s', $package, $element);
+        } else {
+            $modifier = $package;
+        }
+
+        return BEMService::getClassNamesString($vendor, null, $modifier) . $additionalClass;
     }
 
     /**

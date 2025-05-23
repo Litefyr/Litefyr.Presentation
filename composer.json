@@ -8,7 +8,7 @@
         "carbon/eel" : "^2.16",
         "carbon/fileloader": "^0.1.6",
         "carbon/image" : "^4.0",
-        "carbon/includeassets" : "^6.2",
+        "carbon/includeassets" : "^6.4",
         "garagist/fontawesome" : "^0.1.4",
         "garagist/fontawesome-alpinejs" : "^0.1.0",
         "sitegeist/chitchat": "^1.2",

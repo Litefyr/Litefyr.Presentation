@@ -1,0 +1,64 @@
+prototype(Litefyr.Presentation:Block.LanguageSwitchter) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
+        bottom = ${PropTypes.boolean}
+        currentLanguage = ${PropTypes.string}
+        icon = ${PropTypes.string}
+    }
+
+    bottom = false
+    currentLanguage = null
+    class = null
+    languagePreset = ${Configuration.Setting('Neos.ContentRepository.contentDimensions.language.presets')}
+    languageSelector = 'longLabel'
+    languageSelectorStyle = null
+
+    @private {
+        languages = Neos.Fusion:Map {
+            items = ${props.languagePreset}
+            keyRenderer = ${itemKey}
+            itemRenderer = ${item.label}
+        }
+        shortLabel = ${String.replace(props.currentLanguage, '_', '-')}
+        longLabel = ${private.languages[props.currentLanguage]}
+        needIcon = ${props.languageSelector != 'shortLabel' && props.languageSelector != 'longLabel'}
+        buttonContent = Neos.Fusion:Case {
+            needIcon {
+                condition = ${props.languageSelector != 'shortLabel' && props.languageSelector != 'longLabel'}
+                renderer = afx`<Litefyr.Presentation:Atom.Icon style={props.languageSelectorStyle} icon={props.languageSelector} />`
+            }
+            longLabel {
+                condition = ${props.languageSelector == 'longLabel'}
+                renderer = afx`<span class="block px-2">{private.longLabel}</span>`
+            }
+            shortLabel {
+                condition = true
+                renderer = afx`<span class="block px-2">{private.shortLabel}</span>`
+            }
+        }
+    }
+
+    @if.hasLanguage = ${this.languageSelector && this.currentLanguage && Configuration.setting('Neos.ContentRepository.contentDimensions.language') != null}
+
+    renderer = afx`
+        <Litefyr.Presentation:Block.Popover
+            attributes.x-data={AlpineJS.function("languageSelector", private.languages, props.currentLanguage)}
+            attributes.class={props.class}
+            buttonContent={private.buttonContent}
+            buttonAttributes.class={[props.bottom ? "min-w-9 min-h-9 max-h-9 hover:ring-4" : "min-w-12 min-h-12 max-h-12 hover:ring-8", "rounded-full transform transition-all ring-0 duration-200 text-theme-header ring-theme-header/30 focus:outline-none focus:ring-4 focus-visible:ring-theme-header"]}
+            buttonAttributes.aria-label={Translation.translate('currentLanguage', private.longLabel, [private.longLabel], 'Main', 'Litefyr.Presentation')}
+            buttonAttributes.x-tooltip
+            position={props.bottom ? 'bottom' : null}
+        >
+            <template x-for="lang in languages">
+                <Litefyr.Presentation:Block.Popover.ListItem
+                    attributes.:href="lang.href || null"
+                    attributes.:aria-disabled="!lang.href"
+                    attributes.:class="lang.current&&'font-bold'"
+                    attributes.x-text="lang.label"
+                    closePopoverOnClick={true}
+                />
+            </template>
+        </Litefyr.Presentation:Block.Popover>
+    `
+}

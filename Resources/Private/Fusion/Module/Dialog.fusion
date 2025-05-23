@@ -11,6 +11,9 @@ prototype(Litefyr.Presentation:Module.Dialog) < prototype(Neos.Fusion:Component)
     attributes = Neos.Fusion:DataStructure
     fileLoader = Neos.Fusion:DataStructure
 
+    title = null
+    description = null
+
     renderer = afx`
         <Carbon.Eel:Tag
             tagName={props.teleport ? 'template' : null}
@@ -34,7 +37,13 @@ prototype(Litefyr.Presentation:Module.Dialog) < prototype(Neos.Fusion:Component)
                         x-transition
                         class="relative bg-theme-back text-theme-front w-full shadow-dialog sm:max-w-xl overflow-y-auto max-h-full p-4 rounded-box"
                     >
+                        <!-- Title & Description -->
+                        <h2 @if={props.title} x-dialog:title class="sr-only">{props.title}</h2>
+                        <p @if={props.description} x-dialog:description class="sr-only">{props.description}</p>
+
+                        <!-- Content -->
                         {props.content}
+
                         <!-- Close Button -->
                         <button
                             x-on:click="$dialog.close()"

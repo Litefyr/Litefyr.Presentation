@@ -1,7 +1,6 @@
 prototype(Litefyr.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fusion:Component) {
     @propTypes {
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
-        left = ${PropTypes.boolean}
         bottom = ${PropTypes.boolean}
     }
 
@@ -30,12 +29,12 @@ prototype(Litefyr.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fusi
 
     renderer = afx`
         <Litefyr.Presentation:Block.Popover
-            attributes.x-data={AlpineJS.object({theme: AlpineJS.expression("localStorage.theme||'system'"), open: false, text: props.text})}
-            attributes.class={[props.left && !props.bottom && "order-first", props.class]}
-            buttonAttributes."x-on:set-mode.window"="theme=$event.detail"
+            attributes.x-data={AlpineJS.object({scheme: AlpineJS.expression("localStorage.scheme||'system'"), open: false, theme: AlpineJS.expression("$theme"), text: props.text})}
+            attributes.class={props.class}
+            buttonAttributes."x-on:set-mode.window"="scheme=$event.detail"
             buttonAttributes.x-tooltip
-            buttonAttributes.:aria-label="text[theme]"
-            buttonAttributes.class={[props.bottom ? "min-w-9 min-h-9 max-w-9 max-h-9 hover:ring-4" : "min-w-12 min-h-12 max-w-12 max-h-12 hover:ring-8", "rounded-full transform transition-all ring-0 !ring-opacity-30 duration-200 ring-text focus:outline-none focus:ring-4 focus-visible:!ring-opacity-100"]}
+            buttonAttributes.:aria-label="text[scheme]"
+            buttonAttributes.class={[props.bottom ? "min-w-9 min-h-9 max-w-9 max-h-9 hover:ring-4" : "min-w-12 min-h-12 max-w-12 max-h-12 hover:ring-8", "rounded-full transform transition-all ring-0 duration-200 text-theme-header ring-theme-header/30 focus:outline-none focus:ring-4 focus-visible:ring-theme-header"]}
             buttonContent={private.buttonContent}
             position={props.bottom ? 'bottom' : null}
         >
@@ -43,7 +42,7 @@ prototype(Litefyr.Presentation:Block.ColorSchemeSwitchter) < prototype(Neos.Fusi
                 <Litefyr.Presentation:Block.Popover.ListItem
                     closePopoverOnClick={true}
                     attributes.x-on:click={AlpineJS.function("setMode", item)}
-                    attributes.:class={"theme=='" + item + "'&&'font-bold'"}
+                    attributes.:class={"scheme=='" + item + "'&&'font-bold'"}
                     content={props.icons[item] + props.text[item]}
                 />
             </Neos.Fusion:Loop>

@@ -28,6 +28,8 @@ prototype(Litefyr.Presentation:Module.Address) < prototype(Neos.Fusion:Component
     theme = null
     setSpacing = true
 
+    form = Neos.Fusion:Case
+
     iconBesideAddress = false
     socialSettings = Neos.Fusion:DataStructure {
         iconClass = 'size-[1em]'

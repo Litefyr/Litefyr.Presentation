@@ -10,12 +10,13 @@ prototype(Litefyr.Presentation:Helper.SocialNetworks) < prototype(Neos.Fusion:Co
         phone = ${PropTypes.string}
         mobile = ${PropTypes.string}
         website = ${PropTypes.string}
+        vcard = ${PropTypes.string}
         plural = ${PropTypes.boolean}
         formal = ${PropTypes.boolean}
-        additionalLinks = ${PropTypes.arrayOf(PropTypes.oneOf(['email', 'phone', 'mobile', 'website']))}
+        additionalLinks = ${PropTypes.arrayOf(PropTypes.oneOf(['email', 'phone', 'mobile', 'website', 'vcard']))}
     }
 
-    additionalLinks = ${['email', 'phone', 'mobile']}
+    additionalLinks = ${['email', 'phone', 'mobile', 'vcard']}
     plural = true
     formal = true
 

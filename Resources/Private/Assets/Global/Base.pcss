@@ -1,8 +1,18 @@
 @layer base {
+  @view-transition {
+    navigation: auto;
+  }
+
   :root {
-    --header-height: 84px;
+    --header-height: var(--header-height-mobile);
     --font-weight-bold: var(--font-weight-main-bold, 700);
     --font-weight-normal: var(--font-weight-main, 400);
+  }
+
+  @screen sm {
+    :root {
+      --header-height: var(--header-height-desktop);
+    }
   }
 
   .dark {
@@ -24,6 +34,7 @@
     min-height: 100vh;
     min-height: 100dvh;
     place-items: start stretch;
+    grid-template-rows: 1fr;
     align-content: space-between;
     overflow-x: clip;
 

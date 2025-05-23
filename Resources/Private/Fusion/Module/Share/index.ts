@@ -9,11 +9,13 @@ Alpine.data("share", () => ({
     native: false,
     hasEventListener: false,
     open: false,
+    theme: null,
     init() {
         const url = window.location.href;
         this.url = url;
         this.encodedUrl = encodeURIComponent(this.url);
         this.native = typeof navigator?.canShare == "function" && navigator.canShare({ url });
+        this.theme = this.$theme;
 
         if (!this.hasEventListener) {
             this.hasEventListener = true;

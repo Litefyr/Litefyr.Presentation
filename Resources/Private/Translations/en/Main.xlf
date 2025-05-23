@@ -6,6 +6,12 @@
             <trans-unit id="noPagesWithImagesFound" xml:space="preserve">
                 <source>No pages with images were found.</source>
             </trans-unit>
+            <trans-unit id="language" xml:space="preserve">
+                <source>Language</source>
+            </trans-unit>
+            <trans-unit id="currentLanguage" xml:space="preserve">
+                <source>The current language is {0}</source>
+            </trans-unit>
             <trans-unit id="readMore" xml:space="preserve">
                 <source>read more</source>
             </trans-unit>
@@ -216,6 +222,9 @@
             <trans-unit id="writeAnEmail.informal.group" xml:space="preserve">
                 <source>Write us an email</source>
             </trans-unit>
+            <trans-unit id="downloadVcard" xml:space="preserve">
+                <source>Download vCard</source>
+            </trans-unit>
             <trans-unit id="copyright" xml:space="preserve">
                 <source><![CDATA[&copy; {year} {legalName}, All rights reserved.]]></source>
             </trans-unit>
@@ -277,7 +286,7 @@
                 <source>Email address</source>
             </trans-unit>
             <trans-unit id="newsletter.submit" xml:space="preserve">
-                <source>Sign Up</source>
+                <source>Subscribe</source>
             </trans-unit>
             <trans-unit id="spacingWithPixel" xml:space="preserve">
                 <source>{0} pixel spacing</source>

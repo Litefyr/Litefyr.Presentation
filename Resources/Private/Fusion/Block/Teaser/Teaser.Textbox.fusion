@@ -49,9 +49,12 @@ prototype(Litefyr.Presentation:Block.Teaser.Textbox) < prototype(Neos.Fusion:Com
                 class={Tailwind.merge(private.rootClass, "aspect-[15/8] flex items-center justify-center text-theme-front bg-theme-back bg-lightness-offset-5 animate-pulse")}
                 data-theme={props.theme}
             >
-                <Litefyr.Presentation:Atom.Icon
-                    styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.loadingIndicator')}
-                    attributes.class="size-5 animate-spin"
+                <Litefyr.Presentation:Block.LoadingIndicator
+                    class="animate-pulse"
+                    showLoading={true}
+                    delayTime={false}
+                    size={20}
+                    dynamicWidth={true}
                 />
             </div>
             <a

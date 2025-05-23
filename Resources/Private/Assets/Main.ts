@@ -7,6 +7,7 @@ import "lazysizes/plugins/native-loading/ls.native-loading";
 import "DistributionPackages/Litefyr.Distribution/Resources/Private/Fusion/Main";
 import initLoader from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/Loader";
 import eventListener from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventListener";
+import eventDispatcher from "Packages/Carbon/Carbon.FileLoader/Resources/Private/Assets/EventDispatcher";
 
 initLoader({
     callback: () => Alpine.start(),
@@ -15,6 +16,16 @@ initLoader({
 document.addEventListener("Neos.NodeCreated", () => {
     initLoader();
 });
+
+eventListener(
+    "fetch-has-content",
+    () => {
+        setTimeout(() => {
+            eventDispatcher("neos-photoswipe:init");
+        }, 5);
+    },
+    false,
+);
 
 eventListener(
     "loader:markup",

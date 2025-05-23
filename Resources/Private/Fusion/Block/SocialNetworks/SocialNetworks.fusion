@@ -16,7 +16,7 @@ prototype(Litefyr.Presentation:Block.SocialNetworks) < prototype(Neos.Fusion:Com
         plural = ${PropTypes.boolean}
         formal = ${PropTypes.boolean}
         additionalMarkup = ${PropTypes.string}
-        additionalLinks = ${PropTypes.arrayOf(PropTypes.oneOf(['email', 'phone', 'mobile', 'website']))}
+        additionalLinks = ${PropTypes.arrayOf(PropTypes.oneOf(['email', 'phone', 'mobile', 'website', 'vcard']))}
     }
     @styleguide {
         props {
@@ -30,7 +30,7 @@ prototype(Litefyr.Presentation:Block.SocialNetworks) < prototype(Neos.Fusion:Com
         }
     }
 
-    additionalLinks = ${['email', 'phone', 'mobile', 'website']}
+    additionalLinks = ${['email', 'phone', 'mobile', 'website', 'vcard']}
     icon = true
     text = false
     tooltip = true
@@ -94,7 +94,7 @@ prototype(Litefyr.Presentation:Block.SocialNetworks) < prototype(Neos.Fusion:Com
                 <Carbon.Eel:Tag tagName={props.wrapper ? 'li' : null}>
                     <a
                         href={item.href}
-                        class={Tailwind.merge('group', props.itemClass, props.description && Array.indexOf(["email", "phone", "mobile", "website"], item.network) != -1 ? props.itemDescriptionClass : null)}
+                        class={Tailwind.merge('group', props.itemClass, props.description && Array.indexOf(["email", "phone", "mobile", "website", "vcard"], item.network) != -1 ? props.itemDescriptionClass : null)}
                         x-data={props.wrapper ? null : props.tooltip}
                         x-tooltip={props.wrapper ? null : props.tooltip}
                         aria-label={item.label}

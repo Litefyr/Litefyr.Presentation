@@ -3,5 +3,5 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.Logo) < prototype(Litefyr
     marginTop = 16
     marginBottom = 16
 
-    additionalLinkClass = ${[this.positionRight ? 'order-last' : null, '*:mt-[--logo-mt] *:mb-[--logo-mb] max-w-[--header-w-logo]']}
+    additionalLinkClass = ${[this.positionRight ? 'order-last' : null, '*:mt-[--logo-mt] *:mb-[--logo-mb] max-w-[--header-w-logo] text-theme-header hide-logo-in-header:opacity-0']}
 }

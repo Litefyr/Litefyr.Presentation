@@ -4,6 +4,7 @@ declare global {
     let MauticSDK: any;
     let Alpine: AlpineType;
     let neosPhotoSwipe: any;
+    let Litefyr: any;
     function darkMode(): boolean;
     function setMode(mode: string): string;
     function plausible(

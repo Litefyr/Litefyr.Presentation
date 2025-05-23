@@ -7,6 +7,10 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
         colorSchemeSwitchter = ${PropTypes.oneOf(['top', 'bottom', 'both', ''])}
     }
 
+    currentLanguage = ${Configuration.setting('Neos.ContentRepository.contentDimensions.language') == null ? null : site.context.dimensions.language[0]}
+    languageSelector = null
+    languageSelectorStyle = null
+
     homeUri = '/'
     items = Neos.Fusion:DataStructure
     logo = ''
@@ -19,7 +23,8 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
     logoPositionRight = false
 
     scrollAmount = 150
-    classNameOnScroll = '-translate-y-[--header-translate]'
+    classNameOnHidden = '-translate-y-[--header-translate]'
+    classNameOnTop = 'header--top'
     addScrollClassOnlyOnTop = false
     colorGradient = null
     fullWidth = false
@@ -37,23 +42,27 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
             }
             itemRenderer = ${itemKey + ':' + item}
         }
+        headerClass = ${Carbon.String.classNames(
+            'header',
+            props.classNameOnTop,
+            'group/header font-header z-[500] fixed inset-x-0 top-0 transition-transform transform-gpu duration-500 mt-0 pointer-events-none print:static',
+            props.clipPathBelowNavigation ? '+:mt-[--clippath-header-height]' : '+:mt-header'
+        )}
     }
 
     renderer = afx`
         <header
-            class.base="group/header font-header z-[500] fixed inset-x-0 top-0 transition-transform transform-gpu duration-500 mt-0 pointer-events-none"
-            class.margin={props.clipPathBelowNavigation ? '+:mt-[--clippath-header-height]' : '+:mt-header'}
-            class.print="print:static"
+            class={private.headerClass}
             style={(props.colorGradient ? props.colorGradient.style : '') + private.style}
             x-bind="header"
-            x-data={AlpineJS.function("header", props.scrollAmount, props.classNameOnScroll, props.addScrollClassOnlyOnTop)}
+            x-data={AlpineJS.function("header", props.scrollAmount, props.classNameOnHidden, props.classNameOnTop, props.addScrollClassOnlyOnTop)}
             data-theme="header"
             x-trap="mobileMenuOpen"
         >
             <div class="relative">
                 <div
                     aria-hidden="true"
-                    class.base="absolute inset-0"
+                    class.base="absolute inset-0 transparent-header:opacity-0 transition-opacity"
                     class.clippath={props.clipPathBelowNavigation ? Presentation.clippathClass('header', 'min-h') : null}
                     class.bg={props.colorGradient ? props.colorGradient.class : "bg-theme-back"}
                     style={props.colorGradient ? props.colorGradient.style : null}
@@ -101,7 +110,12 @@ prototype(Litefyr.Presentation:Section.Header) < prototype(Neos.Fusion:Component
                                     class="self-center"
                                 />
                                 {props.search}
-                                <Litefyr.Presentation:Block.ColorSchemeSwitchter @if={private.showColorSchemeSwitchter} left={props.logoPositionRight} />
+                                <Litefyr.Presentation:Block.ColorSchemeSwitchter @if={private.showColorSchemeSwitchter} />
+                                <Litefyr.Presentation:Block.LanguageSwitchter
+                                    currentLanguage={props.currentLanguage}
+                                    languageSelector={props.languageSelector}
+                                    languageSelectorStyle={props.languageSelectorStyle}
+                                />
                             </div>
                             <!-- Placeholder for color scheme mode switcher -->
                             <div x-show="mobile" @if={private.showColorSchemeSwitchter} class="size-12" aria-hidden="true"></div>

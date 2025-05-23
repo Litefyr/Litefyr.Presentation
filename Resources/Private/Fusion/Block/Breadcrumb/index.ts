@@ -1,4 +1,5 @@
 import Alpine from "alpinejs";
+const doc = document;
 // eslint-disable-next-line no-empty-pattern
 Alpine.directive("breadcrump", (el, {}, { Alpine }) => {
     Alpine.bind(el, {
@@ -7,7 +8,11 @@ Alpine.directive("breadcrump", (el, {}, { Alpine }) => {
                 home: {},
                 items: [],
                 init() {
-                    const scriptTag = document.querySelector("#breadcrump-data");
+                    const disable = doc.documentElement.classList.contains("disable-breadcrumb");
+                    if (disable) {
+                        return;
+                    }
+                    const scriptTag = doc.querySelector("#breadcrump-data");
                     const data = scriptTag ? JSON.parse(scriptTag.innerHTML) : false;
                     if (!data) {
                         return;

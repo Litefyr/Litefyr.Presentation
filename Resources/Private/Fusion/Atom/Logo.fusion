@@ -17,7 +17,7 @@ prototype(Litefyr.Presentation:Atom.Logo) < prototype(Neos.Fusion:Component) {
     additionalLinkClass = null
     linkAttributes = Neos.Fusion:DataStructure {
         aria-label = ${Translation.translate('page.goToHome', null, [], 'Main', 'Litefyr.Presentation')}
-        class = '-print-hidelink flex leading-tight items-center *:fill-current *:w-auto *:h-logo *:max-h-logo *:transition-all hocus:text-theme-front transition duration-200 hocus:scale-110'
+        class = '-print-hidelink flex leading-tight items-center *:fill-current *:w-auto *:h-logo *:max-h-logo *:transition-all hocus:text-theme-header transition duration-200 hocus:scale-110'
     }
 
     @private {
@@ -99,7 +99,7 @@ prototype(Litefyr.Presentation:Atom.Logo) < prototype(Neos.Fusion:Component) {
                 style={private.defaultStyle}
                 id={props.preview ? "carbon-codepen-preview" : null}
                 {...props.linkAttributes}
-                class={['text-theme-front text-logosmall sm:text-logo', Tailwind.merge(props.linkAttributes.class, props.additionalLinkClass)]}
+                class={['text-theme-header text-logosmall sm:text-logo', Tailwind.merge(props.linkAttributes.class, props.additionalLinkClass)]}
             />
         `
         content = ${private.content}

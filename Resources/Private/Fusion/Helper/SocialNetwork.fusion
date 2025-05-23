@@ -11,6 +11,7 @@ prototype(Litefyr.Presentation:Helper.SocialNetwork) < prototype(Neos.Fusion:Com
         type = Neos.Fusion:Match {
             @subject = ${props.network}
             @default = 'link'
+            vcard = 'vcard'
             email = 'email'
             phone = 'tel'
             mobile = 'tel'
@@ -33,15 +34,22 @@ prototype(Litefyr.Presentation:Helper.SocialNetwork) < prototype(Neos.Fusion:Com
             email = 'writeAnEmail'
             tel = 'callWithNumber'
             website = 'visiWebsite'
+            vcard = 'downloadVCard'
         }
         plainLabel = Neos.Fusion:Match {
             @subject = ${private.type}
             @default = ${props.url}
+            vcard = 'vCard'
             website = ${String.pregReplace(props.url, '/^https?:\/\//', '')}
             write = ${Translation.translate('social.' + props.network, String.firstLetterToUpperCase(props.network), [], null, 'Litefyr.Presentation')}
             link = ${Translation.translate('social.' + props.network, String.firstLetterToUpperCase(props.network), [], null, 'Litefyr.Presentation')}
         }
-        label = ${props.plainLabel ? private.plainLabel : Translation.translate(private.selector + private.salutation + private.amount, null, [private.plainLabel], null, 'Litefyr.Presentation')}
+        translationSelector = Neos.Fusion:Match {
+            @subject = ${private.selector}
+            @default = ${private.selector + private.salutation + private.amount}
+            downloadVCard = ${private.selector}
+        }
+        label = ${props.plainLabel ? private.plainLabel : Translation.translate(private.translationSelector, null, [private.plainLabel], null, 'Litefyr.Presentation')}
     }
 
     renderer = Neos.Fusion:DataStructure {
@@ -50,6 +58,7 @@ prototype(Litefyr.Presentation:Helper.SocialNetwork) < prototype(Neos.Fusion:Com
         href = Neos.Fusion:Match {
             @subject = ${private.type}
             @default = ${(String.pregMatch(props.url, '/^https?:\/\//') ? '' : 'https://') + props.url}
+            vcard = ${props.url}
             email = ${'mailto:' + props.url}
             tel = Litefyr.Presentation:Helper.Phone {
                 value = ${props.url}
@@ -58,6 +67,7 @@ prototype(Litefyr.Presentation:Helper.SocialNetwork) < prototype(Neos.Fusion:Com
         content = Neos.Fusion:Match {
             @subject = ${private.type}
             @default = ${props.url}
+            vcard = 'vCard'
             link = ${Translation.translate('social.' + props.network, props.network, [], null, 'Litefyr.Presentation')}
             website = ${String.pregReplace(props.url, '/^https?:\/\//', '')}
         }

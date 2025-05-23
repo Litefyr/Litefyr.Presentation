@@ -14,8 +14,6 @@ prototype(Litefyr.Presentation:Atom.Spacer) < prototype(Neos.Fusion:Component) {
     useResponsiveScale = false
     scale = 0
 
-    @if.isVisual = ${this.useResponsiveScale ? true : (this.height || this.hr || this.theme)}
-
     @private {
         scale = Neos.Fusion:Match {
             @subject = ${String.toString(props.hr ? Math.max(-2, props.scale || 0) : props.scale || 0)}

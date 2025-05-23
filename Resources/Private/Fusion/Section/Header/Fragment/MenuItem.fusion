@@ -15,7 +15,7 @@ prototype(Litefyr.Presentation:Section.Header.Fragment.MenuItem) < prototype(Neo
         <li class="group relative h-full">
             <a
                 href={props.lightboxIframeSrc || props.uri}
-                class={[props.defaultLinkClass, props.fontSize, 'whitespace-nowrap h-full p-4 flex flex-col items-center justify-center text-center text-theme-front group-hocus-within:text-theme-accent']}
+                class={[props.defaultLinkClass, props.fontSize, 'whitespace-nowrap h-full p-4 flex flex-col items-center justify-center text-center text-theme-header group-hocus-within:text-theme-accent transparent-header:group-hocus-within:text-theme-header']}
                 :class="$isActivePage()?'font-bold':'font-normal'"
                 :aria-current="$isCurrentPage()&&'page'"
                 data-pswp-type={props.isLightbox ? "fetch" : null}

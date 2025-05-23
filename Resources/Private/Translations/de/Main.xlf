@@ -7,6 +7,14 @@
                 <source>No pages with images were found.</source>
                 <target>Es wurden keine Seiten mit Bildern gefunden.</target>
             </trans-unit>
+            <trans-unit id="language" xml:space="preserve">
+                <source>Language</source>
+                <target>Sprache</target>
+            </trans-unit>
+            <trans-unit id="currentLanguage" xml:space="preserve">
+                <source>The current language is {0}</source>
+                <target>Die aktuelle Sprache ist {0}</target>
+            </trans-unit>
             <trans-unit id="readMore" xml:space="preserve">
                 <source>read more</source>
                 <target>weiterlesen</target>
@@ -287,6 +295,10 @@
                 <source>Write us an email</source>
                 <target>Schreibe uns eine E-Mail</target>
             </trans-unit>
+            <trans-unit id="downloadVcard" xml:space="preserve">
+                <source>Download vCard</source>
+                <target>vCard downloaden</target>
+            </trans-unit>
             <trans-unit id="copyright" xml:space="preserve">
                 <source><![CDATA[&copy; {year} {legalName}, All rights reserved.]]></source>
                 <target><![CDATA[&copy; {year} {legalName}, Alle Rechte vorbehalten.]]></target>
@@ -368,8 +380,8 @@
                 <target>E-Mail Adresse</target>
             </trans-unit>
             <trans-unit id="newsletter.submit" xml:space="preserve">
-                <source>Sign Up</source>
-                <target>Anmelden</target>
+                <source>Subscribe</source>
+                <target>Abonnieren</target>
             </trans-unit>
             <trans-unit id="spacingWithPixel" xml:space="preserve">
                 <source>{0} pixel spacing</source>

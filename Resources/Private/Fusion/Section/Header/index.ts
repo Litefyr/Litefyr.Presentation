@@ -4,107 +4,123 @@ const HTML = document.documentElement;
 
 const headerKey = "header";
 
-Alpine.data(headerKey, function (scrollAmount: number, classNameOnScroll: string, addScrollClassOnlyOnTop: boolean) {
-    return {
-        mobileMenuOpen: false,
-        atTop: true,
-        height: this.$persist(0).as(`${headerKey}-height`),
-        offset: 0,
-        currentHref: location.href,
-        mobile: this.$persist(true).as(`${headerKey}-mobile`),
-        width: this.$persist({
-            nav: 0,
-            list: 0,
-            spacing: 0,
-            header: "100%",
-            logo: "100%",
-        }).as(`${headerKey}-width`),
-        setHeaderHeight() {
-            this.height = this.$refs.header.offsetHeight;
-        },
-        calculateBreakpoint() {
-            const header = this.$refs.header;
-            // Calculate all the paddings, margins, borders and gaps
-            // Include the switcher width to get the max width of the logo
-            const container = this.$refs?.container || header;
-            const switcher = this.$refs?.switcher;
-            const switcherWidth = switcher?.offsetWidth || 0;
-            let spacing = getSpacingValues(container, ["padding", "margin", "border", "gap"]);
-            if (switcher) {
-                spacing += switcherWidth;
-                spacing += getSpacingValues(switcher, ["padding", "margin", "border"]);
-            }
+Alpine.data(
+    headerKey,
+    function (
+        scrollAmount: number,
+        classNameOnHidden: string,
+        classNameOnTop: string,
+        addScrollClassOnlyOnTop: boolean,
+    ) {
+        return {
+            mobileMenuOpen: false,
+            atTop: true,
+            classNameOnTop: true,
+            height: this.$persist(0).as(`${headerKey}-height`),
+            offset: 0,
+            currentHref: location.href,
+            mobile: this.$persist(true).as(`${headerKey}-mobile`),
+            width: this.$persist({
+                nav: 0,
+                list: 0,
+                spacing: 0,
+                header: "100%",
+                logo: "100%",
+            }).as(`${headerKey}-width`),
+            setHeaderHeight() {
+                this.height = this.$refs.header.offsetHeight;
+            },
+            calculateBreakpoint() {
+                const header = this.$refs.header;
+                // Calculate all the paddings, margins, borders and gaps
+                // Include the switcher width to get the max width of the logo
+                const container = this.$refs?.container || header;
+                const switcher = this.$refs?.switcher;
+                const switcherWidth = switcher?.offsetWidth || 0;
+                let spacing = getSpacingValues(container, ["padding", "margin", "border", "gap"]);
+                if (switcher) {
+                    spacing += switcherWidth;
+                    spacing += getSpacingValues(switcher, ["padding", "margin", "border"]);
+                }
 
-            // Calculate if mobile menu is needed
-            const navElement = this.$refs.navMain;
-            // We need to get the width of the wrapper without padding;
-            const nav = (navElement?.clientWidth || 0) - getSpacingValues(navElement, ["padding"]);
-            const list = this.$refs.navList?.offsetWidth || 0;
+                // Calculate if mobile menu is needed
+                const navElement = this.$refs.navMain;
+                // We need to get the width of the wrapper without padding;
+                const nav = (navElement?.clientWidth || 0) - getSpacingValues(navElement, ["padding"]);
+                const list = this.$refs.navList?.offsetWidth || 0;
 
-            const headerWidth = this.$el.offsetWidth;
-            const width = {
-                nav,
-                list,
-                spacing,
-                header: headerWidth,
-                logo: headerWidth - spacing,
-            };
+                const headerWidth = this.$el.offsetWidth;
+                const width = {
+                    nav,
+                    list,
+                    spacing,
+                    header: headerWidth,
+                    logo: headerWidth - spacing,
+                };
 
-            this.mobile = list ? nav <= list : false;
-            this.width = width;
+                this.mobile = list ? nav <= list : false;
+                this.width = width;
 
-            Object.entries(width).forEach(([key, value]) => {
-                header.style.setProperty(`--${headerKey}-w-${key}`, `${value}px`);
-            });
-        },
-        init() {
-            this.$nextTick(() => {
-                this.setHeaderHeight();
-                this.calculateBreakpoint();
-            });
-        },
-        onScroll() {
-            const offset = window.scrollY;
-            this.atTop = offset < scrollAmount || (addScrollClassOnlyOnTop ? false : this.offset > offset);
-            this.offset = offset;
-            if (!this.atTop) {
-                this.mobileMenuOpen = false;
-            }
-            this.$dispatch("scrollposition", { offset, atTop: this.atTop });
-        },
-        header: {
-            "x-effect"() {
-                HTML.style.setProperty(`--${headerKey}-height`, `${this.height}px`);
+                Object.entries(width).forEach(([key, value]) => {
+                    header.style.setProperty(`--${headerKey}-w-${key}`, `${value}px`);
+                });
             },
-            "@resize.window.passive.debounce"() {
-                this.mobileMenuOpen = false;
-                this.init();
+            init() {
+                this.$nextTick(() => {
+                    this.setHeaderHeight();
+                    this.calculateBreakpoint();
+                });
+                this.$watch("mobileMenuOpen", (value) => {
+                    this.classNameOnTop = value ? false : !!(this.offset < scrollAmount);
+                });
             },
-            "@resize.window.passive.throttle"() {
-                this.mobileMenuOpen = false;
-                this.init();
+            onScroll() {
+                const offset = window.scrollY;
+                this.atTop = offset < scrollAmount || (addScrollClassOnlyOnTop ? false : this.offset > offset);
+                this.offset = offset;
+                if (!this.atTop) {
+                    this.mobileMenuOpen = false;
+                }
+                this.$dispatch("scrollposition", { offset, atTop: this.atTop });
             },
-            "@scroll.window.passive.throttle"() {
-                this.onScroll();
+            header: {
+                "x-effect"() {
+                    HTML.style.setProperty(`--${headerKey}-height`, `${this.height}px`);
+                },
+                "@resize.window.passive.debounce"() {
+                    this.mobileMenuOpen = false;
+                    this.init();
+                },
+                "@resize.window.passive.throttle"() {
+                    this.mobileMenuOpen = false;
+                    this.init();
+                },
+                "@scroll.window.passive.throttle"() {
+                    this.onScroll();
+                },
+                "@scroll.window.passive.debounce"() {
+                    this.onScroll();
+                    this.classNameOnTop = !!(this.offset < scrollAmount);
+                },
+                ":class"() {
+                    const obj = {};
+                    obj[classNameOnTop] = this.classNameOnTop;
+                    obj[classNameOnHidden] = !this.atTop;
+                    return obj;
+                },
+                "@keydown.window.escape"() {
+                    this.mobileMenuOpen = false;
+                },
+                "x-trap.noscroll.inert"() {
+                    return this.mobileMenuOpen;
+                },
+                "@click.outside"() {
+                    this.mobileMenuOpen = false;
+                },
             },
-            "@scroll.window.passive.debounce"() {
-                this.onScroll();
-            },
-            ":class"() {
-                return this.atTop || classNameOnScroll;
-            },
-            "@keydown.window.escape"() {
-                this.mobileMenuOpen = false;
-            },
-            "x-trap.noscroll.inert"() {
-                return this.mobileMenuOpen;
-            },
-            "@click.outside"() {
-                this.mobileMenuOpen = false;
-            },
-        },
-    };
-});
+        };
+    },
+);
 
 // Calculate all the paddings, margins, borders and gaps
 function getSpacingValues(element, properties = ["padding", "margin", "border", "gap"]) {

@@ -1,0 +1,16 @@
+:is(html.transparent-header .header--top) {
+  --color-transparent-header-c: 0;
+  --color-transparent-header-h: 0;
+}
+
+:is(html.transparent-header--white .header--top),
+:is(html.light.transparent-header--white-black .header--top),
+:is(html.dark.transparent-header--black-white .header--top) {
+  --color-transparent-header-l: 1;
+}
+
+:is(html.transparent-header--black .header--top),
+:is(html.dark.transparent-header--white-black .header--top),
+:is(html.light.transparent-header--black-white .header--top) {
+  --color-transparent-header-l: 0;
+}

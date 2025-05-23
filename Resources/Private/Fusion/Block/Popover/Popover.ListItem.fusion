@@ -6,13 +6,13 @@ prototype(Litefyr.Presentation:Block.Popover.ListItem) < prototype(Neos.Fusion:C
     attributes = Neos.Fusion:DataStructure
     class = null
 
-    @if.hasActionAndContent = ${this.content}
+    @if.hasActionAndContent = ${this.content || this.attributes['x-text']}
 
     @private {
-        class = 'w-full overflow-clip text-theme-front text-bg-contrast py-2 px-4'
+        class = 'w-full overflow-clip text-bg-contrast py-2 px-4'
         tagName = ${props.attributes.href || props.attributes[':href'] ? 'a' : props.tagName}
         onClick = ${Array.join(Array.filter([props.attributes['x-on:click'] || null, props.closePopoverOnClick ? 'open=false' : null]), ';')}
-        attributes = ${Array.filter(Array.concat({'type': private.tagName == 'button' ? 'button' : null, 'class': Tailwind.merge(private.class, 'flex items-center gap-2 transition-colors disabled:opacity-50 disabled:pointer-events-none hocus:bg-text-contrast hocus:text-theme-back', props.class)}, props.attributes, {'x-if': null, 'x-on:click': private.onClick || null}))}
+        attributes = ${Array.filter(Array.concat({'type': private.tagName == 'button' ? 'button' : null, 'class': Tailwind.merge(private.class, 'flex items-center gap-2 transition-colors hocus:bg-text-contrast hocus:text-theme-back', private.tagName == 'button' ? 'disabled:opacity-50 disabled:pointer-events-none' : 'aria-disabled:opacity-50 aria-disabled:pointer-events-none' ,props.class)}, props.attributes, {'x-if': null, 'x-on:click': private.onClick || null}))}
     }
 
     renderer = afx`
@@ -20,7 +20,7 @@ prototype(Litefyr.Presentation:Block.Popover.ListItem) < prototype(Neos.Fusion:C
             tagName={props.attributes['x-if'] ? 'template' : null}
             attributes.x-if={props.attributes['x-if']}
         >
-            <li class={private.tagName ? 'has-[:disabled]:cursor-not-allowed' : Tailwind.merge(private.class, props.class)}>
+            <li class={private.tagName ? (private.tagName == 'button' ? 'has-[:disabled]:cursor-not-allowed' : 'has-[[aria-disabled=true]]:cursor-not-allowed' ): Tailwind.merge(private.class, props.class)}>
                 <Carbon.Eel:Tag tagName={private.tagName} attributes={private.attributes}>
                     <Litefyr.Presentation:Atom.Icon styleAndIcon={props.styleAndIcon} />
                     {props.content}

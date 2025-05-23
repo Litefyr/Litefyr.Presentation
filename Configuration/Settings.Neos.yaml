@@ -1,5 +1,10 @@
 Neos:
   Neos:
+    Ui:
+      resources:
+        javascript:
+          Litefyr.Presentation:
+            resource: resource://Litefyr.Presentation/Public/Scripts/UiHelper.js
     fusion:
       autoInclude:
         Litefyr.Presentation: true

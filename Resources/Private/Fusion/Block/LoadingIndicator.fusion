@@ -7,11 +7,14 @@ prototype(Litefyr.Presentation:Block.LoadingIndicator) < prototype(Neos.Fusion:C
     tagName = 'div'
     size = 24
     dynamicWidth = false
+    showLoading = false
 
     @private {
         itemClass = 'row-start-1 row-span-1 col-start-1 col-span-1 transition opacity-0 scale-0'
         itemClassAlpine = 'opacity-0 scale-0'
         timeoutTime = ${props.delayTime + props.timeoutTime}
+        isLoading = ${props.xModel ? false : props.showLoading}
+        delayTime = ${props.delayTime ? props.delayTime : 1}
     }
 
     theme = null
@@ -21,14 +24,14 @@ prototype(Litefyr.Presentation:Block.LoadingIndicator) < prototype(Neos.Fusion:C
         attributes {
             x-cloak = true
             title = ${props.title}
-            x-data = ${AlpineJS.object({isLoading: false, showLoading: 0, size: [0, props.size, props.size * 2]})}
+            x-data = ${AlpineJS.object({isLoading: private.isLoading, showLoading: 0, size: [0, props.size, props.size * 2]})}
             x-modelable = ${props.xModel ? 'isLoading' : null}
             x-model = ${props.xModel}
-            x-effect = ${"if(isLoading){showLoading=0;$rafTimeOut(()=>{showLoading=1}," + props.delayTime + ");$rafTimeOut(()=>{showLoading=2}," + private.timeoutTime + ")}"}
+            x-effect = ${"if(isLoading){showLoading=0;$rafTimeOut(()=>{showLoading=1}," + private.delayTime + ");$rafTimeOut(()=>{showLoading=2}," + private.timeoutTime + ")}"}
             x-show = 'isLoading'
             style = ${'min-height:' + props.size + 'px'}
             :style = ${props.dynamicWidth ? "{width:size[showLoading]+'px'}" : null}
-            class = ${Tailwind.merge('grid text-theme-front', props.dynamicWidth ? 'items-center transition-[width] w-0' : 'place-items-center w-full', props.class)}
+            class = ${Tailwind.merge('grid text-theme-front pointer-events-none', props.dynamicWidth ? 'items-center transition-[width] w-0' : 'place-items-center w-full', props.class)}
             data-theme = ${props.theme}
         }
         content = afx`

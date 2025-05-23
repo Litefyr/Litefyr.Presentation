@@ -28,10 +28,14 @@ prototype(Litefyr.Presentation:Block.Teaser.Fragment.Content) < prototype(Neos.F
             </p>
             <a
                 @if={props.headline || props.text}
-                href={props.href}
-                class={["flex items-center", props.label && "mt-2", props.headline ? "-teaser-headline text-xl font-bold" : "text-base line-clamp-[--line-clamp]"]}
+                href={props.lightboxIframeSrc || props.href}
+                target={props.lightboxIframeSrc ? "_blank" : null}
+                class.base="flex items-center before:absolute before:inset-0 before:pointer-events-auto before:z-10"
+                class.label={props.label ? "mt-2" : null}
+                class.headline={props.headline ? "-teaser-headline text-xl font-bold" : "text-base line-clamp-[--line-clamp]"}
+                data-pswp-type={props.isLightbox ? "fetch" : null}
+                data-pswp-src={props.lightboxIframeSrc ? props.href : null}
             >
-                <span class="absolute inset-0 pointer-events-auto"></span>
                 {props.headline || props.text}
             </a>
             <p @if={props.headline && props.text} class="mt-3 text-base opacity-80 line-clamp-[--line-clamp]">

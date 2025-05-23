@@ -1,6 +1,6 @@
 prototype(Litefyr.Presentation:Background) < prototype(Neos.Fusion:Component) {
     @propTypes {
-        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'nested', 'footer', 'header', ''])}
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'nested', 'footer', 'header', 'inverted', ''])}
         class = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}
         tailwind = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}
         tagName = ${PropTypes.string}
@@ -22,7 +22,7 @@ prototype(Litefyr.Presentation:Background) < prototype(Neos.Fusion:Component) {
     clippath = ${this.theme ? 'padding' : false}
 
     @private {
-        theme = ${Array.indexOf(['main', 'minor', 'minor2', 'gray', 'default', 'nested', 'footer', 'header'], props.theme) != -1 ? props.theme : false}
+        theme = ${Array.indexOf(['main', 'minor', 'minor2', 'gray', 'default', 'nested', 'footer', 'header', 'inverted'], props.theme) != -1 ? props.theme : false}
         attributes = afx`
             <Neos.Fusion:DataStructure
                 @ignoreProperties={['tagName', 'theme', 'main', 'minor', 'minor2', 'gray', 'nested', 'augmenter', 'content', 'padding', 'tailwind', 'firstHeaderCollapse',  'animationText', 'animationMedia', 'animationElements', 'clippath']}

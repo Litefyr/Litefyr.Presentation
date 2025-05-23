@@ -9,7 +9,7 @@ prototype(Litefyr.Presentation:Block.SocialNetworks.Fragment.Icon) < prototype(N
     }
 
     icons = ${Configuration.setting('Litefyr.Presentation.icons.socialNetworks')}
-    @private.enableWrapper = ${props.network && props.enableWrapper ? Array.indexOf(["email", "phone", "mobile", "website"], props.network) != -1 : props.enableWrapper}
+    @private.enableWrapper = ${props.network && props.enableWrapper ? Array.indexOf(["email", "phone", "mobile", "website", "vcard"], props.network) != -1 : props.enableWrapper}
 
     renderer = Carbon.Eel:Tag {
         tagName = ${private.enableWrapper && props.wrapperClass ? 'span' : null}

@@ -7,7 +7,7 @@ prototype(Litefyr.Presentation:Module.TextWithContent) < prototype(Neos.Fusion:C
         isFirstElement = ${PropTypes.boolean}
         stretchContent = ${PropTypes.boolean}
         inSlider = ${PropTypes.boolean}
-        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', ''])}
+        theme = ${PropTypes.oneOf(['main', 'minor', 'minor2', 'gray', 'default', 'inverted', ''])}
         text = ${PropTypes.string}
         links = ${PropTypes.string}
         content = ${PropTypes.anyOf( PropTypes.string, PropTypes.oneOf([false]))}
@@ -21,7 +21,7 @@ prototype(Litefyr.Presentation:Module.TextWithContent) < prototype(Neos.Fusion:C
         contentClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         wrapperClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
         textClass = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.string ) )}
-        fullArea = ${PropTypes.oneOf([true, false, 'padding', 'padding-x', 'padding-y'])}
+        fullArea = ${PropTypes.oneOf([true, false, 'padding', 'padding-x', 'padding-y', ''])}
         float = ${PropTypes.boolean}
         textMobileBottom = ${PropTypes.boolean}
     }

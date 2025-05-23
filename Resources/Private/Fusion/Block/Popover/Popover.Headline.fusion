@@ -4,6 +4,6 @@ prototype(Litefyr.Presentation:Block.Popover.Headline) < prototype(Neos.Fusion:C
 
     @if.hasContent = ${this.content}
     renderer = afx`
-        <li class={Tailwind.merge("p-4 pb-2 first:pt-2", props.class)}>{props.content}</li>
+        <li class={Tailwind.merge("p-4 pb-2 first:pt-2 text-bg-contrast", props.class)}>{props.content}</li>
     `
 }

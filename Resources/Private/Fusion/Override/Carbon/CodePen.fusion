@@ -11,7 +11,7 @@ prototype(Carbon.CodePen:PreviewFrame) {
             <style>{q(site).property('themeCSS')}</style>
             <Carbon.IncludeAssets:Collection
                 assetPackage="Litefyr.Presentation"
-                collection={["Main.css", "Inline.js[inline]", "Main.js[defer]"]}
+                collection={["Codepen.js[defer]", "Main.css", "Inline.js[inline]", "Main.js[defer]"]}
             />
         `
     }

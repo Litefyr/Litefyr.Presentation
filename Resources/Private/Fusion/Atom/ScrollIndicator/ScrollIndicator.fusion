@@ -25,8 +25,7 @@ prototype(Litefyr.Presentation:Atom.ScrollIndicator) < prototype(Neos.Fusion:Com
         isDefaultTheme = ${!props.theme || props.theme == 'default' ? true : false}
         itemClass = Neos.Fusion:DataStructure {
             animation = 'animate-bounce'
-            background = ${props.background && 'rounded-scroller bg-opacity-80'}
-            backgroundColor = ${private.isDefaultTheme ? 'text-theme-back bg-theme-front' : 'text-theme-front bg-theme-back'}
+            backgroundColor = ${private.isDefaultTheme ? 'text-theme-back bg-theme-front/80 rounded-scroller' : 'text-theme-front bg-theme-back/80 rounded-scroller'}
             backgroundColor.@if.set = ${props.background}
             textColor = ${private.isDefaultTheme ? 'text-theme-front' : 'text-theme-back'}
             textColor.@if.set = ${!props.background}

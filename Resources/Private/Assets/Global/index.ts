@@ -48,4 +48,30 @@ Alpine.data("height", (selector, baseValue = 0) => ({
     },
 }));
 
+const languageSelector = (language: string) =>
+    document.querySelector(`link[rel="alternate"][hreflang="${language.replace("_", "-")}"]`) as HTMLLinkElement | null;
+
+Alpine.data("languageSelector", function (languages: Record<string, string>, current: string) {
+    return {
+        open: false,
+        languages: [],
+        theme: this.$theme,
+        init() {
+            const array = [];
+            for (const key in languages) {
+                array.push({
+                    href: languageSelector(key)?.href,
+                    label: languages[key],
+                    key,
+                    current: key === current,
+                });
+            }
+            this.languages = array;
+        },
+        getLink(language: string) {
+            return languageSelector(language)?.href;
+        },
+    };
+});
+
 export default Alpine;

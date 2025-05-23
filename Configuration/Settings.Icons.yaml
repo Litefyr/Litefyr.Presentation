@@ -27,6 +27,7 @@ Litefyr:
         website: 'solid:compass'
         mobile: 'solid:mobile'
         phone: 'solid:phone'
+        vcard: 'solid:address-card'
 
       share: 'solid:share'
       print: 'solid:print'
@@ -41,7 +42,6 @@ Litefyr:
       chat: 'solid:comments'
       support: 'solid:message'
       blockquote: 'solid:quote-left'
-      loadingIndicator: 'solid:spinner'
       day: 'solid:calendar'
       time: 'solid:clock'
       location: 'solid:location-dot'

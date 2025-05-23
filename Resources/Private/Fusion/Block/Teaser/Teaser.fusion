@@ -46,7 +46,7 @@ prototype(Litefyr.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component) 
 
     @private.classes = Neos.Fusion:DataStructure {
         root = '-teaser text-theme-front flex-1 flex flex-col @5xl:flex-row shadow-teaser overflow-clip rounded-box group/teaser'
-        figure = 'flex-shrink-0 aspect-[15/8] @5xl:flex-1 @5xl:basis-1/2 bg-theme-back -bg-lightness-offset-5 dark:bg-lightness-offset-5 max-w-full'
+        figure = 'shrink-0 aspect-[15/8] @5xl:flex-1 @5xl:basis-1/2 bg-theme-back -bg-lightness-offset-5 dark:bg-lightness-offset-5 max-w-full'
         content = 'flex-1 bg-theme-back bg-lightness-offset-10 p-6 flex flex-col justify-between @5xl:min-w-80'
     }
 
@@ -60,10 +60,13 @@ prototype(Litefyr.Presentation:Block.Teaser) < prototype(Neos.Fusion:Component) 
             >
                 <div class={Tailwind.merge(private.classes.figure, "animate-pulse", props.classes.figure)}></div>
                 <div class={Tailwind.merge(private.classes.content, props.classes.content)}>
-                    <div class="flex-1 min-h-48 flex justify-center items-center animate-pulse">
-                        <Litefyr.Presentation:Atom.Icon
-                            styleAndIcon={Configuration.setting('Litefyr.Presentation.icons.loadingIndicator')}
-                            attributes.class="size-5 animate-spin"
+                    <div class="flex-1 min-h-48 flex justify-center items-center">
+                        <Litefyr.Presentation:Block.LoadingIndicator
+                            class="animate-pulse"
+                            showLoading={true}
+                            delayTime={false}
+                            size={20}
+                            dynamicWidth={true}
                         />
                     </div>
                 </div>
